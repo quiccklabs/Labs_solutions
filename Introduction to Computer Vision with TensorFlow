@@ -235,3 +235,10 @@ t_image_batch, t_labels_batch = next(iter(ds_test))
 up_logger.info("training images max " + str(np.max(image_batch[0])))
 up_logger.info("test images max " + str(np.max(t_image_batch[0])))
 
+
+
+
+
+
+
+
