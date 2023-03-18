@@ -8,3 +8,10 @@ http://storage.googleapis.com/spls/gsp686/lab_server_list.csv
 
 ```
 
+```
+function test() {
+  console.log("notice the blank line before this function?");
+}
+
+```
+
