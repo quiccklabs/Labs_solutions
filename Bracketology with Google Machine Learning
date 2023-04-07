@@ -238,39 +238,38 @@ ON o.opponent_school_ncaa = opp.team AND o.season = opp.season
 CREATE OR REPLACE MODEL
   `bracketology.ncaa_model_updated`
 OPTIONS
-  ( model_type="logistic_reg") AS
+  ( model_type='logistic_reg') AS
 SELECT
-  # this time, don"t train the model on school name or seed
+  # this time, don't train the model on school name or seed
   season,
   label,
   # our pace
-  IFNULL(poss_40min, 0) AS poss_40min,
-  IFNULL(pace_rank, 0) AS pace_rank,
-  IFNULL(pace_rating, 0) AS pace_rating,
+  poss_40min,
+  pace_rank,
+  pace_rating,
   # opponent pace
-  IFNULL(opp_poss_40min, 0) AS opp_poss_40min,
-  IFNULL(opp_pace_rank, 0) AS opp_pace_rank,
-  IFNULL(opp_pace_rating, 0) AS opp_pace_rating,
+  opp_poss_40min,
+  opp_pace_rank,
+  opp_pace_rating,
   # difference in pace
-  IFNULL(pace_rank_diff, 0) AS pace_rank_diff,
-  IFNULL(pace_stat_diff, 0) AS pace_stat_diff,
-  IFNULL(pace_rating_diff, 0) AS pace_rating_diff,
+  pace_rank_diff,
+  pace_stat_diff,
+  pace_rating_diff,
   # our efficiency
-  IFNULL(pts_100poss, 0) AS pts_100poss,
-  IFNULL(efficiency_rank, 0) AS efficiency_rank,
-  IFNULL(efficiency_rating, 0) AS efficiency_rating,
+  pts_100poss,
+  efficiency_rank,
+  efficiency_rating,
   # opponent efficiency
-  IFNULL(opp_pts_100poss, 0) AS opp_pts_100poss,
-  IFNULL(opp_efficiency_rank, 0) AS opp_efficiency_rank,
-  IFNULL(opp_efficiency_rating, 0) AS opp_efficiency_rating,
+  opp_pts_100poss,
+  opp_efficiency_rank,
+  opp_efficiency_rating,
   # difference in efficiency
-  IFNULL(eff_rank_diff, 0) AS eff_rank_diff,
-  IFNULL(eff_stat_diff, 0) AS eff_stat_diff,
-  IFNULL(eff_rating_diff, 0) AS eff_rating_diff
+  eff_rank_diff,
+  eff_stat_diff,
+  eff_rating_diff
 FROM `bracketology.training_new_features`
-# here we"ll train on 2014 - 2017 and predict on 2018
+# here we'll train on 2014 - 2017 and predict on 2018
 WHERE season BETWEEN 2014 AND 2017 # between in SQL is inclusive of end points
-
 
 
 
@@ -284,6 +283,8 @@ SELECT
 FROM
   ML.EVALUATE(MODEL     `bracketology.ncaa_model_updated`)
 
+
+=============================================================================================================================================================================================
 
 
 CREATE OR REPLACE TABLE `bracketology.ncaa_2018_predictions` AS
@@ -461,7 +462,6 @@ SELECT * FROM `bracketology.ncaa_2019_tournament`
 
 =============================================================================================================================================================================================
 ====================================================================THANKS OF WATCHING =====================================================================================================
-
 
 
 
