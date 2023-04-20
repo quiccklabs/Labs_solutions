@@ -19,12 +19,7 @@ gsutil cp gs://spls/gsp072/baby-names.zip .
 
 unzip baby-names.zip
 
-gsutil mb gs://$DEVSHELL_PROJECT_ID
-
-gsutil cp yob2014.txt gs://$DEVSHELL_PROJECT_ID
-
-
-bq load babynames.names_2014 gs://$DEVSHELL_PROJECT_ID/yob2014.txt name:string,gender:string,count:integer
+bq load --autodetect --source_format=CSV babynames.names_2014 gs://spls/gsp072/baby-names/yob2014.txt name:string,gender:string,count:integer
 
 
 bq query --use_legacy_sql=false \
@@ -38,5 +33,4 @@ WHERE
  gender = "M"
 ORDER BY count DESC LIMIT 5;
 '
-
 
