@@ -13,3 +13,6 @@ sudo sed -i s/deb.debian.org/archive.debian.org/g /etc/apt/sources.list.d/backpo
 sudo apt update 
 
 sudo apt-get install git -y
+
+
+
