@@ -57,7 +57,7 @@ WHERE total_confirmed_cases > 3000
 
 Task 4:- Fatality ratio
 
-NOTE :- look care full in may there are 31 day and april 30 so please make the changes according
+NOTE :- look carefully in may there are 31 day and april 30 so please make the changes according
 
 
 SELECT sum(cumulative_confirmed) as total_confirmed_cases, sum(cumulative_deceased) as total_deaths, (sum(cumulative_deceased)/sum(cumulative_confirmed))*100 as case_fatality_ratio
