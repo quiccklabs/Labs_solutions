@@ -27,7 +27,7 @@ gcloud sql users create $CSQL_USERNAME \
 
 
 STRIIMVM_NAME=striim-1-vm
-STRIIMVM_ZONE=us-central1-f
+STRIIMVM_ZONE=us-central1-a
 
 
 gcloud sql instances patch $CSQL_NAME --authorized-networks=$(gcloud compute instances describe $STRIIMVM_NAME --format='get(networkInterfaces[0].accessConfigs[0].natIP)' --zone=$STRIIMVM_ZONE)
