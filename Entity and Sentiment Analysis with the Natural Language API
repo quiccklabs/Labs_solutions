@@ -1,0 +1,27 @@
+
+
+gcloud compute instances create linux-instance --zone=us-central1-a --machine-type=n1-standard-1 --metadata=startup-script=echo\ \"Adding\ qwiklabs\ user\ $USER\ ...\"$'\n'useradd\ -m\ -s\ /bin/bash\ $USER$'\n'echo\ $USER:None\ \|\ chpasswd$'\n'usermod\ -aG\ sudo\ $USER$'\n'mkdir\ \~$USER/.ssh$'\n'echo\ None\ \>\ \~$USER/.ssh/authorized_keys$'\n'chown\ -R\ $USER\ \~$USER/.ssh$'\n'chmod\ -R\ go-rwx\ \~$USER/.ssh$'\n'echo\ \"Done\ adding\ new\ user\ $USER\"$'\n'$'\n'\#\!/bin/bash$'\n'$'\n'\ echo\ \"Success\"\ \>\ /tmp/lab_log.txt$'\n' --can-ip-forward --maintenance-policy=MIGRATE --provisioning-model=STANDARD --create-disk=auto-delete=yes,boot=yes,device-name=boot,image=projects/debian-cloud/global/images/debian-11-bullseye-v20230509,mode=rw,size=10,type=projects/$DEVSHELL_PROJECT_ID/zones/us-central1-a/diskTypes/pd-standard --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any
+
+
+==================================================================================================================================================================
+
+
+
+export API_KEY=<YOUR_API_KEY>
+
+cat > request.json <<EOF
+{
+  "document":{
+    "type":"PLAIN_TEXT",
+    "content":"Joanne Rowling, who writes under the pen names J. K. Rowling and Robert Galbraith, is a British novelist and screenwriter who wrote the Harry Potter fantasy series."
+  },
+  "encodingType":"UTF8"
+}
+EOF
+
+curl "https://language.googleapis.com/v1/documents:analyzeEntities?key=${API_KEY}" \
+  -s -X POST -H "Content-Type: application/json" --data-binary @request.json > result.json
+
+
+
+
