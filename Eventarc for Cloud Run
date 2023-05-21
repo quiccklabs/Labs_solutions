@@ -52,9 +52,9 @@ gsutil mb -p $(gcloud config get-value project) \
 ======================================================================================================================================================================================================
 
 
-From the Navigation menu, select IAM & Admin > Audit Logs.
+From the Navigation menu, select IAM & Admin > Audit Logs
 
-In the list of services, check the box for Google Cloud Storage.
+In the list of services, check the box for Google Cloud Storage
 
 On the right hand side, click the LOG TYPE tab. Admin Write is selected by default, make sure you also select Admin Read, Data Read, Data Write and then click Save.
 
