@@ -10,7 +10,7 @@ gcloud config set compute/zone us-central1-a
 
 gcloud container clusters create $CLUSTER_NAME \
 --release-channel regular \
---cluster-version 1.25.6-gke.1000 \
+--cluster-version latest \
 --num-nodes 3 \
 --min-nodes 2 \
 --max-nodes 6 \
