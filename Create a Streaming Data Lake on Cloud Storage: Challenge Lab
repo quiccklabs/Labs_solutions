@@ -20,6 +20,7 @@ gcloud pubsub topics create $TOPIC_ID
 
 gcloud app create --region=$REGION
 
+sleep 100
 
 gcloud scheduler jobs create pubsub quicklab --schedule="* * * * *" \
     --topic=$TOPIC_ID --message-body="$MESSAGE"
@@ -41,7 +42,6 @@ mvn compile exec:java \
     --output=gs://$BUCKET_NAME/samples/output \
     --runner=DataflowRunner \
     --windowSize=2"
-
 
 
 
