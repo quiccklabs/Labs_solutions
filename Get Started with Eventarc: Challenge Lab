@@ -21,3 +21,8 @@ gcloud eventarc triggers create pubsub-events-trigger \
 
 gcloud pubsub topics publish $DEVSHELL_PROJECT_ID-topic \
   --message="Test message"
+
+
+
+
+
