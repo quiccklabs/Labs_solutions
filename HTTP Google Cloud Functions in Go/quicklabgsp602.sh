@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 gcloud services enable cloudfunctions.googleapis.com
 
