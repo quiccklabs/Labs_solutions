@@ -162,5 +162,13 @@ terraform apply -auto-approve
 
 INSTANCE_NAME=$(gcloud compute instances list --filter="name:mysql-client*" --sort-by=~creationTimestamp --limit=1 --format="value(name)")
 
+gcloud compute ssh --zone "us-central1-a" "$INSTANCE_NAME" --quiet --command "sudo apt-get update && sudo apt-get install -y default-mysql-client"
+
+
+INSTANCE_NAME=$(gcloud compute instances list --filter="name:mysql-client*" --sort-by=~creationTimestamp --limit=1 --format="value(name)")
 
 gcloud compute ssh --zone "us-central1-a" "$INSTANCE_NAME" --quiet --command "sudo apt-get update && sudo apt-get install -y default-mysql-client"
+
+
+
+
