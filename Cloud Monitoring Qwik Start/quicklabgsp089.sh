@@ -2,7 +2,7 @@
 gcloud compute instances create lamp-1-vm \
     --project=$DEVSHELL_PROJECT_ID \
     --zone=us-central1-a \
-    --machine-type=n1-standard-2 \
+    --machine-type=e2-small \
     --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=default \
     --metadata=enable-oslogin=true \
     --maintenance-policy=MIGRATE \
