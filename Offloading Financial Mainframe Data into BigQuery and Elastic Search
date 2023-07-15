@@ -38,15 +38,13 @@ ORDER BY name"
 
 gcloud services enable dataflow.googleapis.com
 
+
 # enter these values by hand into the cloud shell (one by one). 
-export CONNECTION_URL=quicklab:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvOjQ0MyQzNTdjOWM2MDlmZGM0YjE4ODRjMTliMWVhOThkNGFlMCQzOWE5N2I5Yzc3NDk0ZmZhYjU2ZTI5YzM3NjU5MTllNQ==
-export API_KEY=c2t5UElJa0JJeTRBdnVPZG96QTU6bUJNQVhhblBTaEdRWDFkNGo1Ujhjdw==
+export CONNECTION_URL=quicklab:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvOjQ0MyQyN2QxZGZmY2Y0Mjk0N2I5OGJhZmVjYjMzZjQxNTgzYSRkYTFjYWY3YTBmMzY0MTBmOWFkMjhlNjZjMDAwNWFmYg==
+export API_KEY=NERjOFdva0J2cXR4RHZIbmVseEY6LTFBQ1N6QVVRMG1FWEpZTFJHU052Zw==
 # to create and run a dataflow job, 
 # cut and paste the following 7 lines into the cloud shell.
 gcloud dataflow flex-template run bqtoelastic-quicklab-job --template-file-gcs-location gs://dataflow-templates-us-central1/latest/flex/BigQuery_to_Elasticsearch --region us-central1 --num-workers 1 --parameters index=transactions,maxNumWorkers=1,query='select * from `YOUR_PROJECT_ID.mainframe_import.account_transactions`',connectionUrl=$CONNECTION_URL,apiKey=$API_KEY
-
-
-
 
 
 
