@@ -53,8 +53,9 @@ gcloud compute backend-services add-backend prime-service \
 gcloud compute forwarding-rules create prime-lb \
 --load-balancing-scheme internal \
 --ports 80 --network default \
---region=$REGION --address 10.142.10.10 \
+--region=$REGION --address $STATIC_IP_ADDRESS \
 --backend-service prime-service
+
 
 
 
