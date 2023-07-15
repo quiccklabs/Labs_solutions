@@ -64,7 +64,10 @@ EOF
 
 gcloud config set app/cloud_build_timeout 1000
 
-gcloud app deploy --quiet
+gcloud app deploy --quiet &  
+sleep 30 
+timeout 1 gcloud app versions list 
+python main.py  
 
 
-python main.py
+
