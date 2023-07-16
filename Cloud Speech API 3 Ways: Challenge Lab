@@ -91,8 +91,6 @@ python tts_decode.py --input "$FIRST_FILE_NAME" --output "synthesize-text-audio.
 
 
 
-
-
 # Define variables
 
 audio_uri="gs://cloud-samples-data/speech/corbeau_renard.flac"
@@ -116,13 +114,6 @@ curl -s -X POST -H "Content-Type: application/json" \
     --data-binary @"$task_3_request_file" \
     "https://speech.googleapis.com/v1/speech:recognize?key=${API_KEY}" \
     -o "$task_3_response_file"
-
-
-
-
-#TASK4
-
-
 
 
 
@@ -155,8 +146,6 @@ else
     cat "$task_4_file"
   fi
 fi
-
-
 
 
 
