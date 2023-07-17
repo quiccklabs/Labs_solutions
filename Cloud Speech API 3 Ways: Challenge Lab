@@ -87,7 +87,7 @@ if __name__ == '__main__':
     decode_tts_output(args.input, args.output)
 EOF
 
-python tts_decode.py --input "$FIRST_FILE_NAME" --output "synthesize-text-audio.mp3"
+python tts_decode.py --input "$task_2_file_name" --output "synthesize-text-audio.mp3"
 
 
 
