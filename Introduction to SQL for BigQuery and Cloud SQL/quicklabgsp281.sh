@@ -13,7 +13,7 @@ gsutil cp end_station_name.csv gs://$DEVSHELL_PROJECT_ID/
 
 gcloud sql instances create my-demo \
     --database-version=MYSQL_5_7 \
-    --region=us-east4 \
+    --region=$REGION \
     --tier=db-f1-micro \
     --root-password=quicklab
 
