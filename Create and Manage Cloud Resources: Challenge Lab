@@ -2,7 +2,7 @@
 gcloud compute instances create Instance_name \
           --network nucleus-vpc \
           --zone change_zone  \
-          --machine-type f1-micro  \
+          --machine-type e2-micro  \
           --image-family debian-10  \
           --image-project debian-cloud 
 
