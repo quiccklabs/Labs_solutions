@@ -8,7 +8,7 @@ export FIREWALL_NAME=
 gcloud compute instances create $INSTANCE_NAME \
           --network nucleus-vpc \
           --zone $ZONE  \
-          --machine-type f1-micro  \
+          --machine-type e2-micro  \
           --image-family debian-10  \
           --image-project debian-cloud 
 
