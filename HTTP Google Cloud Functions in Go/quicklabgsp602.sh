@@ -8,6 +8,6 @@ unzip main.zip
 
 cd golang-samples-main/functions/codelabs/gopher
 
-gcloud functions deploy HelloWorld --runtime go111 --trigger-http --quiet
+gcloud functions deploy HelloWorld --runtime go120 --trigger-http --quiet
 
-gcloud functions deploy Gopher --runtime go111 --trigger-http --quiet
+gcloud functions deploy Gopher --runtime go120 --trigger-http --quiet
