@@ -12,6 +12,12 @@
 
 
 ```bash
+export REGION=your_region_here
+export ZONE=your_zone_here
+
+
+
+```bash
 export REGION=
 ```
 
