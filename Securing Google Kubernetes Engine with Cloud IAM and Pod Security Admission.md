@@ -11,9 +11,6 @@
 ## Make sure that you running this command on USERNAME 2
 
 
-```bash
-export REGION=your_region_here
-export ZONE=your_zone_here
 
 
 
