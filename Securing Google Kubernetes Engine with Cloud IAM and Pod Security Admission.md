@@ -24,7 +24,6 @@ export ZONE=
 
 ```bash
 export CLUSTER_NAME=
-
 ```
 
 ```
@@ -55,11 +54,9 @@ gcloud beta container --project "$DEVSHELL_PROJECT_ID" clusters create "$CLUSTER
 
 
 ```bash
-
 export my_zone=
 ```
 ```bash
-
 export my_cluster=
 ```
 
