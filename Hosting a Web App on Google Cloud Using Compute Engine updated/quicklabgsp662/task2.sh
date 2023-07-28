@@ -1,6 +1,7 @@
 
 
 
+
 cd ~/monolith-to-microservices/react-app/
 
 gcloud compute forwarding-rules list --global
@@ -54,7 +55,7 @@ gcloud compute backend-services update fancy-fe-frontend \
 
 gcloud compute instances set-machine-type frontend \
   --zone=$ZONE \
-  --machine-type custom-4-3840
+  --machine-type e2-small
 
 gcloud compute instance-templates create fancy-fe-new \
     --region=$REGION \
@@ -85,7 +86,6 @@ gsutil -m cp -r monolith-to-microservices gs://fancy-store-$DEVSHELL_PROJECT_ID/
 gcloud compute instance-groups managed rolling-action replace fancy-fe-mig \
   --zone=$ZONE \
   --max-unavailable=100%
-
 
 
 
