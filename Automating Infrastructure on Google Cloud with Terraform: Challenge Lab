@@ -177,7 +177,7 @@ add tf-instance-3
 
 resource "google_compute_instance" "Instance Name" {
   name         = "Instance Name"
-  machine_type = "n1-standard-2"
+  machine_type = "e2-standard-2"
   zone         = var.zone
 
   boot_disk {
@@ -263,7 +263,7 @@ Next, navigate to the instances.tf file and update the configuration resources t
 
 resource "google_compute_instance" "tf-instance-1"{
   name         = "tf-instance-1"
-  machine_type = "n1-standard-2"
+  machine_type = "e2-standard-2"
   zone         = var.zone
 
   boot_disk {
@@ -284,7 +284,7 @@ resource "google_compute_instance" "tf-instance-1"{
 
 resource "google_compute_instance" "tf-instance-2"{
   name         = "tf-instance-2"
-  machine_type = "n1-standard-2"
+  machine_type = "e2-standard-2"
   zone         = var.zone
 
   boot_disk {
@@ -361,7 +361,6 @@ resource "google_compute_firewall" "tf-firewall"{
 run cloud shell : 
 terraform init
 terraform apply
-
 
 
 
