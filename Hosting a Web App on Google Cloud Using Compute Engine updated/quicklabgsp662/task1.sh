@@ -65,7 +65,7 @@ gsutil -m cp -r monolith-to-microservices gs://fancy-store-$DEVSHELL_PROJECT_ID/
 
 gcloud compute instances create backend \
     --zone=$ZONE \
-    --machine-type=e2-medium \
+    --machine-type=e2-standard-2 \
     --tags=backend \
    --metadata=startup-script-url=https://storage.googleapis.com/fancy-store-$DEVSHELL_PROJECT_ID/startup-script.sh
 
@@ -93,7 +93,7 @@ gsutil -m cp -r monolith-to-microservices gs://fancy-store-$DEVSHELL_PROJECT_ID/
 
 gcloud compute instances create frontend \
     --zone=$ZONE \
-    --machine-type=e2-medium \
+    --machine-type=e2-standard-2 \
     --tags=frontend \
     --metadata=startup-script-url=https://storage.googleapis.com/fancy-store-$DEVSHELL_PROJECT_ID/startup-script.sh
 
@@ -233,7 +233,6 @@ gcloud compute forwarding-rules create fancy-http-rule \
   --global \
   --target-http-proxy fancy-proxy \
   --ports 80
-
 
 
 
