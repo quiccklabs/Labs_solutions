@@ -75,7 +75,7 @@ sed -i "s/values = \[x.decode('utf8') for x in csv_row\]/values = \[x for x in c
 
 python dataflow_python_examples/data_enrichment.py \
   --project=$PROJECT \
-  --region=us-central1 \
+  --region=$REGION \
   --runner=DataflowRunner \
   --machine_type=e2-small \
   --staging_location=gs://$PROJECT/test \
