@@ -3,7 +3,7 @@ Task 1:
 
 ZONE=us-central1-b
 
-gcloud container clusters create Cluster_Name --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --machine-type=n1-standard-2 --num-nodes=2
+gcloud container clusters create Cluster_Name --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --machine-type=e2-standard-2 --num-nodes=2
 
 kubectl create namespace dev
 
