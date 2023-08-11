@@ -114,5 +114,7 @@ bq query --use_legacy_sql=false \
   ORDER BY count ASC"
 ```
 
+#### now go to bigquery and follow the video's step to run a trigger 
+
 
 ###                 Congratulation !!!!
