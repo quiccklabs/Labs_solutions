@@ -23,25 +23,15 @@
 
 ```bash
 export BUCKET_NAME=
-```
 
-```bash
 export REGION=
-```
 
-```bash
 export DATASET_NAME=
-```
 
-```bash
 export TOPIC_NAME=
-```
 
-```bash
 export BUCKET_NAME_2=
-```
 
-```bash
 export DATAFLOW_OBJECT_NAME=
 ```
 
