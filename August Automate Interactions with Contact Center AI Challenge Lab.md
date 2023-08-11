@@ -103,8 +103,15 @@ gsutil -h x-goog-meta-dlp:false -h x-goog-meta-callid:1234567 -h x-goog-meta-ste
 
 ### Now go to bigquery and check for transcripts table if transcripts table is present then only run the below commands,untill wait for it..
 
-
 ```bash
+bq query --use_legacy_sql=false \
+  --destination_table=$DEVSHELL_PROJECT_ID:$DATASET_NAME.saf \
+  "SELECT entities.name, entities.type, COUNT(entities.name) AS count
+  FROM $DATASET_NAME.transcripts, UNNEST(entities) entities
+  GROUP BY entities.name, entities.type
+  HAVING count > 5
+  ORDER BY count ASC"
+
 bq query --use_legacy_sql=false \
   --destination_table=$DEVSHELL_PROJECT_ID:$DATASET_NAME.quicklab \
   "SELECT entities.name, entities.type, COUNT(entities.name) AS count
