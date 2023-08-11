@@ -50,7 +50,7 @@ gcloud builds submit \
 gcloud run deploy rest-api \
   --image gcr.io/$GOOGLE_CLOUD_PROJECT/rest-api:0.1 \
   --platform managed \
-  --region us-central1 \
+  --region $REGION \
   --allow-unauthenticated \
   --max-instances=2
 
