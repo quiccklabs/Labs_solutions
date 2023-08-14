@@ -42,6 +42,8 @@ kubectl run app-server-2 --image=centos --namespace=team-a -- sleep infinity
 
 kubectl run app-server-3 --image=centos --namespace=team-a -- sleep infinity
 
+sleep 20
+
 kubectl get quota test-quota --namespace=team-a -o yaml | \
   sed 's/count\/pods: "2"/count\/pods: "6"/' | \
   kubectl apply -f -
