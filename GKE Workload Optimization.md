@@ -25,13 +25,13 @@
 
 
 ```bash
-export REGION=
+export ZONE=
 ```
 
 
 
 ```bash
-gcloud config set compute/zone $REGION
+gcloud config set compute/zone $ZONE
 
 gcloud container clusters create test-cluster --num-nodes=3  --enable-ip-alias
 
