@@ -1,12 +1,21 @@
+#### Make sure to export the zone 
 
+
+```bash
 export REPO_NAME=
 export CLUSTER_NAME=
+export ZONE=
 export NAMESPACE=
 export INTERVAL=
 export SERVICE_NAME=
+```
 
+### 
 
-gcloud config set compute/zone us-central1-a
+###
+
+```bash
+gcloud config set compute/zone $ZONE
 
 gcloud container clusters create $CLUSTER_NAME \
 --release-channel regular \
@@ -17,7 +26,7 @@ gcloud container clusters create $CLUSTER_NAME \
 --enable-autoscaling --no-enable-ip-alias
 
  
-gcloud container clusters update $CLUSTER_NAME --enable-managed-prometheus --zone us-central1-a
+gcloud container clusters update $CLUSTER_NAME --enable-managed-prometheus --zone $ZONE
   
 kubectl create ns $NAMESPACE
   
@@ -84,9 +93,9 @@ kubectl -n $NAMESPACE apply -f pod-monitoring.yaml
 gsutil cp -r gs://spls/gsp510/hello-app/ .
   
 export PROJECT_ID=$(gcloud config get-value project)
-export REGION="us-central1"
+export REGION="${ZONE%-*}"
 cd ~/hello-app
-gcloud container clusters get-credentials $CLUSTER_NAME --zone us-central1-a
+gcloud container clusters get-credentials $CLUSTER_NAME --zone $ZONE
 kubectl -n $NAMESPACE apply -f manifests/helloweb-deployment.yaml
 
 cd manifests/
@@ -169,7 +178,7 @@ EOF
 
  
 export PROJECT_ID=$(gcloud config get-value project)
-export REGION="us-central1"
+export REGION="${ZONE%-*}"
 cd ~/hello-app/
 
 gcloud auth configure-docker $REGION-docker.pkg.dev --quiet
@@ -184,7 +193,7 @@ kubectl expose deployment helloweb -n $NAMESPACE --name=$SERVICE_NAME --type=Loa
 cd ..
 
 kubectl -n $NAMESPACE apply -f pod-monitoring.yaml
-
+```
 
 
 
@@ -215,6 +224,9 @@ Log Metric Name : pod-image-errors
  
 6. Click Create Metric.
  
+
+
+
 
 
 
