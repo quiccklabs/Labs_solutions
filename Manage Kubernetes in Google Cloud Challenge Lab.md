@@ -227,7 +227,7 @@ kubectl -n $NAMESPACE apply -f pod-monitoring.yaml
 ###
 
 
-```bash
+
 **Task 4. Create a logs-based metric and alerting policy**
  
  
@@ -250,7 +250,7 @@ Metric type: Counter
 Log Metric Name : **pod-image-errors**
  
 6. Click Create Metric.
-```
+
 
 
 
