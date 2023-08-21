@@ -227,19 +227,18 @@ kubectl -n $NAMESPACE apply -f pod-monitoring.yaml
 ###
 
 
-
-**Task 4. Create a logs-based metric and alerting policy**
+```bash
+Task 4. Create a logs-based metric and alerting policy
  
  
-**Create a logs-based metric**
+Create a logs-based metric
  
 1. Return to the Cloud Console, and from the Navigation menu open Logging then click Logs Explorer.
  
 2. Enable Show query and in the Query builder box, add the following query:
  
-**resource.type="k8s_pod"**
-
-**severity=WARNING**
+resource.type="k8s_pod"
+severity=WARNING
  
 3. Click Run Query.
  
@@ -247,10 +246,10 @@ kubectl -n $NAMESPACE apply -f pod-monitoring.yaml
  
 5. Use the following details to configure your metric:
 Metric type: Counter
-Log Metric Name : **pod-image-errors**
+Log Metric Name : pod-image-errors
  
 6. Click Create Metric.
-
+ ```
 
 
 
