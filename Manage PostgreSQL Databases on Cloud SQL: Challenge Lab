@@ -11,6 +11,7 @@ sudo systemctl restart postgresql@13-main
 sudo su - postgres
 psql
 
+psql
 \c postgres;
 CREATE EXTENSION pglogical;
 \c orders;
