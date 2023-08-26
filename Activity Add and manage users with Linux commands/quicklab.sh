@@ -11,6 +11,5 @@ sudo chown researcher9:research_team /home/researcher2/projects/project_r.txt
 
 sudo usermod -aG sales_team researcher9
 
-sudo userdel researcher9
 
 
