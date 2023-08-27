@@ -177,11 +177,18 @@ kubectl create -f wp-service.yaml
 
 
 
-# Get the IAM policy JSON and extract the second user
-IAM_POLICY_JSON=$(gcloud projects get-iam-policy qwiklabs-gcp-01-5f9eb9aad1ab --format=json)
-SECOND_USER=$(echo $IAM_POLICY_JSON | jq -r '.bindings[] | select(.role == "roles/viewer").members[1]')
+# Get the IAM policy JSON
+IAM_POLICY_JSON=$(gcloud projects get-iam-policy $DEVSHELL_PROJECT_ID --format=json)
 
-# Grant 'roles/editor' role to the second user
-gcloud projects add-iam-policy-binding qwiklabs-gcp-01-5f9eb9aad1ab \
-  --member=$SECOND_USER \
-  --role=roles/editor
+# Extract user emails with 'roles/viewer' role
+USERS=$(echo $IAM_POLICY_JSON | jq -r '.bindings[] | select(.role == "roles/viewer").members[]')
+
+# Grant 'roles/editor' role to extracted users
+for USER in $USERS; do
+  if [[ $USER == *"user:"* ]]; then
+    USER_EMAIL=$(echo $USER | cut -d':' -f2)
+    gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID \
+      --member=user:$USER_EMAIL \
+      --role=roles/editor
+  fi
+done
