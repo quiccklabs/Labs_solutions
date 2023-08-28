@@ -31,8 +31,13 @@ In the upper right corner of the training-vm SSH terminal, click on the gear-sha
 
 ## Run these command on 2nd  connection
 
+```bash
+export ZONE=
+```
+
 
 ```bash
+export REGION="${ZONE%-*}"
 source /training/project_env.sh
 
 gcloud services disable dataflow.googleapis.com --force
