@@ -6,7 +6,7 @@ Task 1: Create a table partitioned by date.
 CREATE OR REPLACE TABLE <dataset_name>.<table_name>
 PARTITION BY date
 OPTIONS(
-partition_expiration_days=720,
+partition_expiration_days=1080,
 description="oxford_policy_tracker table in the COVID 19 Government Response public dataset with  an expiry time set to 90 days."
 ) AS
 SELECT
