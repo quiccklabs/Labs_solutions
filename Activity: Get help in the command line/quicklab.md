@@ -14,6 +14,9 @@ whatis cat
 man cat
 ```
 ##
+#### Press Q to exit this manual page.
+
+##
 ```bash
 apropos -a first part file
 ```
