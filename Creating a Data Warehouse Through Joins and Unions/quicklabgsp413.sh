@@ -175,9 +175,9 @@ Task 7 Completed
 ${RESET}"
 
 #-----------------------------------------------------end----------------------------------------------------------#
-read -p "${BOLD}${YELLOW} Did you subscribe to quicklab? [y/n] : ${RESET}" CONSENT_REMOVE
+read -p "${BOLD}${RED} Did you subscribe to quicklab? [y/n] : ${RESET}" CONSENT_REMOVE
 while [ $CONSENT_REMOVE != 'y' ];
-do sleep 10 && read -p "${BOLD}${RED} Did you subscribe to quicklab?  [y/n] : ${RESET}" CONSENT_REMOVE ;
+do sleep 10 && read -p "${BOLD}${YELLOW} Did you subscribe to quicklab?  [y/n] : ${RESET}" CONSENT_REMOVE ;
 done
 
 echo "${YELLOW}${BOLD}
