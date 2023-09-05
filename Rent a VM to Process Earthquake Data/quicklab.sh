@@ -28,5 +28,7 @@ python3 transform.py
 # List the files in the directory
 ls -l
 
+export DEVSHELL_PROJECT_ID=$(gcloud config get-value project)
+
 # Copy files to Google Cloud Storage
 gsutil cp earthquakes.* gs://$DEVSHELL_PROJECT_ID/earthquakes/
