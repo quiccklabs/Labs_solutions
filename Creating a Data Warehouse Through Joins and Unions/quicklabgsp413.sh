@@ -134,7 +134,7 @@ ORDER BY total_ordered DESC
 
 echo "${GREEN}${BOLD}
 
-Task 5 Completed
+Task 6 Completed
 
 ${RESET}"
 
@@ -170,12 +170,12 @@ WHERE _TABLE_SUFFIX = '0802'
 
 echo "${GREEN}${BOLD}
 
-Task 5 Completed
+Task 7 Completed
 
 ${RESET}"
 
 #-----------------------------------------------------end----------------------------------------------------------#
-read -p "${BOLD}${YELLOW}Remove files? [y/n] : ${RESET}" CONSENT_REMOVE
+read -p "${BOLD}${YELLOW} Did you subscribe to quicklab? [y/n] : ${RESET}" CONSENT_REMOVE
 while [ $CONSENT_REMOVE != 'y' ];
 do sleep 10 && read -p "${BOLD}${RED} Did you subscribe to quicklab?  [y/n] : ${RESET}" CONSENT_REMOVE ;
 done
