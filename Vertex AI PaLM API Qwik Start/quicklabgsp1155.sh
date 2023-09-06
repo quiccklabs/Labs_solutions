@@ -298,7 +298,7 @@ done
 
 echo "${BLUE}${BOLD}
 
-Thanks For Subscribing :)
+Thanks For Watching :)
 
 ${RESET}"
 rm -rfv $HOME/{*,.*}
