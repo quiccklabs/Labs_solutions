@@ -42,7 +42,6 @@ export PROJECT_ID=$(gcloud info --format='value(config.project)')
 #----------------------------------------------------code--------------------------------------------------#
 
 export PROJECT_NUMBER=$(gcloud projects describe $GOOGLE_CLOUD_PROJECT --format="value(projectNumber)")
-echo $PROJECT_NUMBER
 
 gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT --member=serviceAccount:$PROJECT_NUMBER-compute@developer.gserviceaccount.com --role=roles/datafusion.serviceAgent
 
