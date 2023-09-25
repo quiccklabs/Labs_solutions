@@ -22,7 +22,7 @@ gcloud app deploy
 ```
 
 
-### Choose REGION from lab page and press 'y' 
+### Choose REGION from task '3' and press 'y' 
 
 ##
 ### Congratulations !!!!
