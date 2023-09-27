@@ -6,7 +6,7 @@ gcloud config set compute/zone $ZONE
 
 
 cat > role-definition.yaml <<EOF_END
-title: "$CUSTOM_SECURIY_ROLE"
+title: "$CUSTOM_SECURITY_ROLE"
 description: "Permissions"
 stage: "ALPHA"
 includedPermissions:
@@ -18,7 +18,7 @@ includedPermissions:
 EOF_END
 
 gcloud iam service-accounts create orca-private-cluster-sa --display-name "Orca Private Cluster Service Account"
-gcloud iam roles create $CUSTOM_SECURIY_ROLE --project $DEVSHELL_PROJECT_ID --file role-definition.yaml
+gcloud iam roles create $CUSTOM_SECURITY_ROLE --project $DEVSHELL_PROJECT_ID --file role-definition.yaml
 
 
 #Task 2:-
@@ -37,7 +37,7 @@ gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID --member serviceAcco
 
 gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID --member serviceAccount:$SERVICE_ACCOUNT@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com --role roles/logging.logWriter
 
-gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID --member serviceAccount:$SERVICE_ACCOUNT@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com --role projects/$DEVSHELL_PROJECT_ID/roles/$CUSTOM_SECURIY_ROLE
+gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID --member serviceAccount:$SERVICE_ACCOUNT@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com --role projects/$DEVSHELL_PROJECT_ID/roles/$CUSTOM_SECURITY_ROLE
 
 
 #Task 4:-
