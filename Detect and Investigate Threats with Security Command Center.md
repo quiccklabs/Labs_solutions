@@ -1,3 +1,20 @@
+## Detect and Investigate Threats with Security Command Center
+
+####
+
+
+#### To enable "Admin Read" logs for the Cloud Resource Manager API, you might need to access the Google Cloud Console directly. Here are the steps to do this:
+
+#### Open the Google Cloud Console.
+
+#### Navigate to "IAM & Admin" > "Audit Logs."
+
+#### In the list of services, find "Cloud Resource Manager API."
+
+#### Click the checkbox next to "Cloud Resource Manager API" to enable "Admin Read" logs.
+
+
+### Now Activate the cloud shell
 
 
 ```bash
