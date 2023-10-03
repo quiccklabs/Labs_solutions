@@ -9,7 +9,7 @@
 
 #### Navigate to "IAM & Admin" > "Audit Logs."
 
-In the list of services, find "Cloud Resource Manager API."
+In the list of services, find " Cloud Resource Manager API "
 
 #### Click the checkbox next to "Cloud Resource Manager API" to enable "Admin Read" logs.
 
