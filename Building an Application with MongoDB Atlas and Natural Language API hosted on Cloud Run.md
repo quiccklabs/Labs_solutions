@@ -1,11 +1,11 @@
 
 ## Building an Application with MongoDB Atlas and Natural Language API hosted on Cloud Run
 
-** Task 1 **
+**Task 1**
 
-** Click Activate Cloud Shell Activate Cloud Shell icon at the top of the Google Cloud console. **
+**Click Activate Cloud Shell Activate Cloud Shell icon at the top of the Google Cloud console.**
 
-** Run the following commands **
+**Run the following commands**
 
 ```bash
 gcloud services enable run.googleapis.com
@@ -14,9 +14,9 @@ gcloud services enable language.googleapis.com
 git clone https://github.com/mongodb-developer/Google-Cloud-MongoDB-Atlas-Workshop.git
 ```
  
-** In Cloud Shell, click the Open Editor Open Editor icon icon. If prompted, click Open in a new window. You should see your cloned project on the left. **
+**In Cloud Shell, click the Open Editor Open Editor icon icon. If prompted, click Open in a new window. You should see your cloned project on the left.**
 
-** Open the file Google-Cloud-MongoDB-Atlas-Workshop/src/environments/environment.prod.ts and paste the below content . **
+**Open the file Google-Cloud-MongoDB-Atlas-Workshop/src/environments/environment.prod.ts and paste the below content .**
 
 ```bash
 export const environment = {
@@ -28,13 +28,13 @@ export const environment = {
 ```
 
 
-** TASK 2 **
+**TASK 2**
 
 
 Name the database **Bakery** and the collection cakes, then click Create 
 
 
-Delete what is currently in the box, add the following cake document, and then press Insert:
+***Delete what is currently in the box, add the following cake document, and then press Insert:***
 
 ```bash
 {
@@ -71,7 +71,7 @@ Delete what is currently in the box, add the following cake document, and then p
 
 
  
-** Add a new document to this new comments collection and add the following code **
+**Add a new document to this new comments collection and add the following code**
 
 ```bash
 {
@@ -85,6 +85,6 @@ Delete what is currently in the box, add the following cake document, and then p
 
 
 
-** Congratulations !!! **
+**Congratulations !!!**
 
 
