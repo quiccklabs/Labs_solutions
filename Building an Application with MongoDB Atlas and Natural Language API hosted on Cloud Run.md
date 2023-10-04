@@ -16,7 +16,7 @@ git clone https://github.com/mongodb-developer/Google-Cloud-MongoDB-Atlas-Worksh
  
 **In Cloud Shell, click the Open Editor Open Editor icon icon. If prompted, click Open in a new window. You should see your cloned project on the left.**
 
-**Open the file Google-Cloud-MongoDB-Atlas-Workshop/src/environments/environment.prod.ts and paste the below content .**
+Open the file **Google-Cloud-MongoDB-Atlas-Workshop/src/environments/environment.prod.ts** and paste the below content .
 
 ```bash
 export const environment = {
