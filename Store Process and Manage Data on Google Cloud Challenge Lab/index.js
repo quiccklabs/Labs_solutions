@@ -7,7 +7,7 @@ const gcs = new Storage();
 const { PubSub } = require('@google-cloud/pubsub');
 const imagemagick = require("imagemagick-stream");
 
-functions.cloudEvent('memories-thumbnail-generator', cloudEvent => {
+functions.cloudEvent('$FUNCATION_NAME', cloudEvent => {
   const event = cloudEvent.data;
 
   console.log(`Event: ${event}`);
