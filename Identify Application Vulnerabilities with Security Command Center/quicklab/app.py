@@ -35,8 +35,8 @@ def input():
 
 @app.route('/output')
 def output():
-#  output_string = "".join([html_escape_table.get(c, c) for c in input_string])
-  output_string = input_string
+  output_string = "".join([html_escape_table.get(c, c) for c in input_string])
+#  output_string = input_string
   return flask.render_template("output.html", output=output_string)
 
 if __name__ == '__main__':
