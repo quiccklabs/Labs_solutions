@@ -15,7 +15,7 @@ suricata --version
 ```
 ###
 
-***Check the score for task 2***
+***Check the score for task 1***
 
 ```bash
 sudo apt remove suricata -y
