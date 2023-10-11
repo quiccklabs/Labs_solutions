@@ -1,4 +1,4 @@
-#### Identify Application Vulnerabilities with Security Command Center
+## Identify Application Vulnerabilities with Security Command Center
 
 
 ### On the Google Cloud Console title bar, click Activate Cloud Shell (Activate Cloud Shell icon). If prompted, click Continue.
