@@ -60,6 +60,11 @@ python3 app.py
 
 ## Note :- After getting score on ***TASK 2*** Then only run the below commands.
 
+
+***Return to your SSH window that's connected to your VM instance.***
+
+***Stop the running application by pressing CTRL + C.***
+
 ```bash
 cat > app.py <<EOF_END
 import flask
