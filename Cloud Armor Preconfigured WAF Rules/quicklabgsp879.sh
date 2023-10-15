@@ -142,8 +142,20 @@ gcloud compute forwarding-rules create juice-shop-rule \
         --ports=80
 
 
-PUBLIC_SVC_IP="$(gcloud compute forwarding-rules describe juice-shop-rule  --global --format="value(IPAddress)")"
-echo $PUBLIC_SVC_IP
+PUBLIC_SVC_IP="$(gcloud compute forwarding-rules describe juice-shop-rule --global --format="value(IPAddress)")"
+echo "Waiting for the server to start serving requests at $PUBLIC_SVC_IP..."
+
+
+while true; do
+    response=$(curl -Ii http://$PUBLIC_SVC_IP)
+    if [[ "$response" == *"HTTP/1.1 200 OK"* ]]; then
+        echo "Server is serving requests."
+        break  
+    else
+        echo "Server is not ready yet. kindly Wait meanwhile you can like share and subscribe to quicklab..."
+        sleep 5  
+    fi
+done
 
 echo "${GREEN}${BOLD}
 
@@ -224,4 +236,3 @@ Lab Completed !!!
 ${RESET}"
 
 #-----------------------------------------------------end----------------------------------------------------------#
-
