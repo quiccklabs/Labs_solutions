@@ -10,10 +10,8 @@ cd java-docs-samples/appengine-java8/helloworld
 mvn clean
 mvn package
 
-# Start mvn appengine:run in the background with a timeout of 120 seconds
 timeout 30 mvn appengine:run &
 
-# Continue with the other commands after a 30-second pause
 sleep 30
 
 gcloud app create --region=$REGION
