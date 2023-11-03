@@ -1,5 +1,7 @@
+### Manage PostgreSQL Databases on Cloud SQL: Challenge Lab
 
 
+Database Migration Services require the ***Database Migration API*** and the ***Service Networking API*** to be enabled in order to function. You must enable these APIs for your project.
 
 
 sudo apt install postgresql-13-pglogical
