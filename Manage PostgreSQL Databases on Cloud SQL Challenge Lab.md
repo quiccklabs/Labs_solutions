@@ -121,14 +121,16 @@ GRANT SELECT ON pglogical.subscription TO migration_admin;
 
 
 ### When prompted for a password enter 
-```supersecret!
+```
+supersecret!
 ```
 
 ```
 \c orders
 ```
 ### When prompted for a password enter 
-```supersecret!
+```
+supersecret!
 ```
 
 
@@ -151,14 +153,16 @@ date --rfc-3339=seconds
 #### Save this timestamp for later task
 
 ### When prompted for a password enter 
-```supersecret!
+```
+supersecret!
 ```
 
 ```
 \c orders
 ```
 ### When prompted for a password enter 
-```supersecret!
+```
+supersecret!
 ```
 
 ```
