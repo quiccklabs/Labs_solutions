@@ -120,11 +120,17 @@ GRANT SELECT ON pglogical.subscription TO migration_admin;
 ### TASK 3:- Implement Cloud SQL for PostgreSQL IAM database authentication
 
 
-#### When prompted for a password enter ***supersecret!***
+### When prompted for a password enter 
+```supersecret!
+```
+
 ```
 \c orders
 ```
-#### When prompted for a password enter ***supersecret!***
+### When prompted for a password enter 
+```supersecret!
+```
+
 
 
 #### Note change the ***TABLE_NAME*** and ***USER_NAME*** as given on table page..
@@ -144,11 +150,17 @@ date --rfc-3339=seconds
 
 #### Save this timestamp for later task
 
-#### When prompted for a password enter ***supersecret!***
+### When prompted for a password enter 
+```supersecret!
+```
+
 ```
 \c orders
 ```
-#### When prompted for a password enter ***supersecret!***
+### When prompted for a password enter 
+```supersecret!
+```
+
 ```
 insert into distribution_centers values(-80.1918,25.7617,'Miami FL',11);
 \q
