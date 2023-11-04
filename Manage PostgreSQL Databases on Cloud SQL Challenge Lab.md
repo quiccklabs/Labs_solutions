@@ -54,6 +54,11 @@ CREATE EXTENSION pglogical;
 http://www.unit-conversion.info/texttools/replace-text/
 ```
 
+### For online Notepad use the below link :- 
+```
+https://www.rapidtables.com/tools/notepad.html
+```
+
 ```
 CREATE USER migration_admin PASSWORD 'DMS_1s_cool!';
 ALTER DATABASE orders OWNER TO migration_admin;
