@@ -16,8 +16,6 @@ steps:
   args: ['push', 'gcr.io/$DEVSHELL_PROJECT_ID/backend-service']
 EOF_END
 
-gcloud builds submit --config cloudbuild.yaml
-
 
 gcloud run deploy backend-service \
    --image gcr.io/$GOOGLE_CLOUD_PROJECT/backend-service \
@@ -44,3 +42,5 @@ backend_proxy=$(gcloud run services list --platform managed --format='value(URL)
 
 curl -X POST -H "content-type: application/json" \
    -d '{ "name": "World" }' -i -w "\n" $backend_proxy
+
+gcloud builds submit --config cloudbuild.yaml
