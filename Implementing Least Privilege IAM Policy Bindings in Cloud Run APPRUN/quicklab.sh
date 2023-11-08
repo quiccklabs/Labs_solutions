@@ -1,15 +1,14 @@
 
 
- gcloud services enable run.googleapis.com
+gcloud services enable run.googleapis.com
 
-gcloud config set run/region $LOCATION
 
-sleep 10
+gcloud config set run/region $REGION
 
 
  gcloud run deploy billing-service \
   --image gcr.io/qwiklabs-resources/gsp723-parking-service \
-  --region $LOCATION \
+  --region $REGION \
   --allow-unauthenticated
 
  BILLING_SERVICE_URL=$(gcloud run services list \
@@ -22,7 +21,7 @@ curl -X POST -H "Content-Type: application/json" $BILLING_SERVICE_URL -d '{"user
 
   gcloud run deploy billing-service \
   --image gcr.io/qwiklabs-resources/gsp723-parking-service \
-  --region $LOCATION \
+  --region $REGION \
   --no-allow-unauthenticated
 
  curl -X POST -H "Content-Type: application/json" $BILLING_SERVICE_URL -d '{"userid": "1234", "minBalance": 100}'
@@ -39,7 +38,7 @@ gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID --member="serviceAcc
   --role=roles/run.invoker
 
 
-  gcloud run services add-iam-policy-binding billing-service --region $LOCATION \
+  gcloud run services add-iam-policy-binding billing-service --region $REGION \
   --member=serviceAccount:${BILLING_INITIATOR_EMAIL} \
   --role=roles/run.invoker --platform managed
 
@@ -71,7 +70,7 @@ gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID --member="serviceAcc
 
  gcloud run deploy billing-service-2 \
   --image gcr.io/qwiklabs-resources/gsp723-parking-service \
-  --region $LOCATION \
+  --region $REGION \
   --no-allow-unauthenticated
 
  BILLING_SERVICE_2_URL=$(gcloud run services list \
