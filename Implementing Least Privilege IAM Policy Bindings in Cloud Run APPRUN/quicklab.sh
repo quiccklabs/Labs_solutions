@@ -2,9 +2,10 @@
 
  gcloud services enable run.googleapis.com
 
+gcloud config set run/region $LOCATION
+
 sleep 10
 
-gcloud config set run/region $LOCATION
 
  gcloud run deploy billing-service \
   --image gcr.io/qwiklabs-resources/gsp723-parking-service \
