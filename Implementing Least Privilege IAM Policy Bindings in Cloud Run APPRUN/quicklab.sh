@@ -2,6 +2,7 @@
 
  gcloud services enable run.googleapis.com
 
+sleep 10
 
 gcloud config set run/region $LOCATION
 
