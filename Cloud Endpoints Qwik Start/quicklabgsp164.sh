@@ -20,30 +20,12 @@ cd scripts
 
 ./deploy_app.sh
 
-gcloud alpha services api-keys create --display-name="testnamee"  
-KEY_NAME=$(gcloud alpha services api-keys list --format="value(name)" --filter "displayName=testnamee") 
+gcloud alpha services api-keys create --display-name="quicklab"  
+KEY_NAME=$(gcloud alpha services api-keys list --format="value(name)" --filter "displayName=quicklab") 
 export API_KEY=$(gcloud alpha services api-keys get-key-string $KEY_NAME --format="value(keyString)") 
 
 
 ./query_api_with_key.sh $API_KEY
 
-# Function to generate traffic
-generate_traffic() {
-  ./generate_traffic_with_key.sh "$API_KEY"
-}
-
-# Function to send authenticated request
-send_authenticated_request() {
-  ./query_api_with_key.sh "$API_KEY"
-}
-
-# Generate traffic for 5-10 seconds
-generate_traffic &
-
-# Sleep for 10 seconds (adjust as needed)
-sleep 10
-
-# Send an authenticated request
-send_authenticated_request
-
+timeout 15s ./generate_traffic_with_key.sh $API_KEY && ./query_api_with_key.sh $API_KEY
 
