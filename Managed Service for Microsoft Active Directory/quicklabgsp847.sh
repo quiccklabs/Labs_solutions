@@ -10,4 +10,6 @@ sleep 10
 
 gcloud compute reset-windows-password quicklab --zone $ZONE_1 --user admin --quiet
  
+sleep 10  
+
 gcloud compute reset-windows-password msad-1-ad-1 --zone $ZONE_2 --user admin --quiet
