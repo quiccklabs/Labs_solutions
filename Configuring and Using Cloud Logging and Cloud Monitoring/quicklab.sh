@@ -23,17 +23,6 @@ sudo chmod +x pubsub.sh
 
 bq mk project_logs
 
-export PROJECT_NUMBER=$(gcloud projects describe $DEVSHELL_PROJECT_ID --format="json(projectNumber)" --quiet | jq -r '.projectNumber')
-
-# Export the service account to a variable
-SERVICE_ACCOUNT=service-$PROJECT_NUMBER@gcp-sa-logging.iam.gserviceaccount.com
-
-# Grant the roles/bigquery.dataEditor role to the service account
-gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID \
-  --member=serviceAccount:$SERVICE_ACCOUNT \
-  --role=roles/bigquery.dataEditor
-
-
 gcloud alpha logging sinks create vm_logs bigquery.googleapis.com/projects/$DEVSHELL_PROJECT_ID/datasets/project_logs --log-filter='resource.type="gce_instance"'
 
 gcloud alpha logging sinks create load_bal_logs bigquery.googleapis.com/projects/$DEVSHELL_PROJECT_ID/datasets/project_logs --log-filter='resource.type="http_load_balancer"'
