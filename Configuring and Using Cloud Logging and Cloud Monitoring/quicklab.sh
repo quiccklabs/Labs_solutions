@@ -41,6 +41,15 @@ gcloud alpha logging sinks create load_bal_logs bigquery.googleapis.com/projects
 
 gcloud logging read "resource.type=gce_instance AND logName=projects/$DEVSHELL_PROJECT_ID/logs/syslog AND textPayload:SyncAddress" --limit 10 --format json
 
+export PROJECT_NUMBER=$(gcloud projects describe $DEVSHELL_PROJECT_ID --format="json(projectNumber)" --quiet | jq -r '.projectNumber')
+
+# Export the service account to a variable
+SERVICE_ACCOUNT=service-$PROJECT_NUMBER@gcp-sa-logging.iam.gserviceaccount.com
+
+# Grant the roles/bigquery.dataEditor role to the service account
+gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID \
+  --member=serviceAccount:$SERVICE_ACCOUNT \
+  --role=roles/bigquery.dataEditor
 
 # Export the table ID to a variable
 TABLE_ID=$(bq ls --project_id $DEVSHELL_PROJECT_ID --dataset_id project_logs --format=json | jq -r '.[0].tableReference.tableId')
