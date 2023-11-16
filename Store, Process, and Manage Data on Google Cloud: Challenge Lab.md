@@ -42,11 +42,14 @@ export PROJECT_NUMBER=$(gcloud projects describe $DEVSHELL_PROJECT_ID --format="
     --member=serviceAccount:service-$PROJECT_NUMBER@gs-project-accounts.iam.gserviceaccount.com  \
     --role=roles/pubsub.publisher
 ```
+### Rerun the above command until you get the output
 ```
   gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID \
     --member=serviceAccount:service-$PROJECT_NUMBER@gcp-sa-eventarc.iam.gserviceaccount.com  \
     --role=roles/pubsub.publisher
 ```
+### Rerun the above command until you get the output
+
 ```
 gcloud functions deploy $FUNCTION_NAME \
   --trigger-bucket $BUCKET_NAME \
