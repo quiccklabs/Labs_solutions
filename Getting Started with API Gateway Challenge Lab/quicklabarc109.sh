@@ -3,7 +3,7 @@
 
 
 
-
+gcloud auth list
 
 mkdir quicklab
 cd quicklab
