@@ -1,6 +1,10 @@
 
 
 
+
+
+
+
 mkdir quicklab
 cd quicklab
 
@@ -30,19 +34,30 @@ cat > package.json <<EOF
 
 EOF
 
+sleep 40
+
+export PROJECT_NUMBER=$(gcloud projects describe $DEVSHELL_PROJECT_ID --format="json(projectNumber)" --quiet | jq -r '.projectNumber')
+
+gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID \
+  --member=serviceAccount:service-$PROJECT_NUMBER@gcf-admin-robot.iam.gserviceaccount.com \
+  --role=roles/artifactregistry.reader
+
 
 gcloud functions deploy GCFunction \
-  --runtime=nodejs18 \
+  --runtime=nodejs20 \
   --trigger-http \
+  --gen2 \
   --allow-unauthenticated \
   --entry-point=helloWorld \
-  --region=us-central1 \
+  --region=$REGION \
   --max-instances 5 \
   --source=./
 
 
 
 gcloud services enable apigateway.googleapis.com
+
+sleep 10
 
 gcloud pubsub topics create demo-topic
 
@@ -78,11 +93,12 @@ EOF
 
 
 gcloud functions deploy GCFunction \
-  --runtime=nodejs18 \
+  --runtime=nodejs20 \
   --trigger-http \
+  --gen2 \
   --allow-unauthenticated \
   --entry-point=helloWorld \
-  --region=us-central1 \
+  --region=$REGION \
   --max-instances 5 \
   --source=./
 
@@ -105,7 +121,7 @@ paths:
       summary: gcfunction
       operationId: gcfunction
       x-google-backend:
-        address: https://us-central1-$DEVSHELL_PROJECT_ID.cloudfunctions.net/GCFunction
+        address: https://$REGION-$DEVSHELL_PROJECT_ID.cloudfunctions.net/GCFunction
       responses:
        '200':
           description: A successful response
@@ -130,8 +146,7 @@ gcloud api-gateway api-configs create gcfunction-api \
 
   gcloud api-gateway gateways create gcfunction-api \
   --api=$API_ID --api-config=gcfunction-api \
-  --location=us-central1 --project=$DEVSHELL_PROJECT_ID
-
+  --location=$REGION --project=$DEVSHELL_PROJECT_ID
 
 
 
