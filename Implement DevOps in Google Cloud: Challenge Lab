@@ -33,6 +33,11 @@ git clone https://source.developers.google.com/p/$PROJECT_ID/r/sample-app
 cd ~
 gsutil cp -r gs://spls/gsp330/sample-app/* sample-app
 
+for file in sample-app/cloudbuild-dev.yaml sample-app/cloudbuild.yaml; do
+    sed -i "s/<your-region>/${REGION}/g" "$file"
+    sed -i "s/<your-zone>/${ZONE}/g" "$file"
+done
+
 git init
 cd sample-app/
 git add .
