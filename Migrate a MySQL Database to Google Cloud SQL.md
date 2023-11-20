@@ -44,6 +44,8 @@ sudo apt-get install -y mysql-client
 
 
 ```bash
+gcloud auth login --no-launch-browser --quiet
+
 echo 'Password1*' | mysql_config_editor set --login-path=local --host=$MYSQLIP --user=root --password
 
 MYSQLIP=$(gcloud sql instances describe wordpress --format="value(ipAddresses.ipAddress)")
