@@ -43,7 +43,7 @@ gcloud compute instances create lab-1 --zone=$ZONE
 
 gcloud config set compute/zone $ZONE_2
 
-gcloud init --no-launch-browser --quiet
+gcloud init --no-launch-browser
 ```
 
 ### Select option 2, Create a new configuration.
