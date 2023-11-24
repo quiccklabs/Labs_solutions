@@ -53,7 +53,7 @@ gcloud init --no-launch-browser
 ### Make sure to choose your 1st project id .
 
 ```bash
-gcloud compute instances create lab-2 --zone=$ZONE
+gcloud compute instances create lab-2 --zone=$ZONE_2
 
 gcloud config configurations activate default
 
