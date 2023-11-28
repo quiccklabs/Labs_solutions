@@ -1,111 +1,63 @@
 
 
+gcloud config set compute/zone $ZONE
 
-sleep 10
+gcloud container clusters create io
 
-gcloud services enable run.googleapis.com
+git clone https://github.com/GoogleCloudPlatform/training-data-analyst
 
-sleep 10
+ln -s ~/training-data-analyst/courses/ak8s/CloudBridge ~/ak8s
 
-mkdir quicklab && cd quicklab
+cd ~/ak8s/
 
-cat > index.js <<EOF_END
-/**
- * Responds to any HTTP request.
- *
- * @param {!express:Request} req HTTP request context.
- * @param {!express:Response} res HTTP response context.
- */
-exports.GCFunction = (req, res) => {
-    let message = req.query.message || req.body.message || 'Subscribe to quicklab';
-    res.status(200).send(message);
-  };
-  
-EOF_END
+kubectl create deployment nginx --image=nginx:1.10.0
 
+kubectl get pods
 
-cat > package.json <<EOF_END
-{
-    "name": "sample-http",
-    "version": "0.0.1"
-  }
-  
-EOF_END
+kubectl expose deployment nginx --port 80 --type LoadBalancer
 
+kubectl get services
 
-gsutil mb -p $DEVSHELL_PROJECT_ID gs://$DEVSHELL_PROJECT_ID
+cd ~/ak8s
 
-sleep 30
+kubectl create -f pods/monolith.yaml
 
-export PROJECT_NUMBER=$(gcloud projects describe $DEVSHELL_PROJECT_ID --format="json(projectNumber)" --quiet | jq -r '.projectNumber')
+kubectl get pods
 
-# Set the service account email
-SERVICE_ACCOUNT="service-$PROJECT_NUMBER@gcf-admin-robot.iam.gserviceaccount.com"
+cd ~/ak8s
 
-# Get the current IAM policy
-IAM_POLICY=$(gcloud projects get-iam-policy $DEVSHELL_PROJECT_ID --format=json)
+kubectl create secret generic tls-certs --from-file tls/
+kubectl create configmap nginx-proxy-conf --from-file nginx/proxy.conf
+kubectl create -f pods/secure-monolith.yaml
 
-# Check if the binding exists
-if [[ "$IAM_POLICY" == *"$SERVICE_ACCOUNT"* && "$IAM_POLICY" == *"roles/artifactregistry.reader"* ]]; then
-  echo "IAM binding exists for service account: $SERVICE_ACCOUNT with role roles/artifactregistry.reader"
-else
-  echo "IAM binding does not exist for service account: $SERVICE_ACCOUNT with role roles/artifactregistry.reader"
-  
-  # Create the IAM binding
-  gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID \
-    --member=serviceAccount:$SERVICE_ACCOUNT \
-    --role=roles/artifactregistry.reader
+kubectl create -f services/monolith.yaml
 
-  echo "IAM binding created for service account: $SERVICE_ACCOUNT with role roles/artifactregistry.reader"
-fi
+gcloud compute firewall-rules create allow-monolith-nodeport \
+  --allow=tcp:31000
 
 
-gcloud functions deploy GCFunction \
-  --region=$REGION \
-  --gen2 \
-  --trigger-http \
-  --runtime=nodejs20 \
-  --allow-unauthenticated \
-  --max-instances=5
+kubectl get pods -l "app=monolith"
 
 
-DATA=$(printf 'Subscribe to quicklab' | base64) && gcloud functions call GCFunction --region=$REGION --data '{"data":"'$DATA'"}'
+kubectl get pods -l "app=monolith,secure=enabled"
 
 
-sleep 50
+kubectl label pods secure-monolith 'secure=enabled'
+kubectl get pods secure-monolith --show-labels
 
-sleep 30
-
-export PROJECT_NUMBER=$(gcloud projects describe $DEVSHELL_PROJECT_ID --format="json(projectNumber)" --quiet | jq -r '.projectNumber')
-
-# Set the service account email
-SERVICE_ACCOUNT="service-$PROJECT_NUMBER@gcf-admin-robot.iam.gserviceaccount.com"
-
-# Get the current IAM policy
-IAM_POLICY=$(gcloud projects get-iam-policy $DEVSHELL_PROJECT_ID --format=json)
-
-# Check if the binding exists
-if [[ "$IAM_POLICY" == *"$SERVICE_ACCOUNT"* && "$IAM_POLICY" == *"roles/artifactregistry.reader"* ]]; then
-  echo "IAM binding exists for service account: $SERVICE_ACCOUNT with role roles/artifactregistry.reader"
-else
-  echo "IAM binding does not exist for service account: $SERVICE_ACCOUNT with role roles/artifactregistry.reader"
-  
-  # Create the IAM binding
-  gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID \
-    --member=serviceAccount:$SERVICE_ACCOUNT \
-    --role=roles/artifactregistry.reader
-
-  echo "IAM binding created for service account: $SERVICE_ACCOUNT with role roles/artifactregistry.reader"
-fi
+kubectl describe services monolith | grep Endpoints
 
 
-gcloud functions deploy GCFunction \
-  --region=$REGION \
-  --gen2 \
-  --trigger-http \
-  --runtime=nodejs20 \
-  --allow-unauthenticated \
-  --max-instances=5
+kubectl create -f deployments/auth.yaml
+
+kubectl create -f services/auth.yaml
+
+kubectl create -f deployments/hello.yaml
+kubectl create -f services/hello.yaml
+
+kubectl create configmap nginx-frontend-conf --from-file=nginx/frontend.conf
+kubectl create -f deployments/frontend.yaml
+kubectl create -f services/frontend.yaml
 
 
-DATA=$(printf 'Subscribe to quicklab' | base64) && gcloud functions call GCFunction --region=$REGION --data '{"data":"'$DATA'"}'
+kubectl get services frontend
