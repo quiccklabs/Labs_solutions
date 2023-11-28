@@ -40,9 +40,11 @@ export REGION=$(gcloud config get compute/region)
 
 gcloud compute instances create lab-1 --zone=$ZONE --machine-type=e2-standard-2
 ```
+
 ```bash
 gcloud config set compute/zone "$ZONE_2"
 ```
+
 ```bash
 gcloud init --no-launch-browser
 ```
