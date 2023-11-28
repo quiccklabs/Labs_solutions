@@ -45,6 +45,9 @@ gcloud compute instances create lab-1 --zone=$ZONE --machine-type=e2-standard-2
 gcloud config set compute/zone "$ZONE_2"
 ```
 
+### Now check the score for task 1. 
+### Untill you get score on task 1 do not move ahead with next commands.
+
 ```bash
 gcloud init --no-launch-browser
 ```
