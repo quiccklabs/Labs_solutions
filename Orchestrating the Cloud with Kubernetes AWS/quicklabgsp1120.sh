@@ -1,7 +1,7 @@
 
 
 
-
+sleep 10
 
 gcloud services enable run.googleapis.com
 
