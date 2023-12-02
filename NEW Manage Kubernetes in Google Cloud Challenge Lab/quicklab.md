@@ -41,3 +41,8 @@ curl-LO raw.githubusercontent.com/quiccklabs/Labs_solutions/master/NEW%20Manage%
 sudo chmod +x quicklabgsp510.sh
 ./quicklabgsp510.sh
 ```
+
+
+***Wait for to command get execute and make sure laptop will not go for sleep***
+
+### Congratulations !!!
