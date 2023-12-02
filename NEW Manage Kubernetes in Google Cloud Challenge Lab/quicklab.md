@@ -9,7 +9,7 @@
  
 ***3. Use the following details to configure your metric:***
 
-***Metric type: Counter***
+***Metric type: ```Counter```***
 ***Log Metric Name :*** ```pod-image-errors```
 
 ***4. Enable Show query and in the Query builder box, add the following query:***
