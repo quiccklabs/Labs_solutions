@@ -103,13 +103,14 @@ gcloud container clusters create test-cluster \
 --master-ipv4-cidr "172.16.0.0/28" \
 --enable-master-authorized-networks \
 --master-authorized-networks "10.128.0.0/20"
-
-sleep 20
-
-kubectl describe daemonsets container-watcher -n kube-system
 ```
 
-##
+```
+kubectl describe daemonsets container-watcher -n kube-system
+```
+### IF you didn't get a output re-run the above command again and again until you get output 
+
+## Once you get a output then only run the below commands
 
 ```bash
 kubectl create deployment apache-deployment \
