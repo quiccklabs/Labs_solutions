@@ -1,5 +1,8 @@
 
 
+curl -LO https://raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Ingesting%20New%20Datasets%20into%20BigQuery/quicklab.csv
+
+curl -LO https://raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Ingesting%20New%20Datasets%20into%20BigQuery/products.csv
 
 bq mk ecommerce
 
