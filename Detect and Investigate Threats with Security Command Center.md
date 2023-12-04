@@ -94,23 +94,34 @@ tar -xf google-cloud-cli-438.0.0-linux-x86_64.tar.gz
 
 gcloud components install kubectl gke-gcloud-auth-plugin --quiet
 
+REGION="${ZONE%-*}"
+
+# Set the default authorized network
+AUTHORIZED_NETWORK="10.138.0.0/20"
+
+# If the region is us-central1, update the authorized network
+if [ "$REGION" == "us-central1" ]; then
+  AUTHORIZED_NETWORK="10.128.0.0/20"
+fi
+
+# Create the GKE cluster
 gcloud container clusters create test-cluster \
---zone "$ZONE" \
---enable-private-nodes \
---enable-private-endpoint \
---enable-ip-alias \
---num-nodes=1 \
---master-ipv4-cidr "172.16.0.0/28" \
---enable-master-authorized-networks \
---master-authorized-networks "10.128.0.0/20"
+  --zone "$ZONE" \
+  --enable-private-nodes \
+  --enable-private-endpoint \
+  --enable-ip-alias \
+  --num-nodes=1 \
+  --master-ipv4-cidr "172.16.0.0/28" \
+  --enable-master-authorized-networks \
+  --master-authorized-networks "$AUTHORIZED_NETWORK"
 ```
 
 ```
 kubectl describe daemonsets container-watcher -n kube-system
 ```
-### IF you didn't get a output re-run the above command again and again until you get output 
+### IF you didn't get a output re-run the above command again and again until you get output .
 
-## Once you get a output then only run the below commands
+## Once you get a output then only run the below commands and it's might task 15 minutes to show the output so kindly wait.
 
 ```bash
 kubectl create deployment apache-deployment \
