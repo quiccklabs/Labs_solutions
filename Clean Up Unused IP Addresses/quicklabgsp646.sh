@@ -47,6 +47,14 @@ gcloud scheduler jobs run unused-ip-job \
 --location=$REGION
 gcloud compute addresses list --filter="region:($REGION)"
  
+WORKDIR=$(pwd)
+cd $WORKDIR/gcf-automated-resource-cleanup/unused-ip
+PROJECT_ID=$(gcloud config list --format 'value(core.project)' 2>/dev/null)
+REGION="${ZONE%-*}"
+USED_IP=used-ip-address
+UNUSED_IP=unused-ip-address
+gcloud compute addresses create $UNUSED_IP --project=$PROJECT_ID --region=$REGION
+
 
 
 
