@@ -2,10 +2,10 @@
 
 
 
-export PROJECT_ID=$(gcloud config list --format 'value(core.project)' 2>/dev/null)
-export REGION="${ZONE%-*}"
-export USED_IP=used-ip-address
-export UNUSED_IP=unused-ip-address
+PROJECT_ID=$(gcloud config list --format 'value(core.project)' 2>/dev/null)
+REGION="${ZONE%-*}"
+USED_IP=used-ip-address
+UNUSED_IP=unused-ip-address
 
 gcloud services enable cloudscheduler.googleapis.com
 sleep 20
@@ -15,9 +15,7 @@ WORKDIR=$(pwd)
 cd $WORKDIR/unused-ip
 
 gcloud compute addresses create $USED_IP --project=$PROJECT_ID --region=$REGION
-sleep 10
 gcloud compute addresses create $UNUSED_IP --project=$PROJECT_ID --region=$REGION
-sleep 20
 
 gcloud compute addresses list --filter="region:($REGION)"
 export USED_IP_ADDRESS=$(gcloud compute addresses describe $USED_IP --region=$REGION --format=json | jq -r '.address')
