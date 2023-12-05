@@ -2,17 +2,18 @@
 
 
 
-
+export PROJECT_ID=$(gcloud config list --format 'value(core.project)' 2>/dev/null)
+export REGION="${ZONE%-*}"
+export USED_IP=used-ip-address
+export UNUSED_IP=unused-ip-address
 
 gcloud services enable cloudscheduler.googleapis.com
 sleep 20
 git clone https://github.com/GoogleCloudPlatform/gcf-automated-resource-cleanup.git && cd gcf-automated-resource-cleanup/
-export PROJECT_ID=$(gcloud config list --format 'value(core.project)' 2>/dev/null)
-export REGION="${ZONE%-*}"
+
 WORKDIR=$(pwd)
 cd $WORKDIR/unused-ip
-export USED_IP=used-ip-address
-export UNUSED_IP=unused-ip-address
+
 gcloud compute addresses create $USED_IP --project=$PROJECT_ID --region=$REGION
 sleep 10
 gcloud compute addresses create $UNUSED_IP --project=$PROJECT_ID --region=$REGION
