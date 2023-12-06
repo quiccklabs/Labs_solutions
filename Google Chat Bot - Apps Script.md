@@ -5,7 +5,7 @@
 
 
 
-###  ***APPSSCRIPT.JSON FILE***
+###  ```APPSSCRIPT.JSON FILE```
 
 ```bash
 {
@@ -20,7 +20,9 @@
 
 ###
 ###
+
 ### TASK 1 ```CODE.GS FILE```
+
 
 ```bash
 /**
@@ -55,7 +57,7 @@ function onRemoveFromSpace(event) {
 
 
 
-### TASK 3 ***CODE.GS FILE***
+### TASK 3 ```CODE.GS FILE```
 
 ```bash
 var DEFAULT_IMAGE_URL = 'https://goo.gl/bMqzYS';
@@ -108,7 +110,7 @@ function onMessage(event) {
 
 
 
-### TASK 1 ***CODE.GS FILE***
+### TASK 1 ```CODE.GS FILE```
 
 ```bash
 /**
