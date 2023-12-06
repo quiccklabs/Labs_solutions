@@ -110,7 +110,7 @@ function onMessage(event) {
 
 
 
-### TASK 1 ```CODE.GS FILE```
+### TASK 4 ```CODE.GS FILE```
 
 ```bash
 /**
