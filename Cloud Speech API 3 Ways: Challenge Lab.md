@@ -1,6 +1,11 @@
+## Cloud Speech API 3 Ways: Challenge Lab
 
 
 
+
+***Export the Value from lab page as showed in the video*** 
+
+```bash
 export API_KEY=""
 
 task_2_file_name=""
@@ -16,9 +21,12 @@ task_4_file=""
 task_5_sentence=""
 
 task_5_file=""
+```
 
+### Just copy & Paste on your SSH
+####
 
-
+```
 export PROJECT_ID=$(gcloud config get-value project)
 
 source venv/bin/activate
@@ -120,33 +128,7 @@ curl -s -X POST -H "Content-Type: application/json" \
 sudo apt-get update
 sudo apt-get install -y jq
 
-
-# Set the variables for the Translation API request
-source_lang="ja"
-target_lang="en"
-
-# Make the Translation API request using curl
-response=$(curl -s -X POST \
-  -H "Authorization: Bearer $(gcloud auth application-default print-access-token)" \
-  -H "Content-Type: application/json; charset=utf-8" \
-  -d "{\"q\": \"$task_4_sentence\"}" \
-  "https://translation.googleapis.com/language/translate/v2?key=${API_KEY}&source=${source_lang}&target=${target_lang}")
-
-# Check if the response contains an error
-if [[ $response == *"error"* ]]; then
-  echo "Translation API returned an error:"
-  echo "$response"
-else
-  translation=$(jq -r '.data.translations[].translatedText' <<< "$response")
-  if [[ -z "$translation" ]]; then
-    echo "Translation is empty or null."
-  else
-    echo "$translation" > "$task_4_file"
-    echo "Translation saved to $task_4_file:"
-    cat "$task_4_file"
-  fi
-fi
-
+curl "https://translation.googleapis.com/language/translate/v2?target=en&key=${API_KEY}&q=${task_4_sentence}" > $task_4_file
 
 
 # URL-decode the sentence
@@ -159,12 +141,10 @@ curl -s -X POST \
   -d "{\"q\": [\"$decoded_sentence\"]}" \
   "https://translation.googleapis.com/language/translate/v2/detect?key=${API_KEY}" \
   -o "$task_5_file"
+```
 
 
-
-
-
-
+### Congratulations !!!!
 
 
 
