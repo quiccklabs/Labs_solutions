@@ -5,11 +5,6 @@
 
 
 
-### TASK 1 ***CODE.GS FILE***
-
-
-
-
 ###  ***APPSSCRIPT.JSON FILE***
 
 ```bash
@@ -25,6 +20,7 @@
 
 ###
 ###
+### TASK 1 ```CODE.GS FILE```
 
 ```bash
 /**
