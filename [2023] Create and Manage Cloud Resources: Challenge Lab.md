@@ -1,9 +1,24 @@
 
+#### ***Create and Manage Cloud Resources: Challenge Lab***
+
+### Export all the values carefully
+
+```bash
 export INSTANCE_NAME=
 export ZONE=
 export REGION=
 export PORT=
 export FIREWALL_NAME=
+```
+###
+###
+
+### ***NOW JUST COPY THE CODE AND PASTE ON YOUR CLOUD SHELL***
+###
+###
+
+```bash
+gcloud compute networks create nucleus-vpc --subnet-mode=auto
 
 gcloud compute instances create $INSTANCE_NAME \
           --network nucleus-vpc \
@@ -101,4 +116,9 @@ gcloud compute forwarding-rules create $FIREWALL_NAME \
 --target-http-proxy http-lb-proxy \
 --ports 80
 gcloud compute forwarding-rules list
+```
+
+### IF score is not updated wait for 5-10 minutes 
+
+### ***Congratulations!!!!***
  
