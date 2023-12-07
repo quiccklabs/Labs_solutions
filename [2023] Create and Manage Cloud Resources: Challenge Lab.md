@@ -1,5 +1,5 @@
 
-#### ***Create and Manage Cloud Resources: Challenge Lab***
+## ***Create and Manage Cloud Resources: Challenge Lab***
 
 ### Export all the values carefully
 
