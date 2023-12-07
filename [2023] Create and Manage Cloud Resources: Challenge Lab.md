@@ -5,9 +5,13 @@
 
 ```bash
 export INSTANCE_NAME=
+
 export ZONE=
+
 export REGION=
+
 export PORT=
+
 export FIREWALL_NAME=
 ```
 ###
