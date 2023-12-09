@@ -32,6 +32,8 @@ gcloud auth login --no-launch-browser --quiet
 ```
 
 ```bash
+sudo yum install google-cloud-sdk -y
+
 gcloud config set compute/zone "$ZONE_1"
 export ZONE=$(gcloud config get compute/zone)
 
