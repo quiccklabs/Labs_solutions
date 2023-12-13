@@ -111,5 +111,7 @@ gcloud projects add-iam-policy-binding $PROJECTID2 --member serviceAccount:$SA -
 gcloud compute instances create lab-3 --service-account $SA --scopes "https://www.googleapis.com/auth/compute"
 
 gcloud compute instances create lab-2 --zone=$ZONE_2
+
+sudo yum install google-cloud-sdk -y
 ```
 
