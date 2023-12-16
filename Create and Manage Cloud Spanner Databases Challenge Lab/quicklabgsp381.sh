@@ -1,3 +1,5 @@
+wget https://raw.githubusercontent.com/quiccklabs/Labs_solutions/ed8351d0beeecc1302b039edefc2f4a2d13edf5f/Create%20and%20Manage%20Cloud%20Spanner%20Databases%20Challenge%20Lab/Customer_List_500.csv
+
 gcloud services disable dataflow.googleapis.com --force
 gcloud services enable dataflow.googleapis.com
 
