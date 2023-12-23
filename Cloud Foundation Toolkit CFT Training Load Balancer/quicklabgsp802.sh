@@ -73,6 +73,7 @@ module "load_balancer" {
 EOF_END
 
 
+terraform init
 
 terraform plan -out=plan.out
 
