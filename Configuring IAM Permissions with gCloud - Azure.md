@@ -32,7 +32,7 @@ gcloud auth login --no-launch-browser --quiet
 ```
 
 ```bash
-sudo yum install google-cloud-sdk -y
+sudo yum update google-cloud-cli -y
 
 gcloud config set compute/zone "$ZONE_1"
 export ZONE=$(gcloud config get compute/zone)
@@ -111,7 +111,5 @@ gcloud projects add-iam-policy-binding $PROJECTID2 --member serviceAccount:$SA -
 gcloud compute instances create lab-3 --service-account $SA --scopes "https://www.googleapis.com/auth/compute"
 
 gcloud compute instances create lab-2 --zone=$ZONE_2
-
-sudo yum install google-cloud-sdk -y
 ```
 
