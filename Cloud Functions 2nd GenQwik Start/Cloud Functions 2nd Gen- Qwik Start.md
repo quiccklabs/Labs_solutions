@@ -28,8 +28,32 @@
 
 The Compute Engine API now has Admin Read, Data Read, and Data Write log types enabled in the Audit Logs configuration.
 
-### Export the ***ZONE*** FROM task 4
+### Export the ***ZONE*** from task 4
 
 ```
 export ZONE=
 ```
+
+
+###
+###
+
+```
+curl -LO https://raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Cloud%20Functions%202nd%20GenQwik%20Start/task1.sh
+sudo chmod +x task1.sh
+./task1.sh
+```
+
+## ``` Now check the score for TASK 6 After that run the below commands ```
+
+
+```
+curl -LO https://raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Cloud%20Functions%202nd%20GenQwik%20Start/task2.sh
+sudo chmod +x task2.sh
+./task2.sh
+```
+
+### Follow the Video once you done with above commands
+
+### Congratulations !!!!
+
