@@ -91,7 +91,7 @@ gcloud functions deploy nodejs-http-function \
   --quiet
 ```
 
-``` If you facing error re-run the above command again and again... ```
+### ``` If you facing error re-run the above command again and again... ```
 
 
 
@@ -149,7 +149,7 @@ gcloud functions deploy nodejs-storage-function \
   --quiet
 ```
 
-``` If you facing error re-run the above command again and again... ```
+### ``` If you facing error re-run the above command again and again... ```
 
 ```
 echo "Hello World" > random.txt
@@ -256,7 +256,7 @@ gcloud functions deploy slow-function \
 ```
 
 
-``` Now check the score for TASK 6 After that run the below commands ```
+## ``` Now check the score for TASK 6 After that run the below commands ```
 
 ```
 SLOW_URL=$(gcloud functions describe slow-function --region $REGION --gen2 --format="value(serviceConfig.uri)")
