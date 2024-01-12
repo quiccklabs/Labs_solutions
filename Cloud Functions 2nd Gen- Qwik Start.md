@@ -33,10 +33,11 @@ The Compute Engine API now has Admin Read, Data Read, and Data Write log types e
 ##
 
 ```
-export REGION=
+export ZONE=
 ```
 
 ```
+export REGION="${ZONE%-*}"
 gcloud config set compute/region $REGION
 export PROJECT_ID=$(gcloud config get-value project)
 
