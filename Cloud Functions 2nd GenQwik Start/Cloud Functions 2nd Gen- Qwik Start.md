@@ -48,6 +48,7 @@ sudo chmod +x task1.sh
 
 
 ```
+export REGION="${ZONE%-*}"
 curl -LO https://raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Cloud%20Functions%202nd%20GenQwik%20Start/task2.sh
 sudo chmod +x task2.sh
 ./task2.sh
