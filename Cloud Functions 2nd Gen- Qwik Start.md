@@ -1,8 +1,8 @@
-## Cloud Functions 2nd Gen: Qwik Start 
+# Cloud Functions 2nd Gen: Qwik Start 
 
 
 
-# IAM & Admin - Audit Logs Configuration
+## IAM & Admin - Audit Logs Configuration
 
 ## Steps:
 
