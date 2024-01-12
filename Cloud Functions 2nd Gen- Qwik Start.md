@@ -29,10 +29,11 @@ The Compute Engine API now has Admin Read, Data Read, and Data Write log types e
 
 
 
-
+##
+##
 
 ```
-export REGION=us-central1
+export REGION=
 ```
 
 ```
