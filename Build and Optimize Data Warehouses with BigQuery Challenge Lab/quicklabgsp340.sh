@@ -128,3 +128,40 @@ FROM \`$DATASET_NAME_2.oxford_policy_tracker_worldwide\`
 WHERE country_area IS NULL
 ORDER BY country_name ASC
 "
+
+
+
+
+
+# Create a new table for country area data
+
+bq query --use_legacy_sql=false \
+"
+CREATE TABLE $DATASET_NAME_2.country_area_data AS
+SELECT *
+FROM \`bigquery-public-data.census_bureau_international.country_names_area\`;
+"
+
+
+# Create a new table 'mobility_data' in the 'covid_data' dataset
+bq query --use_legacy_sql=false \
+"CREATE TABLE $DATASET_NAME_2.mobility_data AS
+SELECT *
+FROM \`bigquery-public-data.covid19_google_mobility.mobility_report\`"
+
+
+
+# Delete Null population and country area data from oxford_policy_tracker_by_countries table
+
+bq query --use_legacy_sql=false \
+"DELETE FROM covid_data.oxford_policy_tracker_by_countries
+WHERE population IS NULL AND country_area IS NULL"
+
+bq query --use_legacy_sql=false \
+"
+DELETE FROM \`covid_data.oxford_policy_tracker_by_countries\`
+WHERE 
+    \`population\` IS NULL AND 
+    \`country_area\` IS NULL
+"
+
