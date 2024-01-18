@@ -85,3 +85,46 @@ FROM
 WHERE
    t0.country_name = t1.country_name
 "
+
+
+# BONUS_TASK
+
+bq query --use_legacy_sql=false \
+"
+ UPDATE
+   \`$DATASET_NAME_2.consolidate_covid_tracker_data\` t0
+SET
+   t0.mobility.avg_retail      = t1.avg_retail,
+   t0.mobility.avg_grocery     = t1.avg_grocery,
+   t0.mobility.avg_parks       = t1.avg_parks,
+   t0.mobility.avg_transit     = t1.avg_transit,
+   t0.mobility.avg_workplace   = t1.avg_workplace,
+   t0.mobility.avg_residential = t1.avg_residential
+FROM
+   ( SELECT country_region, date,
+      AVG(retail_and_recreation_percent_change_from_baseline) as avg_retail,
+      AVG(grocery_and_pharmacy_percent_change_from_baseline)  as avg_grocery,
+      AVG(parks_percent_change_from_baseline) as avg_parks,
+      AVG(transit_stations_percent_change_from_baseline) as avg_transit,
+      AVG(workplaces_percent_change_from_baseline) as avg_workplace,
+      AVG(residential_percent_change_from_baseline)  as avg_residential
+      FROM \`bigquery-public-data.covid19_google_mobility.mobility_report\`
+      GROUP BY country_region, date
+   ) AS t1
+WHERE
+   CONCAT(t0.country_name, t0.date) = CONCAT(t1.country_region, t1.date)
+"
+
+
+
+bq query --use_legacy_sql=false \
+"
+SELECT DISTINCT country_name
+FROM \`$DATASET_NAME_2.oxford_policy_tracker_worldwide\`
+WHERE population is NULL
+UNION ALL
+SELECT DISTINCT country_name
+FROM \`$DATASET_NAME_2.oxford_policy_tracker_worldwide\`
+WHERE country_area IS NULL
+ORDER BY country_name ASC
+"
