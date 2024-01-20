@@ -244,3 +244,10 @@ gcloud functions deploy vm-connector \
  --vpc-connector projects/$PROJECT_ID/locations/$REGION/connectors/test-connector
 
  curl -H "Authorization: bearer $(gcloud auth print-identity-token)" "${FUNCTION_URI}?ip=$VM_INT_IP"
+
+cd ~
+cd redis-pubsub/
+TOPIC=add_redis
+
+gcloud pubsub topics publish $TOPIC --message='{"id": 1234, "firstName": "Lucas" ,"lastName": "Sherman", "Phone": "555-555-5555"}'
+ 
