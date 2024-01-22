@@ -157,31 +157,32 @@ gsutil versioning set on gs://$PROJECT-kubernetes-manifests
 sed -i s/PROJECT/$PROJECT/g k8s/deployments/*
 
 git commit -a -m "Set project ID"
+
 git tag v1.0.0
+
 git push --tags
 
-sleep 20
-
-sed -i 's/orange/blue/g' cmd/gke-info/common-service.go
-git commit -a -m "Change color to blue"
-git tag v1.0.1
-git push --tags
-
-# Store build IDs
-build_id_1=$(gcloud builds list --ongoing --format="value(id)")
-build_id_2=$(gcloud builds list --ongoing --format="value(id)")
-
-# Track both builds' statuses
-while [[ "$(gcloud builds describe $build_id_1 --format="value(status)" | grep "SUCCESS")" != "SUCCESS" ]] || [[ "$(gcloud builds describe $build_id_2 --format="value(status)" | grep "SUCCESS")" != "SUCCESS" ]]; do
-  echo "One or both builds are still in progress. Waiting..."
-  echo "Mean Time Like share subscribe to Quicklab [https://www.youtube.com/@quick_lab]..." 
-  sleep 10
+while [[ "$BUILD" != "SUCCESS" ]]; do
+  echo "Build is still in progress. Waiting..."
+  echo "Mean Time Like share subscribe to Quicklab [https://www.youtube.com/@quick_lab]..." 
+  sleep 10  # Adjust the sleep duration as needed
+  BUILD=$(gcloud builds list --format="value(STATUS)" | grep "SUCCESS")
 done
 
-# Both builds are successful, proceed with next code
-echo "Both builds are successful!"
-
+echo "Build successful. Proceeding with the next code."
 # Add your next code here
+
+
+sed -i 's/orange/blue/g' cmd/gke-info/common-service.go
+
+git commit -a -m "Change color to blue"
+
+git tag v1.0.1
+
+git push --tags
+
+
+sleep 200
 
 curl -LO https://storage.googleapis.com/spinnaker-artifacts/spin/1.14.0/linux/amd64/spin
 
