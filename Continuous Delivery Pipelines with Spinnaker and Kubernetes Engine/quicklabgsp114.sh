@@ -1,5 +1,5 @@
 
-
+export REGION="${ZONE%-*}"
 
 gcloud config set compute/zone $ZONE
 
@@ -50,7 +50,7 @@ export PROJECT=$(gcloud info \
 
 export BUCKET=$PROJECT-spinnaker-config
 
-gsutil mb -c regional -l us-east4 gs://$BUCKET
+gsutil mb -c regional -l $REGION gs://$BUCKET
 
 export SA_JSON=$(cat spinnaker-sa.json)
 export PROJECT=$(gcloud info --format='value(config.project)')
@@ -150,7 +150,7 @@ gcloud builds triggers create cloud-source-repositories \
 
 export PROJECT=$(gcloud info --format='value(config.project)')
 
-gsutil mb -l us-east4 gs://$PROJECT-kubernetes-manifests
+gsutil mb -l $REGION gs://$PROJECT-kubernetes-manifests
 
 gsutil versioning set on gs://$PROJECT-kubernetes-manifests
 
@@ -173,18 +173,6 @@ done
 echo "Build successful. Proceeding with the next code."
 # Add your next code here
 
-sleep 20
-
-sed -i 's/orange/blue/g' cmd/gke-info/common-service.go
-
-git commit -a -m "Change color to blue"
-
-git tag v1.0.1
-
-git push --tags
-
-
-
 sleep 200
 
 curl -LO https://storage.googleapis.com/spinnaker-artifacts/spin/1.14.0/linux/amd64/spin
@@ -202,3 +190,10 @@ sed s/PROJECT/$PROJECT/g spinnaker/pipeline-deploy.json > pipeline.json
 ./spin pipeline save --gate-endpoint http://localhost:8080/gate -f pipeline.json                        
 
 
+sed -i 's/orange/blue/g' cmd/gke-info/common-service.go
+
+git commit -a -m "Change color to blue"
+
+git tag v1.0.1
+
+git push --tags
