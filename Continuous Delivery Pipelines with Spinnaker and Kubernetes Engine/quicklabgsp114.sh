@@ -1,5 +1,5 @@
 
-export REGION="${ZONE%-*}
+
 
 gcloud config set compute/zone $ZONE
 
@@ -50,7 +50,7 @@ export PROJECT=$(gcloud info \
 
 export BUCKET=$PROJECT-spinnaker-config
 
-gsutil mb -c regional -l $REGION gs://$BUCKET
+gsutil mb -c regional -l us-east4 gs://$BUCKET
 
 export SA_JSON=$(cat spinnaker-sa.json)
 export PROJECT=$(gcloud info --format='value(config.project)')
@@ -150,52 +150,38 @@ gcloud builds triggers create cloud-source-repositories \
 
 export PROJECT=$(gcloud info --format='value(config.project)')
 
-gsutil mb -l $REGION gs://$PROJECT-kubernetes-manifests
+gsutil mb -l us-east4 gs://$PROJECT-kubernetes-manifests
 
 gsutil versioning set on gs://$PROJECT-kubernetes-manifests
 
 sed -i s/PROJECT/$PROJECT/g k8s/deployments/*
 
 git commit -a -m "Set project ID"
-
 git tag v1.0.0
-
 git push --tags
 
 sleep 20
 
 sed -i 's/orange/blue/g' cmd/gke-info/common-service.go
-
 git commit -a -m "Change color to blue"
-
 git tag v1.0.1
-
 git push --tags
-#!/bin/bash
 
-# Function to check build status
-function check_build_status() {
-  WORKING_STATUS=$(gcloud builds list --format="value(STATUS)" | grep -c "WORKING")
-  SUCCESS_STATUS=$(gcloud builds list --format="value(STATUS)" | grep -c "SUCCESS")
-}
+# Store build IDs
+build_id_1=$(gcloud builds list --ongoing --format="value(id)")
+build_id_2=$(gcloud builds list --ongoing --format="value(id)")
 
-# Check build status initially
-check_build_status
-
-# Wait until both builds are successful
-while [ $WORKING_STATUS -gt 0 ] || [ $SUCCESS_STATUS -eq 0 ]; do
-  echo "Waiting for builds to complete..."
-  echo "Mean Time Like share subscribe to Quicklab [https://www.youtube.com/@quick_lab]..." 
-  sleep 10  # Adjust sleep duration as needed
-  
-  # Check build status in the loop
-  check_build_status
+# Track both builds' statuses
+while [[ "$(gcloud builds describe $build_id_1 --format="value(status)" | grep "SUCCESS")" != "SUCCESS" ]] || [[ "$(gcloud builds describe $build_id_2 --format="value(status)" | grep "SUCCESS")" != "SUCCESS" ]]; do
+  echo "One or both builds are still in progress. Waiting..."
+  echo "Mean Time Like share subscribe to Quicklab [https://www.youtube.com/@quick_lab]..." 
+  sleep 10
 done
 
-# Both builds are successful, proceed with the next code
-echo "Both builds are successful. Proceeding with the next code."
+# Both builds are successful, proceed with next code
+echo "Both builds are successful!"
 
-sleep 20
+# Add your next code here
 
 curl -LO https://storage.googleapis.com/spinnaker-artifacts/spin/1.14.0/linux/amd64/spin
 
@@ -206,6 +192,9 @@ chmod +x spin
                         --cloud-providers kubernetes \
                         --gate-endpoint http://localhost:8080/gate
 
+
 export PROJECT=$(gcloud info --format='value(config.project)')
 sed s/PROJECT/$PROJECT/g spinnaker/pipeline-deploy.json > pipeline.json
-./spin pipeline save --gate-endpoint http://localhost:8080/gate -f pipeline.json
+./spin pipeline save --gate-endpoint http://localhost:8080/gate -f pipeline.json                        
+
+
