@@ -171,7 +171,6 @@ git commit -a -m "Change color to blue"
 git tag v1.0.1
 
 git push --tags
-
 #!/bin/bash
 
 # Function to check build status
@@ -187,7 +186,7 @@ function check_build_status() {
 check_build_status
 
 # Wait until both builds are successful
-while [ $WORKING_STATUS -eq 0 ] || [ $SUCCESS_STATUS -ne 0 ]; do
+while [ $WORKING_STATUS -eq 0 ] && [ $SUCCESS_STATUS -ne 0 ]; do
   echo "Waiting for builds to complete..."
   echo "Mean Time Like share subscribe to Quicklab [https://www.youtube.com/@quick_lab]..." 
   sleep 10  # Adjust sleep duration as needed
@@ -210,9 +209,6 @@ chmod +x spin
                         --cloud-providers kubernetes \
                         --gate-endpoint http://localhost:8080/gate
 
-
 export PROJECT=$(gcloud info --format='value(config.project)')
 sed s/PROJECT/$PROJECT/g spinnaker/pipeline-deploy.json > pipeline.json
-./spin pipeline save --gate-endpoint http://localhost:8080/gate -f pipeline.json                        
-
-
+./spin pipeline save --gate-endpoint http://localhost:8080/gate -f pipeline.json
