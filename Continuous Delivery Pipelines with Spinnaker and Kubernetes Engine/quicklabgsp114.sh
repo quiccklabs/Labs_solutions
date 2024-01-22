@@ -173,6 +173,17 @@ done
 echo "Build successful. Proceeding with the next code."
 # Add your next code here
 
+
+sed -i 's/orange/blue/g' cmd/gke-info/common-service.go
+
+git commit -a -m "Change color to blue"
+
+git tag v1.0.1
+
+git push --tags
+
+
+
 sleep 200
 
 curl -LO https://storage.googleapis.com/spinnaker-artifacts/spin/1.14.0/linux/amd64/spin
@@ -190,10 +201,3 @@ sed s/PROJECT/$PROJECT/g spinnaker/pipeline-deploy.json > pipeline.json
 ./spin pipeline save --gate-endpoint http://localhost:8080/gate -f pipeline.json                        
 
 
-sed -i 's/orange/blue/g' cmd/gke-info/common-service.go
-
-git commit -a -m "Change color to blue"
-
-git tag v1.0.1
-
-git push --tags
