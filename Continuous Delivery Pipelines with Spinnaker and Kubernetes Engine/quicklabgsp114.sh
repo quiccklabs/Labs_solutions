@@ -175,18 +175,15 @@ git push --tags
 
 # Function to check build status
 function check_build_status() {
-  gcloud builds list --format="value(STATUS)" | grep -q "WORKING"
-  WORKING_STATUS=$?
-  
-  gcloud builds list --format="value(STATUS)" | grep -q "SUCCESS"
-  SUCCESS_STATUS=$?
+  WORKING_STATUS=$(gcloud builds list --format="value(STATUS)" | grep -c "WORKING")
+  SUCCESS_STATUS=$(gcloud builds list --format="value(STATUS)" | grep -c "SUCCESS")
 }
 
 # Check build status initially
 check_build_status
 
 # Wait until both builds are successful
-while [ $WORKING_STATUS -eq 0 ] && [ $SUCCESS_STATUS -ne 0 ]; do
+while [ $WORKING_STATUS -gt 0 ] || [ $SUCCESS_STATUS -eq 0 ]; do
   echo "Waiting for builds to complete..."
   echo "Mean Time Like share subscribe to Quicklab [https://www.youtube.com/@quick_lab]..." 
   sleep 10  # Adjust sleep duration as needed
