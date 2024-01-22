@@ -173,6 +173,7 @@ done
 echo "Build successful. Proceeding with the next code."
 # Add your next code here
 
+sleep 20
 
 sed -i 's/orange/blue/g' cmd/gke-info/common-service.go
 
