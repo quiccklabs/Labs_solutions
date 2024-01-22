@@ -162,6 +162,7 @@ git tag v1.0.0
 
 git push --tags
 
+#!/bin/bash
 
 # Function to check build status
 function check_build_status() {
@@ -198,6 +199,7 @@ git tag v1.0.1
 
 git push --tags
 
+#!/bin/bash
 
 # Function to check build status
 function check_build_status() {
