@@ -162,34 +162,7 @@ git tag v1.0.0
 
 git push --tags
 
-#!/bin/bash
-
-# Function to check build status
-function check_build_status() {
-  gcloud builds list --format="value(STATUS)" | grep -q "WORKING"
-  WORKING_STATUS=$?
-  
-  gcloud builds list --format="value(STATUS)" | grep -q "SUCCESS"
-  SUCCESS_STATUS=$?
-}
-
-# Check build status initially
-check_build_status
-
-# Wait until both builds are successful
-while [ $WORKING_STATUS -eq 0 ] || [ $SUCCESS_STATUS -ne 0 ]; do
-  echo "Waiting for builds to complete..."
-  echo "Mean Time Like share subscribe to Quicklab [https://www.youtube.com/@quick_lab]..." 
-  sleep 10  # Adjust sleep duration as needed
-  
-  # Check build status in the loop
-  check_build_status
-done
-
-# Both builds are successful, proceed with the next code
-echo "Both builds are successful. Proceeding with the next code."
-
-# Your next code here
+sleep 20
 
 sed -i 's/orange/blue/g' cmd/gke-info/common-service.go
 
