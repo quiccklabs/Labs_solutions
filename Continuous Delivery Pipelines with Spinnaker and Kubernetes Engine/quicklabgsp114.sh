@@ -1,5 +1,6 @@
 
 
+export REGION="${ZONE%-*}"
 
 gcloud config set compute/zone $ZONE
 
@@ -50,7 +51,7 @@ export PROJECT=$(gcloud info \
 
 export BUCKET=$PROJECT-spinnaker-config
 
-gsutil mb -c regional -l us-east4 gs://$BUCKET
+gsutil mb -c regional -l $REGION gs://$BUCKET
 
 export SA_JSON=$(cat spinnaker-sa.json)
 export PROJECT=$(gcloud info --format='value(config.project)')
@@ -150,7 +151,7 @@ gcloud builds triggers create cloud-source-repositories \
 
 export PROJECT=$(gcloud info --format='value(config.project)')
 
-gsutil mb -l us-east4 gs://$PROJECT-kubernetes-manifests
+gsutil mb -l $REGION gs://$PROJECT-kubernetes-manifests
 
 gsutil versioning set on gs://$PROJECT-kubernetes-manifests
 
@@ -182,6 +183,20 @@ git tag v1.0.1
 git push --tags
 
 
-                    
+sleep 120
+
+curl -LO https://storage.googleapis.com/spinnaker-artifacts/spin/1.14.0/linux/amd64/spin
+
+chmod +x spin
+
+./spin application save --application-name sample \
+                        --owner-email "$(gcloud config get-value core/account)" \
+                        --cloud-providers kubernetes \
+                        --gate-endpoint http://localhost:8080/gate
+
+
+export PROJECT=$(gcloud info --format='value(config.project)')
+sed s/PROJECT/$PROJECT/g spinnaker/pipeline-deploy.json > pipeline.json
+./spin pipeline save --gate-endpoint http://localhost:8080/gate -f pipeline.json                        
 
 
