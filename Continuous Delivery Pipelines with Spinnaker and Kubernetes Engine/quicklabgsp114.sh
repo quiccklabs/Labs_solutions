@@ -173,20 +173,15 @@ echo "Build successful. Proceeding with the next code."
 # Add your next code here
 
 
-sleep 200
+sed -i 's/orange/blue/g' cmd/gke-info/common-service.go
 
-curl -LO https://storage.googleapis.com/spinnaker-artifacts/spin/1.14.0/linux/amd64/spin
+git commit -a -m "Change color to blue"
 
-chmod +x spin
+git tag v1.0.1
 
-./spin application save --application-name sample \
-                        --owner-email "$(gcloud config get-value core/account)" \
-                        --cloud-providers kubernetes \
-                        --gate-endpoint http://localhost:8080/gate
+git push --tags
 
 
-export PROJECT=$(gcloud info --format='value(config.project)')
-sed s/PROJECT/$PROJECT/g spinnaker/pipeline-deploy.json > pipeline.json
-./spin pipeline save --gate-endpoint http://localhost:8080/gate -f pipeline.json                        
+                    
 
 
