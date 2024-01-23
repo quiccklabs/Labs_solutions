@@ -174,14 +174,6 @@ echo "Build successful. Proceeding with the next code."
 # Add your next code here
 
 
-sed -i 's/orange/blue/g' cmd/gke-info/common-service.go
-
-git commit -a -m "Change color to blue"
-
-git tag v1.0.1
-
-git push --tags
-
 
 sleep 120
 
