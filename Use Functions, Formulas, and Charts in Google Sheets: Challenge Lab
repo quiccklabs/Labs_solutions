@@ -4,15 +4,14 @@ Task 1:-
 
 =PROPER(A2)
 
-=ISEMAIL(D2)
+=ISEMAIL(E2)
 
 
 Task 2:-
 
 =SUBSTITUTE(H2,"Oct-5","Oct-10")
 
-=VLOOKUP(A2, A2:D16, 4, False)
-
+=VLOOKUP(A2, A2:E16, 5, False)
 
 Task 4:-
 
