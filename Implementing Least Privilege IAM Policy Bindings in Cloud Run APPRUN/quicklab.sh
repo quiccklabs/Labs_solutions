@@ -17,7 +17,6 @@ gcloud config set run/region $REGION
 
 curl -X POST -H "Content-Type: application/json" $BILLING_SERVICE_URL -d '{"userid": "1234", "minBalance": 100}'
 
- gcloud run services delete billing-service --quiet
 
   gcloud run deploy billing-service \
   --image gcr.io/qwiklabs-resources/gsp723-parking-service \
@@ -33,9 +32,6 @@ gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID --member="serviceAcc
 
  BILLING_INITIATOR_EMAIL=$(gcloud iam service-accounts list --filter="Billing Initiator" --format="value(EMAIL)"); echo $BILLING_INITIATOR_EMAIL
 
- gcloud projects remove-iam-policy-binding $GOOGLE_CLOUD_PROJECT \
-  --member=serviceAccount:${BILLING_INITIATOR_EMAIL} \
-  --role=roles/run.invoker
 
 
   gcloud run services add-iam-policy-binding billing-service --region $REGION \
