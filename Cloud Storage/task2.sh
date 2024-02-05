@@ -25,3 +25,13 @@ gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID --member="serviceAcc
 
 # Generate and download the JSON key file
 gcloud iam service-accounts keys create credentials.json --iam-account=cross-project-storage@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com
+
+# Create VM instance
+gcloud compute instances create crossproject \
+    --zone $ZONE \
+    --machine-type e2-medium \
+    --image-family debian-11 \
+    --image-project debian-cloud \
+    --boot-disk-size 10GB \
+    --boot-disk-type pd-balanced \
+
