@@ -1,8 +1,9 @@
+# Prompt for user input
+read -p "Enter your ZONE: " ZONE
 
-
-export REGION="${ZONE%-*}"
 # Use zone for the lab
-export ZONE=<your-zone>
+export ZONE="$ZONE"
+export REGION="${ZONE%-*}"
 
 gsutil mb -p $DEVSHELL_PROJECT_ID -c STANDARD -l $REGION -b on gs://$DEVSHELL_PROJECT_ID
 
