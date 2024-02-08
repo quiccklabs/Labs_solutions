@@ -29,7 +29,7 @@ cbt createfamily $TABLE_ID cf
 
 
 
-sleep 30
+sleep 50
 
 gcloud beta dataflow jobs run import-bus-data-$(date +%s) \
 --gcs-location gs://dataflow-templates/latest/GCS_SequenceFile_to_Cloud_Bigtable \
@@ -82,4 +82,3 @@ mvn package exec:java -Dbigtable.projectID=$GOOGLE_CLOUD_PROJECT \
 -Dquery=scanManhattanBusesInGivenHour
 
 
-gcloud bigtable instances delete $INSTANCE_ID --quiet
