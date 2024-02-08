@@ -29,14 +29,7 @@ cbt createfamily $TABLE_ID cf
 
 
 
-sleep 50
-
-gcloud beta dataflow jobs run import-bus-data-$(date +%s) \
---gcs-location gs://dataflow-templates/latest/GCS_SequenceFile_to_Cloud_Bigtable \
---num-workers=$NUM_WORKERS --max-workers=$NUM_WORKERS --region=$REGION \
---parameters bigtableProject=$GOOGLE_CLOUD_PROJECT,bigtableInstanceId=$INSTANCE_ID,bigtableTableId=$TABLE_ID,sourcePattern=gs://cloud-bigtable-public-datasets/bus-data/*
-
-sleep 30
+sleep 80
 
 gcloud beta dataflow jobs run import-bus-data-$(date +%s) \
 --gcs-location gs://dataflow-templates/latest/GCS_SequenceFile_to_Cloud_Bigtable \
