@@ -2,7 +2,7 @@
 # ```Embedding Maps in Looker BI```
 
 
-⚫️ Turn on Development mode Toggle 
+⚪️ Turn on Development mode Toggle 
 
 
 
