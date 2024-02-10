@@ -101,7 +101,7 @@ explore: +flights {
 ```
 
 
-## ```aircraft.model``` File
+## ```aircraft.view``` File
 
 Replace this content with your file 
 
