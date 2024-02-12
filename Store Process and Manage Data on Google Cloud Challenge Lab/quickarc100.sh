@@ -2,11 +2,6 @@
 
 
 
-
-
-
-
-
 gcloud config set compute/region $REGION
 export PROJECT_ID=$(gcloud config get-value project)
 
@@ -26,10 +21,6 @@ gsutil mb -l $REGION gs://$BUCKET_NAME
 
 
 gcloud pubsub topics create $TOPIC_NAME
-
-
-
-
 
 
 
