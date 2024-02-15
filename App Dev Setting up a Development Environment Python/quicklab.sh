@@ -8,7 +8,7 @@ gcloud compute firewall-rules create allow-http --allow tcp:80 --description "Al
 
 
 
-cat > quicklab.sh <<'EOF_END'
+cat > quick.sh <<'EOF_END'
 sudo apt-get update
 sudo apt-get install git -y
 sudo apt-get install python3-setuptools python3-dev build-essential -y
@@ -24,6 +24,6 @@ EOF_END
 
 sleep 10
 
-gcloud compute scp quicklab.sh dev-instance:/tmp --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --quiet
+gcloud compute scp quick.sh dev-instance:/tmp --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --quiet
 
-gcloud compute ssh dev-instance --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --quiet --command="bash /tmp/quicklab.sh"
+gcloud compute ssh dev-instance --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --quiet --command="bash /tmp/quick.sh"
