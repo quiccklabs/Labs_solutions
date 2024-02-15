@@ -22,6 +22,8 @@ cd ~/devenv/
 sudo python3 server.py
 EOF_END
 
+sleep 10
+
 gcloud compute scp quicklab.sh dev-instance:/tmp --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --quiet
 
 gcloud compute ssh dev-instance --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --quiet --command="bash /tmp/quicklab.sh"
