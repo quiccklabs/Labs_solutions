@@ -121,12 +121,11 @@ image_digest=$(gcloud container images list-tags us-central1-docker.pkg.dev/$DEV
 
 
 
-gcloud run deploy hello-cloud-run \
+echo "y" | gcloud run deploy hello-cloud-run \
 --image=us-central1-docker.pkg.dev/$DEVSHELL_PROJECT_ID/devops-demo/cloud-run-image@$image_digest \
 --allow-unauthenticated \
 --port=8080 \
 --max-instances=6 \
 --cpu-boost \
 --region=us-central1 \
---project=$DEVSHELL_PROJECT_ID \
---quiet
+--project=$DEVSHELL_PROJECT_ID
