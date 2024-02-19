@@ -48,3 +48,24 @@ ln -s ~/training-data-analyst/courses/ak8s/v1.1 ~/ak8s
 cd ~/ak8s/GKE_Shell/
 
 kubectl apply -f ./new-nginx-pod.yaml
+
+rm new-nginx-pod.yaml 
+
+cat > new-nginx-pod.yaml <<EOF_END
+apiVersion: v1
+kind: Pod
+metadata:
+  name: new-nginx
+  labels:
+    name: new-nginx
+spec:
+  containers:
+  - name: new-nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+EOF_END
+
+
+kubectl apply -f ./new-nginx-pod.yaml
+
