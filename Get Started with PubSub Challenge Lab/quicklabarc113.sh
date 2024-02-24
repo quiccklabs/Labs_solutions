@@ -1,3 +1,27 @@
+BLACK=`tput setaf 0`
+RED=`tput setaf 1`
+GREEN=`tput setaf 2`
+YELLOW=`tput setaf 3`
+BLUE=`tput setaf 4`
+MAGENTA=`tput setaf 5`
+CYAN=`tput setaf 6`
+WHITE=`tput setaf 7`
+
+BG_BLACK=`tput setab 0`
+BG_RED=`tput setab 1`
+BG_GREEN=`tput setab 2`
+BG_YELLOW=`tput setab 3`
+BG_BLUE=`tput setab 4`
+BG_MAGENTA=`tput setab 5`
+BG_CYAN=`tput setab 6`
+BG_WHITE=`tput setab 7`
+
+BOLD=`tput bold`
+RESET=`tput sgr0`
+#----------------------------------------------------start--------------------------------------------------#
+
+
+
 #!/bin/bash
 
 # Function to run form 1 code
@@ -67,6 +91,8 @@ run_form_3() {
     gcloud pubsub lite-subscriptions create cloud-pubsub-subscription-lite \
             --location=$REGION --topic=cloud-pubsub-topic-lite
 }
+
+echo "${BLUE}${BOLD}
 
 # Get the form number from user input
 read -p "Enter the Form number (1, 2, or 3): " form_number
