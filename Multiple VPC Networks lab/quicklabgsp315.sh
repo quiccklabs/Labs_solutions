@@ -42,7 +42,7 @@ gsutil mb -c STANDARD -l $REGION -p $DEVSHELL_PROJECT_ID gs://$DEVSHELL_PROJECT_
 
 BUCKET=gs://$DEVSHELL_PROJECT_ID-bucket
 
-gcloud pubsub topics create topic-memories-862
+gcloud pubsub topics create $TOPIC_NAME
 
 
 mkdir quicklab 
@@ -66,7 +66,7 @@ functions.cloudEvent('memories-thumbnail-generator', cloudEvent => {
   const bucketName = event.bucket;
   const size = "64x64"
   const bucket = gcs.bucket(bucketName);
-  const topicName = "topic-memories-862";
+  const topicName = "$TOPIC_NAME";
   const pubsub = new PubSub();
   if ( fileName.search("64x64_thumbnail") == -1 ){
     // doesn't have a thumbnail, get the filename extension
