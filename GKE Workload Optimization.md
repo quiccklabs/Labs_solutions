@@ -45,7 +45,7 @@ metadata:
 spec:
     containers:
     - name: gb-frontend
-      image: gcr.io/google-samples/gb-frontend:v5
+      image: gcr.io/google-samples/gb-frontend-amd64:v5
       resources:
         requests:
           cpu: 100m
@@ -53,6 +53,7 @@ spec:
       ports:
       - containerPort: 80
 EOF
+
 
 kubectl apply -f gb_frontend_pod.yaml
 
