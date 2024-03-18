@@ -1,6 +1,6 @@
 ### Export the ZONE From the lab instruction page. 
 
-![Alt text]([file:///Users/nikeshkale/Desktop/Screenshot%202024-03-18%20at%206.26.49%E2%80%AFPM.png](https://imgur.com/LfIB8bu))
+![Alt text](https://storage.cloud.google.com/qwiklabs-gcp-03-b557492e933b/Screenshot%202024-03-18%20at%206.26.49%E2%80%AFPM.png)
 
 ```bash
 export ZONE=
