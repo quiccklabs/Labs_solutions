@@ -83,6 +83,8 @@ export ZONE=
 ```bash
 export AUTHORIZED_NETWORK=
 ```
+[![Screenshot-2024-03-24-at-7-51-07-PM.png](https://i.postimg.cc/BbSzGph6/Screenshot-2024-03-24-at-7-51-07-PM.png)](https://postimg.cc/BLzpTTf9)
+
 
 ```bash
 sudo snap remove google-cloud-cli
