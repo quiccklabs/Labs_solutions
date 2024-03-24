@@ -87,6 +87,23 @@ gcloud compute instance-groups managed rolling-action replace fancy-fe-mig \
   --zone=$ZONE \
   --max-unavailable=100%
 
+gcloud compute instances set-machine-type frontend \
+  --zone=$ZONE \
+  --machine-type e2-small
+
+gcloud compute instance-templates create fancy-fe-new \
+    --region=$REGION \
+    --source-instance=frontend \
+    --source-instance-zone=$ZONE
+
+gcloud compute instances set-machine-type frontend \
+  --zone=$ZONE \
+  --machine-type e2-small
+
+gcloud compute instance-templates create fancy-fe-new \
+    --region=$REGION \
+    --source-instance=frontend \
+    --source-instance-zone=$ZONE
 
 
 
