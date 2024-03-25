@@ -1,3 +1,6 @@
+
+export REGION="${ZONE%-*}"
+
 gcloud compute networks create nucleus-vpc --subnet-mode=auto
 
 gcloud compute instances create $INSTANCE_NAME \
