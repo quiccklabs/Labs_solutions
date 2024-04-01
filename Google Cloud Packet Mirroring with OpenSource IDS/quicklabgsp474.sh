@@ -1,0 +1,147 @@
+
+
+
+export REGION="${ZONE%-*}"
+
+
+gcloud compute networks create dm-stamford \
+--subnet-mode=custom
+
+
+gcloud compute networks subnets create dm-stamford-us-central1 \
+--range=172.21.0.0/24 \
+--network=dm-stamford \
+--region=us-central1
+
+
+gcloud compute networks subnets create dm-stamford-us-central1-ids \
+--range=172.21.1.0/24 \
+--network=dm-stamford \
+--region=us-central1
+
+
+gcloud compute firewall-rules create fw-dm-stamford-allow-any-web \
+--direction=INGRESS \
+--priority=1000 \
+--network=dm-stamford \
+--action=ALLOW \
+--rules=tcp:80,icmp \
+--source-ranges=0.0.0.0/0
+
+
+gcloud compute firewall-rules create fw-dm-stamford-ids-any-any \
+--direction=INGRESS \
+--priority=1000 \
+--network=dm-stamford \
+--action=ALLOW \
+--rules=all \
+--source-ranges=0.0.0.0/0 \
+--target-tags=ids
+
+
+
+gcloud compute firewall-rules create fw-dm-stamford-iapproxy \
+--direction=INGRESS \
+--priority=1000 \
+--network=dm-stamford \
+--action=ALLOW \
+--rules=tcp:22,icmp \
+--source-ranges=35.235.240.0/20
+
+
+
+gcloud compute routers create router-stamford-nat-us-central1 \
+--region=us-central1 \
+--network=dm-stamford
+
+
+gcloud compute routers nats create nat-gw-dm-stamford-us-central1 \
+--router=router-stamford-nat-us-central1 \
+--router-region=us-central1 \
+--auto-allocate-nat-external-ips \
+--nat-all-subnet-ip-ranges
+
+
+
+gcloud compute instance-templates create template-dm-stamford-web-us-central1 \
+--region=us-central1 \
+--network=dm-stamford \
+--subnet=dm-stamford-us-central1 \
+--machine-type=e2-small \
+--image=ubuntu-1604-xenial-v20200807 \
+--image-project=ubuntu-os-cloud \
+--tags=webserver \
+--metadata=startup-script='#! /bin/bash
+  apt-get update
+  apt-get install apache2 -y
+  vm_hostname="$(curl -H "Metadata-Flavor:Google" \
+  http://169.254.169.254/computeMetadata/v1/instance/name)"
+  echo "Page served from: $vm_hostname" | \
+  tee /var/www/html/index.html
+  systemctl restart apache2'
+
+
+
+gcloud compute instance-groups managed create mig-dm-stamford-web-us-central1 \
+    --template=template-dm-stamford-web-us-central1 \
+    --size=2 \
+    --zone=$ZONE
+
+
+gcloud compute instance-templates create template-dm-stamford-ids-us-central1 \
+--region=us-central1 \
+--network=dm-stamford \
+--no-address \
+--subnet=dm-stamford-us-central1-ids \
+--image=ubuntu-1604-xenial-v20200807 \
+--image-project=ubuntu-os-cloud \
+--tags=ids,webserver \
+--metadata=startup-script='#! /bin/bash
+  apt-get update
+  apt-get install apache2 -y
+  vm_hostname="$(curl -H "Metadata-Flavor:Google" \
+  http://169.254.169.254/computeMetadata/v1/instance/name)"
+  echo "Page served from: $vm_hostname" | \
+  tee /var/www/html/index.html
+  systemctl restart apache2'
+
+
+gcloud compute instance-groups managed create mig-dm-stamford-ids-us-central1 \
+    --template=template-dm-stamford-ids-us-central1 \
+    --size=1 \
+    --zone=$ZONE
+
+
+
+gcloud compute health-checks create tcp hc-tcp-80 --port 80
+
+gcloud compute backend-services create be-dm-stamford-suricata-us-central1 \
+--load-balancing-scheme=INTERNAL \
+--health-checks=hc-tcp-80 \
+--network=dm-stamford \
+--protocol=TCP \
+--region=us-central1
+
+
+gcloud compute backend-services add-backend be-dm-stamford-suricata-us-central1 \
+--instance-group=mig-dm-stamford-ids-us-central1 \
+--instance-group-zone=$ZONE \
+--region=us-central1
+
+
+ gcloud compute forwarding-rules create ilb-dm-stamford-suricata-ilb-us-central1 \
+ --load-balancing-scheme=INTERNAL \
+ --backend-service be-dm-stamford-suricata-us-central1 \
+ --is-mirroring-collector \
+ --network=dm-stamford \
+ --region=us-central1 \
+ --subnet=dm-stamford-us-central1-ids \
+ --ip-protocol=TCP \
+ --ports=all
+
+
+gcloud compute packet-mirrorings create mirror-dm-stamford-web \
+--collector-ilb=ilb-dm-stamford-suricata-ilb-us-central1 \
+--network=dm-stamford \
+--mirrored-subnets=dm-stamford-us-central1 \
+--region=us-central1
