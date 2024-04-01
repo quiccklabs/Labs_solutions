@@ -8,16 +8,16 @@ gcloud compute networks create dm-stamford \
 --subnet-mode=custom
 
 
-gcloud compute networks subnets create dm-stamford-us-central1 \
+gcloud compute networks subnets create dm-stamford-$REGION \
 --range=172.21.0.0/24 \
 --network=dm-stamford \
---region=us-central1
+--region=$REGION
 
 
-gcloud compute networks subnets create dm-stamford-us-central1-ids \
+gcloud compute networks subnets create dm-stamford-$REGION-ids \
 --range=172.21.1.0/24 \
 --network=dm-stamford \
---region=us-central1
+--region=$REGION
 
 
 gcloud compute firewall-rules create fw-dm-stamford-allow-any-web \
@@ -50,23 +50,23 @@ gcloud compute firewall-rules create fw-dm-stamford-iapproxy \
 
 
 
-gcloud compute routers create router-stamford-nat-us-central1 \
---region=us-central1 \
+gcloud compute routers create router-stamford-nat-$REGION \
+--region=$REGION \
 --network=dm-stamford
 
 
-gcloud compute routers nats create nat-gw-dm-stamford-us-central1 \
---router=router-stamford-nat-us-central1 \
---router-region=us-central1 \
+gcloud compute routers nats create nat-gw-dm-stamford-$REGION \
+--router=router-stamford-nat-$REGION \
+--router-region=$REGION \
 --auto-allocate-nat-external-ips \
 --nat-all-subnet-ip-ranges
 
 
 
-gcloud compute instance-templates create template-dm-stamford-web-us-central1 \
---region=us-central1 \
+gcloud compute instance-templates create template-dm-stamford-web-$REGION \
+--region=$REGION \
 --network=dm-stamford \
---subnet=dm-stamford-us-central1 \
+--subnet=dm-stamford-$REGION \
 --machine-type=e2-small \
 --image=ubuntu-1604-xenial-v20200807 \
 --image-project=ubuntu-os-cloud \
@@ -82,17 +82,17 @@ gcloud compute instance-templates create template-dm-stamford-web-us-central1 \
 
 
 
-gcloud compute instance-groups managed create mig-dm-stamford-web-us-central1 \
-    --template=template-dm-stamford-web-us-central1 \
+gcloud compute instance-groups managed create mig-dm-stamford-web-$REGION \
+    --template=template-dm-stamford-web-$REGION \
     --size=2 \
     --zone=$ZONE
 
 
-gcloud compute instance-templates create template-dm-stamford-ids-us-central1 \
---region=us-central1 \
+gcloud compute instance-templates create template-dm-stamford-ids-$REGION \
+--region=$REGION \
 --network=dm-stamford \
 --no-address \
---subnet=dm-stamford-us-central1-ids \
+--subnet=dm-stamford-$REGION-ids \
 --image=ubuntu-1604-xenial-v20200807 \
 --image-project=ubuntu-os-cloud \
 --tags=ids,webserver \
@@ -106,8 +106,8 @@ gcloud compute instance-templates create template-dm-stamford-ids-us-central1 \
   systemctl restart apache2'
 
 
-gcloud compute instance-groups managed create mig-dm-stamford-ids-us-central1 \
-    --template=template-dm-stamford-ids-us-central1 \
+gcloud compute instance-groups managed create mig-dm-stamford-ids-$REGION \
+    --template=template-dm-stamford-ids-$REGION \
     --size=1 \
     --zone=$ZONE
 
@@ -115,33 +115,33 @@ gcloud compute instance-groups managed create mig-dm-stamford-ids-us-central1 \
 
 gcloud compute health-checks create tcp hc-tcp-80 --port 80
 
-gcloud compute backend-services create be-dm-stamford-suricata-us-central1 \
+gcloud compute backend-services create be-dm-stamford-suricata-$REGION \
 --load-balancing-scheme=INTERNAL \
 --health-checks=hc-tcp-80 \
 --network=dm-stamford \
 --protocol=TCP \
---region=us-central1
+--region=$REGION
 
 
-gcloud compute backend-services add-backend be-dm-stamford-suricata-us-central1 \
---instance-group=mig-dm-stamford-ids-us-central1 \
+gcloud compute backend-services add-backend be-dm-stamford-suricata-$REGION \
+--instance-group=mig-dm-stamford-ids-$REGION \
 --instance-group-zone=$ZONE \
---region=us-central1
+--region=$REGION
 
 
- gcloud compute forwarding-rules create ilb-dm-stamford-suricata-ilb-us-central1 \
+ gcloud compute forwarding-rules create ilb-dm-stamford-suricata-ilb-$REGION \
  --load-balancing-scheme=INTERNAL \
- --backend-service be-dm-stamford-suricata-us-central1 \
+ --backend-service be-dm-stamford-suricata-$REGION \
  --is-mirroring-collector \
  --network=dm-stamford \
- --region=us-central1 \
- --subnet=dm-stamford-us-central1-ids \
+ --region=$REGION \
+ --subnet=dm-stamford-$REGION-ids \
  --ip-protocol=TCP \
  --ports=all
 
 
 gcloud compute packet-mirrorings create mirror-dm-stamford-web \
---collector-ilb=ilb-dm-stamford-suricata-ilb-us-central1 \
+--collector-ilb=ilb-dm-stamford-suricata-ilb-$REGION \
 --network=dm-stamford \
---mirrored-subnets=dm-stamford-us-central1 \
---region=us-central1
+--mirrored-subnets=dm-stamford-$REGION \
+--region=$REGION
