@@ -1,6 +1,7 @@
 
 
 
+
 gcloud sql instances create postgresql-db \
 --database-version=POSTGRES_14 \
 --zone=$ZONE \
@@ -31,7 +32,7 @@ INSTANCE_NAME="mysql-db"
 PUBLIC_IP=$(gcloud sql instances describe $INSTANCE_NAME --format="value(ipAddresses.ipAddress)")
 
 # SSH into the test client
-gcloud compute ssh test-client --zone=us-central1-a <<EOF
+gcloud compute ssh test-client --zone=$ZONE <<EOF
   # Update package lists
   sudo apt-get update
 
@@ -45,7 +46,7 @@ EOF
 sleep 20
 
 
-gcloud compute ssh test-client --zone=us-central1-a <<EOF
+gcloud compute ssh test-client --zone=$ZONE <<EOF
   # Update package lists
   sudo apt-get update
 
@@ -60,7 +61,7 @@ EOF
 sleep 20
 
 
-gcloud compute ssh test-client --zone=us-central1-a <<EOF
+gcloud compute ssh test-client --zone=$ZONE <<EOF
   # Update package lists
   sudo apt-get update
 
