@@ -3,6 +3,8 @@
 
 gcloud services enable language.googleapis.com
 
+ZONE="$(gcloud compute instances list --project=$DEVSHELL_PROJECT_ID --format='value(ZONE)')"
+
 gcloud compute instances add-metadata linux-instance --metadata API_KEY="$KEY" --project=$DEVSHELL_PROJECT_ID --zone=$ZONE
 
 
@@ -30,7 +32,6 @@ curl "https://language.googleapis.com/v1/documents:classifyText?key=${API_KEY}" 
 
 EOF_END
 
-ZONE="$(gcloud compute instances list --project=$DEVSHELL_PROJECT_ID --format='value(ZONE)')"
 
 
 gcloud compute scp prepare_disk.sh linux-instance:/tmp --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --quiet
