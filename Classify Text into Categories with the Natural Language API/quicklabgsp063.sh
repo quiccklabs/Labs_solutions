@@ -3,10 +3,12 @@
 
 gcloud services enable language.googleapis.com
 
+gcloud compute instances add-metadata linux-instance --metadata API_KEY="$KEY" --project=$DEVSHELL_PROJECT_ID --zone=$ZONE
+
 
 cat > prepare_disk.sh <<'EOF_END'
 
-gcloud compute ssh linux-instance --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --quiet --command="export API_KEY=$KEY && bash /tmp/prepare_disk.sh"
+API_KEY=$(curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/attributes/API_KEY)
 
 export API_KEY="$API_KEY"  # Export the API key to the script
 
