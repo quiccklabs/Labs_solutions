@@ -194,6 +194,7 @@ EOF_END
 
 gcloud alpha monitoring policies create --policy-from-file="app-engine-error-percent-policy.json"
 
+sleep 400
 
 cd quicklab
 
