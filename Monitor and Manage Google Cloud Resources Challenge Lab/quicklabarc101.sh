@@ -132,6 +132,8 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 
 sleep 120
 
+cd quicklab
+
 export PROJECT_ID=$(gcloud config get-value project)
 PROJECT_NUMBER=$(gcloud projects list --filter="project_id:$PROJECT_ID" --format='value(project_number)')
 SERVICE_ACCOUNT=$(gsutil kms serviceaccount -p $PROJECT_NUMBER)
@@ -191,3 +193,26 @@ EOF_END
 
 
 gcloud alpha monitoring policies create --policy-from-file="app-engine-error-percent-policy.json"
+
+
+cd quicklab
+
+export PROJECT_ID=$(gcloud config get-value project)
+PROJECT_NUMBER=$(gcloud projects list --filter="project_id:$PROJECT_ID" --format='value(project_number)')
+SERVICE_ACCOUNT=$(gsutil kms serviceaccount -p $PROJECT_NUMBER)
+
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member serviceAccount:$SERVICE_ACCOUNT \
+  --role roles/artifactregistry.reader
+
+gcloud functions deploy $FUNCTION_NAME \
+--runtime=nodejs14 \
+--region=$REGION \
+--source=. \
+--entry-point=thumbnail \
+--trigger-bucket $BUCKET_NAME 
+
+
+wget https://storage.googleapis.com/cloud-training/arc101/travel.jpg
+
+gsutil cp travel.jpg gs://$BUCKET_NAME
