@@ -68,6 +68,17 @@ run_form_2() {
         --message-encoding=JSON \
         --message-storage-policy-allowed-regions=$REGION \
         --schema=projects/$DEVSHELL_PROJECT_ID/schemas/temperature-schema
+    
+    git clone https://github.com/GoogleCloudPlatform/nodejs-docs-samples.git
+
+    cd nodejs-docs-samples/functions/v2/helloPubSub/
+
+    gcloud functions deploy gcf-pubsub \
+    --runtime=nodejs20 \
+    --region=$REGION \
+    --source=. \
+    --entry-point=helloPubSub \
+    --trigger-topic=gcf-topic
 }
 
 # Function to run form 3 code
