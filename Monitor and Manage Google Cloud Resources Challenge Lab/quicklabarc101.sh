@@ -3,6 +3,7 @@
 
 
 
+
 gcloud config set compute/region $REGION
 
 gsutil mb -p $DEVSHELL_PROJECT_ID gs://$BUCKET_NAME
@@ -112,10 +113,35 @@ export PROJECT_ID=$(gcloud config get-value project)
 PROJECT_NUMBER=$(gcloud projects list --filter="project_id:$PROJECT_ID" --format='value(project_number)')
 SERVICE_ACCOUNT=$(gsutil kms serviceaccount -p $PROJECT_NUMBER)
 
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SERVICE_ACCOUNT \
-  --role roles/artifactregistry.reader
-  
+# Function to check if the role is already added
+checkRoleAdded() {
+  gcloud projects get-iam-policy $PROJECT_ID --flatten="bindings[].members" \
+    --format="table(bindings.role)" \
+    --filter="bindings.members:$SERVICE_ACCOUNT" \
+    | grep -q 'roles/artifactregistry.reader'
+}
+
+# Loop until the role is added
+while ! checkRoleAdded; do
+  echo "Role 'roles/artifactregistry.reader' is not added. Adding the role..."
+
+  # Add the role
+  gcloud projects add-iam-policy-binding $PROJECT_ID \
+    --member serviceAccount:$SERVICE_ACCOUNT \
+    --role roles/artifactregistry.reader
+
+  # Check if the role was successfully added
+  if checkRoleAdded; then
+    echo "Role 'roles/artifactregistry.reader' added successfully."
+    # Run your next commands here
+    break  # Exit the loop if role is added successfully
+  else
+    echo "Failed to add role 'roles/artifactregistry.reader'. Retrying..."
+    sleep 5  # Wait for a few seconds before retrying
+  fi
+done
+
+# Run your next commands here after ensuring the role is added
 
 
 gcloud functions deploy $FUNCTION_NAME \
