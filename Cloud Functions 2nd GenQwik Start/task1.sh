@@ -6,6 +6,7 @@ gcloud config set compute/region $REGION
 export PROJECT_ID=$(gcloud config get-value project)
 
 
+
 gcloud services enable \
   artifactregistry.googleapis.com \
   cloudfunctions.googleapis.com \
@@ -16,160 +17,8 @@ gcloud services enable \
   pubsub.googleapis.com
 
 
+sleep 120
 
-mkdir ~/hello-http && cd $_
-touch index.js && touch package.json
-
-cat > index.js <<EOF_END
-const functions = require('@google-cloud/functions-framework');
-
-functions.http('helloWorld', (req, res) => {
-  res.status(200).send('HTTP with Node.js in GCF 2nd gen!');
-});
-EOF_END
-
-
-cat > package.json <<EOF_END
-{
-  "name": "nodejs-functions-gen2-codelab",
-  "version": "0.0.1",
-  "main": "index.js",
-  "dependencies": {
-    "@google-cloud/functions-framework": "^2.0.0"
-  }
-}
-EOF_END
-####
-####
-
-
-# Your existing deployment command
-deploy_function() {
-  gcloud functions deploy nodejs-http-function \
-    --gen2 \
-    --runtime nodejs16 \
-    --entry-point helloWorld \
-    --source . \
-    --region $REGION \
-    --trigger-http \
-    --timeout 600s \
-    --max-instances 1 \
-    --quiet
-}
-
-# Variables
-SERVICE_NAME="nodejs-http-function"
-
-# Loop until the Cloud Run service is created
-while true; do
-  # Run the deployment command
-  deploy_function
-
-  # Check if Cloud Run service is created
-  if gcloud run services describe $SERVICE_NAME --region $REGION &> /dev/null; then
-    echo "Cloud Run service is created. Exiting the loop."
-    break
-  else
-    echo "Waiting for Cloud Run service to be created..."
-    echo "Meantime Subscribe to Quicklab[https://www.youtube.com/@quick_lab]."
-    sleep 10
-  fi
-done
-
-# Your next code to run after the Cloud Run service is created
-echo "Running the next code..."
-# Add your next code here
-
-
-### ``` If you facing error re-run the above command again and again... 
-
-
-PROJECT_NUMBER=$(gcloud projects list --filter="project_id:$PROJECT_ID" --format='value(project_number)')
-SERVICE_ACCOUNT=$(gsutil kms serviceaccount -p $PROJECT_NUMBER)
-
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$SERVICE_ACCOUNT \
-  --role roles/pubsub.publisher
-  
-
-mkdir ~/hello-storage && cd $_
-touch index.js && touch package.json
-
-
-cat > index.js <<EOF_END
-const functions = require('@google-cloud/functions-framework');
-
-functions.cloudEvent('helloStorage', (cloudevent) => {
-  console.log('Cloud Storage event with Node.js in GCF 2nd gen!');
-  console.log(cloudevent);
-});
-EOF_END
-
-
-cat > package.json <<EOF_END
-{
-  "name": "nodejs-functions-gen2-codelab",
-  "version": "0.0.1",
-  "main": "index.js",
-  "dependencies": {
-    "@google-cloud/functions-framework": "^2.0.0"
-  }
-}
-EOF_END
-
-
-BUCKET="gs://gcf-gen2-storage-$PROJECT_ID"
-gsutil mb -l $REGION $BUCKET
-
-
-
-deploy_function () {
-gcloud functions deploy nodejs-storage-function \
-  --gen2 \
-  --runtime nodejs16 \
-  --entry-point helloStorage \
-  --source . \
-  --region $REGION \
-  --trigger-bucket $BUCKET \
-  --trigger-location $REGION \
-  --max-instances 1 \
-  --quiet
-}
-
-# Variables
-SERVICE_NAME="nodejs-storage-function"
-
-# Loop until the Cloud Run service is created
-while true; do
-  # Run the deployment command
-  deploy_function
-
-  # Check if Cloud Run service is created
-  if gcloud run services describe $SERVICE_NAME --region $REGION &> /dev/null; then
-    echo "Cloud Run service is created. Exiting the loop."
-    break
-  else
-    echo "Waiting for Cloud Run service to be created..."
-    echo "Meantime Subscribe to Quicklab[https://www.youtube.com/@quick_lab]."
-    sleep 10
-  fi
-done
-
-# Your next code to run after the Cloud Run service is created
-echo "Running the next code..."
-# Add your next code here
-
-### ``` If you facing error re-run the above command again and again... 
-echo "Hello World" > random.txt
-gsutil cp random.txt $BUCKET/random.txt
-
-gcloud functions logs read nodejs-storage-function \
-  --region $REGION --gen2 --limit=100 --format "value(log)"
-
-
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$PROJECT_NUMBER-compute@developer.gserviceaccount.com \
-  --role roles/eventarc.eventReceiver
 
 cd ~
 git clone https://github.com/GoogleCloudPlatform/eventarc-samples.git
@@ -180,13 +29,14 @@ cd ~/eventarc-samples/gce-vm-labeler/gcf/nodejs
 
 gcloud functions deploy gce-vm-labeler \
   --gen2 \
-  --runtime nodejs16 \
+  --runtime nodejs18 \
   --entry-point labelVmCreation \
   --source . \
   --region $REGION \
   --trigger-event-filters="type=google.cloud.audit.log.v1.written,serviceName=compute.googleapis.com,methodName=beta.compute.instances.insert" \
   --trigger-location $REGION \
-  --max-instances 1
+  --max-instances 1 \
+  --quiet
 
 
 gcloud compute instances create instance-1 --zone=$ZONE
@@ -270,3 +120,176 @@ gcloud run deploy slow-function \
  && gcloud run services update-traffic slow-function --to-latest --region=$REGION 
 
 
+
+
+mkdir ~/hello-http && cd $_
+touch index.js && touch package.json
+
+cat > index.js <<EOF_END
+const functions = require('@google-cloud/functions-framework');
+
+functions.http('helloWorld', (req, res) => {
+  res.status(200).send('HTTP with Node.js in GCF 2nd gen!');
+});
+EOF_END
+
+
+cat > package.json <<EOF_END
+{
+  "name": "nodejs-functions-gen2-codelab",
+  "version": "0.0.1",
+  "main": "index.js",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^2.0.0"
+  }
+}
+EOF_END
+####
+####
+
+
+# Your existing deployment command
+deploy_function() {
+  gcloud functions deploy nodejs-http-function \
+    --gen2 \
+    --runtime nodejs18 \
+    --entry-point helloWorld \
+    --source . \
+    --region $REGION \
+    --trigger-http \
+    --timeout 600s \
+    --max-instances 1 \
+    --quiet
+}
+
+# Variables
+SERVICE_NAME="nodejs-http-function"
+
+# Loop until the Cloud Run service is created
+while true; do
+  # Run the deployment command
+  deploy_function
+
+  # Check if Cloud Run service is created
+  if gcloud run services describe $SERVICE_NAME --region $REGION &> /dev/null; then
+    echo "Cloud Run service is created. Exiting the loop."
+    break
+  else
+    echo "Waiting for Cloud Run service to be created..."
+    echo "Meantime Subscribe to Quicklab[https://www.youtube.com/@quick_lab]."
+    sleep 10
+  fi
+done
+
+# Your next code to run after the Cloud Run service is created
+echo "Running the next code..."
+# Add your next code here
+
+
+### ``` If you facing error re-run the above command again and again... 
+
+
+PROJECT_NUMBER=$(gcloud projects list --filter="project_id:$PROJECT_ID" --format='value(project_number)')
+SERVICE_ACCOUNT=$(gsutil kms serviceaccount -p $PROJECT_NUMBER)
+
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member serviceAccount:$SERVICE_ACCOUNT \
+  --role roles/pubsub.publisher
+  
+
+mkdir ~/hello-storage && cd $_
+touch index.js && touch package.json
+
+
+cat > index.js <<EOF_END
+const functions = require('@google-cloud/functions-framework');
+
+functions.cloudEvent('helloStorage', (cloudevent) => {
+  console.log('Cloud Storage event with Node.js in GCF 2nd gen!');
+  console.log(cloudevent);
+});
+EOF_END
+
+
+cat > package.json <<EOF_END
+{
+  "name": "nodejs-functions-gen2-codelab",
+  "version": "0.0.1",
+  "main": "index.js",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^2.0.0"
+  }
+}
+EOF_END
+
+
+BUCKET="gs://gcf-gen2-storage-$PROJECT_ID"
+gsutil mb -l $REGION $BUCKET
+
+
+
+deploy_function () {
+gcloud functions deploy nodejs-storage-function \
+  --gen2 \
+  --runtime nodejs18 \
+  --entry-point helloStorage \
+  --source . \
+  --region $REGION \
+  --trigger-bucket $BUCKET \
+  --trigger-location $REGION \
+  --max-instances 1 \
+  --quiet
+}
+
+# Variables
+SERVICE_NAME="nodejs-storage-function"
+
+# Loop until the Cloud Run service is created
+while true; do
+  # Run the deployment command
+  deploy_function
+
+  # Check if Cloud Run service is created
+  if gcloud run services describe $SERVICE_NAME --region $REGION &> /dev/null; then
+    echo "Cloud Run service is created. Exiting the loop."
+    break
+  else
+    echo "Waiting for Cloud Run service to be created..."
+    echo "Meantime Subscribe to Quicklab[https://www.youtube.com/@quick_lab]."
+    sleep 10
+  fi
+done
+
+# Your next code to run after the Cloud Run service is created
+echo "Running the next code..."
+# Add your next code here
+
+### ``` If you facing error re-run the above command again and again... 
+echo "Hello World" > random.txt
+gsutil cp random.txt $BUCKET/random.txt
+
+gcloud functions logs read nodejs-storage-function \
+  --region $REGION --gen2 --limit=100 --format "value(log)"
+
+
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member serviceAccount:$PROJECT_NUMBER-compute@developer.gserviceaccount.com \
+  --role roles/eventarc.eventReceiver
+
+
+cd ~
+
+
+cd ~/eventarc-samples/gce-vm-labeler/gcf/nodejs
+
+
+gcloud functions deploy gce-vm-labeler \
+  --gen2 \
+  --runtime nodejs18 \
+  --entry-point labelVmCreation \
+  --source . \
+  --region $REGION \
+  --trigger-event-filters="type=google.cloud.audit.log.v1.written,serviceName=compute.googleapis.com,methodName=beta.compute.instances.insert" \
+  --trigger-location $REGION \
+  --max-instances 1 \
+  --quiet
