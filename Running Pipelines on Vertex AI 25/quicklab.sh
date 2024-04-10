@@ -7,6 +7,7 @@ gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID \
   --member=serviceAccount:$PROJECT_NUMBER-compute@developer.gserviceaccount.com \
   --role=roles/storage.admin
 
+sleep 30
 
 gcloud storage buckets create gs://$DEVSHELL_PROJECT_ID
 touch emptyfile1
