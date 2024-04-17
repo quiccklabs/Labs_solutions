@@ -2,7 +2,7 @@ variable "instance_name" {}
 variable "instance_zone" {}
 
 variable "instance_type" {
-  default = "n1-standard-1"
+  default = "e2-micro"
 }
 
 variable "instance_subnetwork" {}
