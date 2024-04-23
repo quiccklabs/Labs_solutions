@@ -19,7 +19,7 @@ gcloud dataflow flex-template run $JOB_NAME --template-file-gcs-location gs://da
 
 
 while true; do
-    STATUS=$(gcloud dataflow jobs list --region="$REGION" --format='value(STATE)' | grep Running)
+    STATUS=$(gcloud dataflow jobs list --region="$REGION" --format='value(STATE)')
     
     if [ "$STATUS" == "Running" ]; then
         # Run the next code here
