@@ -22,6 +22,8 @@ gcloud compute firewall-rules create allow-http \
     --target-tags=http-server \
     --description="Allow HTTP traffic to VMs with http-server tag"
 
+gcloud compute firewall-rules create allow-ssh --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:22 --source-ranges=0.0.0.0/0 --target-tags=http-server --description="Allow SSH connections on port 22 from any IP address"
+
 gcloud compute instances reset lab-monitor-quicklab --zone $ZONE
 
 
