@@ -27,13 +27,12 @@ gcloud run deploy ${SERVICE_NAME} \
   --max-instances=3
 
 
-gcloud beta eventarc attributes types describe \
-  google.cloud.pubsub.topic.v1.messagePublished
-
-
-gcloud beta eventarc triggers create trigger-pubsub \
+gcloud eventarc triggers create trigger-pubsub \
   --destination-run-service=${SERVICE_NAME} \
-  --matching-criteria="type=google.cloud.pubsub.topic.v1.messagePublished"
+  --event-filters="type=google.cloud.pubsub.topic.v1.messagePublished"
+
+
+gcloud eventarc triggers list
 
 export TOPIC_ID=$(gcloud eventarc triggers describe trigger-pubsub \
   --format='value(transport.pubsub.topic)')
