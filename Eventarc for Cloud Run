@@ -65,6 +65,8 @@ echo "Hello World" > random.txt
 
 gsutil cp random.txt gs://${BUCKET_NAME}/random.txt
 
+gcloud eventarc triggers list
+
 gcloud eventarc triggers create trigger-auditlog \
 --destination-run-service=${SERVICE_NAME} \
 --event-filters="type=google.cloud.audit.log.v1.written" \
