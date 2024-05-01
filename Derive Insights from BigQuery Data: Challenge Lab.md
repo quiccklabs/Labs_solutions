@@ -97,7 +97,7 @@ WHERE percentage_increase > 5
 
 ## Task 8. Recovery rate
 
-```
+```sql
 WITH cases_by_country AS (
 
   SELECT
