@@ -1,0 +1,47 @@
+{
+  "title": "Cymbal Tagline Generator Template",
+  "description": "",
+  "parameters": {
+    "groundingPromptConfig": {
+      "disabled": true,
+      "groundingConfig": {
+        "sources": [
+          {
+            "type": "VERTEX_AI_SEARCH"
+          }
+        ]
+      }
+    },
+    "stopSequences": [],
+    "temperature": 1,
+    "tokenLimits": 2048,
+    "topP": 1
+  },
+  "type": "structured",
+  "context": "Cymbal Direct is partnering with an outdoor gear retailer. They're launching a new line of products designed to encourage young people to explore the outdoors. Help them create catchy taglines for this product line.",
+  "inputPrefixes": [
+    ""
+  ],
+  "outputPrefixes": [
+    ""
+  ],
+  "examples": [
+    {
+      "inputs": [
+        "Write a tagline for a durable backpack designed for hikers that makes them feel prepared. Consider styles like minimalist.\t"
+      ],
+      "outputs": [
+        "Built for the Journey: Your Adventure Essentials.\n"
+      ]
+    }
+  ],
+  "testData": [
+    {
+      "inputs": [
+        "Based on the results, fine-tune the wording of your prompt, add more parameter options, or adjust the style choices to achieve your desired outcome.\n"
+      ]
+    }
+  ],
+  "systemInstruction": "",
+  "model": "gemini-1.0-pro-002"
+}
