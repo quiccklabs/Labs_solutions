@@ -78,6 +78,7 @@ explore: +loan_details {
 ### Task 5 📋
 - **Row Limit**: 10.
 - **Visualization Type**: A table.
+- **Annual Income type**: Descending ⬇️
 - **Title**: The visualization should have the title: `Top 10 Customers by Highest Income`.
 
 ##         ```     Congratulation!!!```
