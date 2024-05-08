@@ -32,6 +32,10 @@ sleep 60
 
 gcloud scheduler jobs run publisher-job --location=$REGION
 
+sleep 60
+
+gcloud scheduler jobs run publisher-job --location=$REGION
+
 cat > automate_commands.sh <<EOF_END
 #!/bin/bash
 
