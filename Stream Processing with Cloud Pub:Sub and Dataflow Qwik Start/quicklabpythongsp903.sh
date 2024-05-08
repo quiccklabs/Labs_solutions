@@ -28,6 +28,7 @@ fi
 gcloud scheduler jobs create pubsub publisher-job --schedule="* * * * *" \
     --topic=$TOPIC_ID --message-body="Hello!"
 
+sleep 60
 
 gcloud scheduler jobs run publisher-job --location=$REGION
 
