@@ -2,7 +2,9 @@
 
 gcloud auth list
 
-cloudshell_open --repo_url "https://github.com/terraform-google-modules/docs-examples.git" --print_file "./motd" --dir "firewall_basic" --tutorial "./tutorial.md" --force_new_clone
+git clone https://github.com/terraform-google-modules/docs-examples.git
+
+cd docs-examples/firewall_basic/
 
 terraform init
 
