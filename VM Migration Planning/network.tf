@@ -25,24 +25,29 @@ module "vpc" {
 
   subnets = [
     {
-      # Creates your first subnet in $REGION_1 and defines a range for it
+      # Creates your first subnet in us-west1 and defines a range for it
       subnet_name   = "my-first-subnet"
       subnet_ip     = "10.10.10.0/24"
-      subnet_region = "$REGION_1"
+      subnet_region = "us-west1"
     },
     {
       # Creates a dedicated subnet for GKE
       subnet_name   = "my-gke-subnet"
       subnet_ip     = "10.10.20.0/24"
-      subnet_region = "$REGION_1"
+      subnet_region = "us-west1"
+    },
+    {
+      # Creates your first subnet in $REGION and defines a range for it
+      subnet_name   = "my-first-subnet"
+      subnet_ip     = "10.10.10.0/24"
+      subnet_region = "$REGION"
     },
     # Add your subnet here
     {
       subnet_name   = "my-third-subnet"
       subnet_ip     = "10.10.30.0/24"
-      subnet_region = "$REGION_2"
+      subnet_region = "$REGION"
     },
-
   ]
 
   # Define secondary ranges for each of your subnets
