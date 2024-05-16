@@ -36,12 +36,6 @@ module "vpc" {
       subnet_ip     = "10.10.20.0/24"
       subnet_region = "us-west1"
     },
-    {
-      # Creates your first subnet in $REGION and defines a range for it
-      subnet_name   = "my-first-subnet"
-      subnet_ip     = "10.10.10.0/24"
-      subnet_region = "$REGION"
-    },
     # Add your subnet here
     {
       subnet_name   = "my-third-subnet"
