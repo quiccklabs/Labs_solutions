@@ -41,3 +41,6 @@ gcloud notebooks instances create $NOTEBOOK_NAME \
   --metadata=startup-script-url=gs://$DEVSHELL_PROJECT_ID/startup-script.sh
 
 
+echo -e "\e[1m\e[33mClick here: https://console.cloud.google.com/vertex-ai/workbench/user-managed?project=$DEVSHELL_PROJECT_ID\e[0m"
+
+
