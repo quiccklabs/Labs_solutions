@@ -22,7 +22,7 @@ gsutil mb gs://$DEVSHELL_PROJECT_ID
   --project=$DEVSHELL_PROJECT_ID \
   --column-families=Interactions,Sales
 
-
+sleep 100
 
 gcloud dataflow jobs run import-usersessions --gcs-location gs://dataflow-templates-$REGION/latest/GCS_SequenceFile_to_Cloud_Bigtable --region $REGION --staging-location gs://$DEVSHELL_PROJECT_ID/temp --parameters bigtableProject=$DEVSHELL_PROJECT_ID,bigtableInstanceId=personalized-sales,bigtableTableId=UserSessions,sourcePattern=gs://cloud-training/OCBL377/retail-interactions-sales-00000-of-00001,mutationThrottleLatencyMs=0
 
