@@ -48,3 +48,71 @@ FROM
       0.2 AS temperature,
       100 AS max_output_tokens));
 "
+
+sleep 30
+
+bq query --use_legacy_sql=false \
+"
+SELECT
+  ml_generate_text_result['predictions'][0]['content'] AS generated_text,
+  ml_generate_text_result['predictions'][0]['safetyAttributes']
+    AS safety_attributes,
+  * EXCEPT (ml_generate_text_result)
+FROM
+  ML.GENERATE_TEXT(
+    MODEL \`bq_llm.llm_model\`,
+    (
+  SELECT
+        CONCAT('Can you read the code in the following text and generate a summary for what the code is doing and what language it is written in:', content)
+        AS prompt from \`bigquery-public-data.github_repos.sample_contents\`
+          limit 5
+    ),
+    STRUCT(
+      0.2 AS temperature,
+      100 AS max_output_tokens));
+"
+
+sleep 30
+
+bq query --use_legacy_sql=false \
+"
+SELECT
+  ml_generate_text_result['predictions'][0]['content'] AS generated_text,
+  ml_generate_text_result['predictions'][0]['safetyAttributes']
+    AS safety_attributes,
+  * EXCEPT (ml_generate_text_result)
+FROM
+  ML.GENERATE_TEXT(
+    MODEL \`bq_llm.llm_model\`,
+    (
+  SELECT
+        CONCAT('Can you read the code in the following text and generate a summary for what the code is doing and what language it is written in:', content)
+        AS prompt from \`bigquery-public-data.github_repos.sample_contents\`
+          limit 5
+    ),
+    STRUCT(
+      0.2 AS temperature,
+      100 AS max_output_tokens));
+"
+
+
+bq query --use_legacy_sql=false \
+"
+SELECT
+  ml_generate_text_result['predictions'][0]['content'] AS generated_text,
+  ml_generate_text_result['predictions'][0]['safetyAttributes']
+    AS safety_attributes,
+  * EXCEPT (ml_generate_text_result)
+FROM
+  ML.GENERATE_TEXT(
+    MODEL \`bq_llm.llm_model\`,
+    (
+  SELECT
+        CONCAT('Can you read the code in the following text and generate a summary for what the code is doing and what language it is written in:', content)
+        AS prompt from \`bigquery-public-data.github_repos.sample_contents\`
+          limit 5
+    ),
+    STRUCT(
+      0.2 AS temperature,
+      100 AS max_output_tokens));
+"
