@@ -56,3 +56,5 @@ gcloud healthcare fhir-stores export bq $FHIR_STORE_ID \
 --schema-type=analytics
 
 
+echo -e "\e[1m\e[34mClick here: https://console.cloud.google.com/healthcare/browser/locations/$LOCATION/datasets/$DATASET_ID/datastores?project=$PROJECT_ID\e[0m"
+
