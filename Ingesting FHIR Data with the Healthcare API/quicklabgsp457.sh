@@ -23,10 +23,6 @@ gcloud healthcare datasets create $DATASET_ID \
 gcloud pubsub topics create fhir-topic
 
 
-gcloud healthcare fhirstore1 create ${FHIR_STORE_ID} \
---dataset=${DATASET_ID} \
---location=${LOCATION} \
---notification-config=pubsub-topic=projects/${PROJECT_ID}/topics/${TOPIC}
 
 gcloud healthcare fhir-stores create ${FHIR_STORE_ID} \
 --dataset=${DATASET_ID} \
