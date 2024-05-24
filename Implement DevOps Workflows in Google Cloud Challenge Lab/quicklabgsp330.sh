@@ -279,3 +279,10 @@ sleep 100
 kubectl -n $NAMESPACE rollout undo deployment/$DEPLOYMENT_NAME
 sleep 60
 kubectl -n $NAMESPACE rollout undo deployment/$DEPLOYMENT_NAME
+
+
+cd sample-app
+kubectl -n prod rollout undo deployment/production-deployment
+
+
+
