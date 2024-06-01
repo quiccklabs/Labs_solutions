@@ -1,13 +1,7 @@
 
 
-#!/bin/bash
 
-# Create a README.md file
-cat << 'EOF' > README.md
 # Getting Started with Flutter Development
-
-## Lab Name
-`flutter create startup_namer`
 
 ## Steps
 
