@@ -29,5 +29,7 @@ echo -e "\033[1;34mhttps://console.cloud.google.com/net-security/firewall-manage
 echo -e "\033[1m\033[34mhttps://console.cloud.google.com/logs/query?_ga=2.159612541.1373851212.1717364279-1768117806.1717363789&_gac=1.212068896.1717364364.EAIaIQobChMIx4iR4fC9hgMV4A6DAx1fJjJvEAAYAiAAEgKTZvD_BwE\033[0m"
 
 
+export MY_SERVER=$(gcloud compute instances describe web-server --zone "$ZONE" --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
+export MY_SERVER=$(gcloud compute instances describe web-server --zone "$ZONE" --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
 
 
