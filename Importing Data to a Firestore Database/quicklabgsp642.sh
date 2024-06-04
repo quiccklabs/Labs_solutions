@@ -3,6 +3,8 @@
 
 gcloud config set project $DEVSHELL_PROJECT_ID
 
+gcloud firestore databases create --location=nam5
+
 git clone https://github.com/rosera/pet-theory
 
 cd pet-theory/lab01
