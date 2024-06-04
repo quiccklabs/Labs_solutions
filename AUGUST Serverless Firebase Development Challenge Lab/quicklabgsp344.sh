@@ -1,9 +1,11 @@
 
 
-
 gcloud config set project $(gcloud projects list --format='value(PROJECT_ID)' --filter='qwiklabs-gcp')
 
 gcloud services enable run.googleapis.com
+
+gcloud firestore databases create --location=$REGION
+
 
 git clone https://github.com/rosera/pet-theory.git
 
@@ -42,4 +44,3 @@ gcloud beta run deploy $FRONTEND_STAGING_SERVICE_NAME --image gcr.io/$GOOGLE_CLO
 
 gcloud builds submit --tag gcr.io/$GOOGLE_CLOUD_PROJECT/frontend-production:0.1
 gcloud beta run deploy $FRONTEND_PRODUCTION_SERVICE_NAME --image gcr.io/$GOOGLE_CLOUD_PROJECT/frontend-production:0.1 --region=$REGION --quiet
-
