@@ -58,7 +58,7 @@ CREATE OR REPLACE MODEL taxirides.MODEL_NAME
 TRANSFORM(
   * EXCEPT(pickup_datetime)
 
-  , ST_Distance(ST_GeogPoint(pickuplon, pickuplat), ST_GeogPoint(dropofflon, dropofflat)) AS euclidean
+  , ST_Distance(ST_GeogPoint(pickuplog, pickuplat), ST_GeogPoint(dropofflon, dropofflat)) AS euclidean
   , CAST(EXTRACT(DAYOFWEEK FROM pickup_datetime) AS STRING) AS dayofweek
   , CAST(EXTRACT(HOUR FROM pickup_datetime) AS STRING) AS hourofday
 )
