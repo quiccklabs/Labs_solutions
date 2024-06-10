@@ -47,7 +47,7 @@ mkdir gcf_hello_world
 
 cd gcf_hello_world
 
-cat > index.js <<EOF_END
+cat > index.js <<'EOF_END'
 /**
 * Background Cloud Function to be triggered by Pub/Sub.
 * This function is exported by index.js, and executed when
@@ -57,11 +57,12 @@ cat > index.js <<EOF_END
 * @param {object} context The event metadata.
 */
 exports.helloWorld = (data, context) => {
-const pubSubMessage = data;
-const name = pubSubMessage.data
-    ? Buffer.from(pubSubMessage.data, 'base64').toString() : "Hello World";
-console.log(`My Cloud Function: ${name}`);
-};
+    const pubSubMessage = data;
+    const name = pubSubMessage.data
+        ? Buffer.from(pubSubMessage.data, 'base64').toString() : "Hello World";
+    
+    console.log(`My Cloud Function: ${name}`);
+    };
 EOF_END
 
 
@@ -74,6 +75,13 @@ Task 2 Completed
 ${RESET}"
 
 
+gcloud services disable cloudfunctions.googleapis.com
+
+gcloud services enable cloudfunctions.googleapis.com
+
+gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID \
+--member="serviceAccount:$DEVSHELL_PROJECT_ID@appspot.gserviceaccount.com" \
+--role="roles/artifactregistry.reader"
 
 gcloud functions deploy helloWorld \
   --stage-bucket gs://$DEVSHELL_PROJECT_ID \
