@@ -1,5 +1,7 @@
 
 
+ID="$(gcloud projects list --format='value(PROJECT_ID)')"
+
 cat > GenerateImage.py <<EOF_END
 import argparse
 
@@ -33,8 +35,8 @@ def generate_image(
     return images
 
 generate_image(
-    project_id='qwiklabs-gcp-01-b411e09cba7c',
-    location='us-central1',
+    project_id='$ID',
+    location='$REGION',
     output_file='image.jpeg',
     prompt='Create an image of a cricket ground in the heart of Los Angeles',
     )
