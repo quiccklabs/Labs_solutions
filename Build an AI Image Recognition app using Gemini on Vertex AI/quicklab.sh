@@ -39,3 +39,5 @@ print(response)
 EOF_END
 
 /usr/bin/python3 /home/student/genai.py
+
+source quicklab.sh
