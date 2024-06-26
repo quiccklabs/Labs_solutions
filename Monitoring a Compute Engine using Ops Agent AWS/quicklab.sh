@@ -8,7 +8,7 @@ gcloud compute instances create quickstart-vm --project=$DEVSHELL_PROJECT_ID --z
 gcloud compute firewall-rules create allow-http --allow tcp:80 --source-ranges 0.0.0.0/0 --target-tags http-server
 
 
-
+sleep 20
 
 cat > prepare_disk.sh <<'EOF_END'
 sudo apt-get update
@@ -52,6 +52,46 @@ gcloud compute scp prepare_disk.sh quickstart-vm:/tmp --project=$DEVSHELL_PROJEC
 gcloud compute ssh quickstart-vm --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --quiet --command="bash /tmp/prepare_disk.sh"
 
 
+cat > prepare_disk.sh <<'EOF_END'
+sudo apt-get update
+sudo apt-get install apache2 php7.0 -y
+curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
+sudo bash add-google-cloud-ops-agent-repo.sh --also-install
+# Configures Ops Agent to collect telemetry from the app and restart Ops Agent.
+set -e
+# Create a back up of the existing file so existing configurations are not lost.
+sudo cp /etc/google-cloud-ops-agent/config.yaml /etc/google-cloud-ops-agent/config.yaml.bak
+# Configure the Ops Agent.
+sudo tee /etc/google-cloud-ops-agent/config.yaml > /dev/null << EOF
+metrics:
+  receivers:
+    apache:
+      type: apache
+  service:
+    pipelines:
+      apache:
+        receivers:
+          - apache
+logging:
+  receivers:
+    apache_access:
+      type: apache_access
+    apache_error:
+      type: apache_error
+  service:
+    pipelines:
+      apache:
+        receivers:
+          - apache_access
+          - apache_error
+EOF
+sudo service google-cloud-ops-agent restart
+sleep 60
+EOF_END
+
+gcloud compute scp prepare_disk.sh quickstart-vm:/tmp --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --quiet
+
+gcloud compute ssh quickstart-vm --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --quiet --command="bash /tmp/prepare_disk.sh"
 
 
 cat > email-channel.json <<EOF_END
