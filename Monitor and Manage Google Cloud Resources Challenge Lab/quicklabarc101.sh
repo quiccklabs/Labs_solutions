@@ -1,11 +1,20 @@
 
 
-
-
-
 gcloud config set compute/region $REGION
 
-gsutil mb -p $DEVSHELL_PROJECT_ID gs://$BUCKET_NAME
+
+gcloud services enable \
+  artifactregistry.googleapis.com \
+  cloudfunctions.googleapis.com \
+  cloudbuild.googleapis.com \
+  eventarc.googleapis.com \
+  run.googleapis.com \
+  logging.googleapis.com \
+  pubsub.googleapis.com
+
+
+gsutil mb -l $REGION gs://$BUCKET_NAME
+
 
 gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID --member=user:$SECOND_USER --role=roles/storage.objectViewer
 
@@ -120,6 +129,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 
 sleep 120
 
+
 export PROJECT_ID=$(gcloud config get-value project)
 PROJECT_NUMBER=$(gcloud projects list --filter="project_id:$PROJECT_ID" --format='value(project_number)')
 SERVICE_ACCOUNT=$(gsutil kms serviceaccount -p $PROJECT_NUMBER)
@@ -142,12 +152,26 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SERVICE_ACCOUNT \
   --role roles/artifactregistry.reader
 
+# Set variables
+SERVICE_ACCOUNT="service-$(gcloud projects describe $DEVSHELL_PROJECT_ID --format='value(projectNumber)')@gs-project-accounts.iam.gserviceaccount.com"
+
+# Grant Pub/Sub Publisher role
+gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID \
+    --member="serviceAccount:$SERVICE_ACCOUNT" \
+    --role="roles/pubsub.publisher"
+
+
+
+
 gcloud functions deploy $FUNCTION_NAME \
---runtime=nodejs14 \
+--gen2 \
+--runtime=nodejs20 \
 --region=$REGION \
 --source=. \
 --entry-point=thumbnail \
 --trigger-bucket $BUCKET_NAME 
+
+
 
 
 wget https://storage.googleapis.com/cloud-training/arc101/travel.jpg
@@ -215,5 +239,19 @@ gcloud functions deploy $FUNCTION_NAME \
 
 
 wget https://storage.googleapis.com/cloud-training/arc101/travel.jpg
+
+gsutil cp travel.jpg gs://$BUCKET_NAME
+
+
+
+gcloud functions delete $FUNCTION_NAME --region=$REGION --quiet
+
+gcloud functions deploy $FUNCTION_NAME \
+    --gen2 \
+    --runtime=nodejs20 \
+    --region=$REGION \
+    --source=. \
+    --entry-point=thumbnail \
+    --trigger-bucket=$BUCKET_NAME
 
 gsutil cp travel.jpg gs://$BUCKET_NAME
