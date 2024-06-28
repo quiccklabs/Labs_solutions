@@ -56,8 +56,10 @@ new_model.summary()
 
 
 # Save the entire model to a HDF5 file.
-model.save('my_model.keras')
+model.save('my_model.h5')
+
 # Recreate the exact same model, including its weights and the optimizer
-new_model_keras = tf.keras.models.load_model('my_model.keras')
+new_model_h5 = tf.keras.models.load_model('my_model.h5')
+
 # Summary of loaded h5 model
-new_model_keras.summary()
+new_model_h5.summary()
