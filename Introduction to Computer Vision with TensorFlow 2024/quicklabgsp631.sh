@@ -34,18 +34,4 @@ python updated_model_2.py
 
 python updated_model_3.py
 
-sleep 20
 
-pip uninstall numpy -y
-
-pip uninstall numpy tensorflow -y
-
-pip install tensorflow==2.10.0 numpy==1.21.6
-
-pip uninstall google-cloud-logging google-api-core google-protobuf -y
-
-pip install google-cloud-logging==2.6.0 google-api-core==1.31.5 protobuf==3.20.1
-
-pip show google-cloud-logging google-api-core google-protobuf
-
-python model.py
