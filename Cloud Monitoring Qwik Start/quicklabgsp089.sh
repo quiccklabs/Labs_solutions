@@ -1,8 +1,5 @@
 
 
-
-
-
 # Create the instance with the necessary metadata and tags
 gcloud compute instances create lamp-1-vm \
     --project=$DEVSHELL_PROJECT_ID \
@@ -31,19 +28,47 @@ gcloud compute firewall-rules create allow-http \
     --source-ranges=0.0.0.0/0 \
     --target-tags=http-server
 
+sleep 10
 
 # Generate SSH keys
 gcloud compute config-ssh --project "$DEVSHELL_PROJECT_ID" --quiet
 
-# SSH into the instance and run commands
-gcloud compute ssh lamp-1-vm --project "$DEVSHELL_PROJECT_ID" --zone $ZONE --command "sudo apt-get update && sudo apt-get install -y apache2 php7.0 && sudo service apache2 restart"
+gcloud compute ssh lamp-1-vm --project "$DEVSHELL_PROJECT_ID" --zone $ZONE --command "sudo sed -i '/buster-backports/d' /etc/apt/sources.list && sudo apt-get update && sudo apt-get install apache2 php7.3 -y && sudo service apache2 restart"
+
+sleep 10
+
+INSTANCE_ID="$(gcloud compute instances describe  lamp-1-vm --project=$DEVSHELL_PROJECT_ID --zone=$ZONE --format='value(id)')"
+
+gcloud monitoring uptime create lamp-uptime-check \
+  --resource-type="gce-instance" \
+  --resource-labels=project_id=$DEVSHELL_PROJECT_ID,instance_id=$INSTANCE_ID,zone=$ZONE
+
+
+cat > email-channel.json <<EOF_END
+{
+  "type": "email",
+  "displayName": "quicklab",
+  "description": "Subscribe to quicklab",
+  "labels": {
+    "email_address": "$USER_EMAIL"
+  }
+}
+EOF_END
+
+
+gcloud beta monitoring channels create --channel-content-from-file="email-channel.json"
 
 
 
 
+# Run the gcloud command and store the output in a variable
+channel_info=$(gcloud beta monitoring channels list)
+
+# Extract the channel ID using grep and awk
+channel_id=$(echo "$channel_info" | grep -oP 'name: \K[^ ]+' | head -n 1)
 
 
-cat > alert_config.json <<EOF
+cat > app-engine-error-percent-policy.json <<EOF_END
 {
   "displayName": "Inbound Traffic Alert",
   "userLabels": {},
@@ -68,12 +93,17 @@ cat > alert_config.json <<EOF
       }
     }
   ],
-  "alertStrategy": {
-    "autoClose": "604800s"
-  },
+  "alertStrategy": {},
   "combiner": "OR",
-  "enabled": true
+  "enabled": true,
+  "notificationChannels": [
+    "$channel_id"
+  ],
+  "severity": "SEVERITY_UNSPECIFIED"
 }
-EOF
+EOF_END
 
-gcloud alpha monitoring policies create --policy-from-file=alert_config.json
+
+
+gcloud alpha monitoring policies create --policy-from-file="app-engine-error-percent-policy.json"
+
