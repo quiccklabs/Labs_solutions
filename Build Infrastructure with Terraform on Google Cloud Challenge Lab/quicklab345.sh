@@ -93,7 +93,7 @@ resource "google_compute_instance" "tf-instance-1" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-10"
+      image = "debian-cloud/debian-12"
     }
   }
 
@@ -113,7 +113,7 @@ resource "google_compute_instance" "tf-instance-2" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-10"
+      image = "debian-cloud/debian-12"
     }
   }
 
@@ -232,7 +232,7 @@ resource "google_compute_instance" "tf-instance-1" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-10"
+      image = "debian-cloud/debian-12"
     }
   }
 
@@ -252,7 +252,7 @@ resource "google_compute_instance" "tf-instance-2" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-10"
+      image = "debian-cloud/debian-12"
     }
   }
 
@@ -272,7 +272,7 @@ resource "google_compute_instance" "$INSTANCE_NAME" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-10"
+      image = "debian-cloud/debian-12"
     }
   }
 
@@ -308,7 +308,7 @@ resource "google_compute_instance" "tf-instance-1" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-10"
+      image = "debian-cloud/debian-12"
     }
   }
 
@@ -328,7 +328,7 @@ resource "google_compute_instance" "tf-instance-2" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-10"
+      image = "debian-cloud/debian-12"
     }
   }
 
@@ -422,7 +422,7 @@ resource "google_compute_instance" "tf-instance-1" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-10"
+      image = "debian-cloud/debian-12"
     }
   }
 
@@ -443,7 +443,7 @@ resource "google_compute_instance" "tf-instance-2" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-10"
+      image = "debian-cloud/debian-12"
     }
   }
 
@@ -567,5 +567,4 @@ EOF
 
 terraform init
 terraform apply --auto-approve
-
 
