@@ -1,4 +1,4 @@
-## Defending Edge Cache with Cloud Armor
+# Defending Edge Cache with Cloud Armor
 
 ##
 
