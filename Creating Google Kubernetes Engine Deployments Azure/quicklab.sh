@@ -1,6 +1,6 @@
 
 
-export my_zone=$REGION
+export my_zone=$ZONE
 export my_cluster=standard-cluster-1
 
 source <(kubectl completion bash)
