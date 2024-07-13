@@ -108,6 +108,7 @@ git push -u origin dev
 
 gcloud builds triggers create cloud-source-repositories \
     --name="sample-app-prod-deploy" \
+    --service-account="projects/$PROJECT_ID/serviceAccounts/$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com" \
     --description="Cloud Build Trigger for production deployment" \
     --repo="sample-app" \
     --branch-pattern="^master$" \
@@ -117,6 +118,7 @@ gcloud builds triggers create cloud-source-repositories \
 
 gcloud builds triggers create cloud-source-repositories \
     --name="sample-app-dev-deploy" \
+    --service-account="projects/$PROJECT_ID/serviceAccounts/$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com" \
     --description="Cloud Build Trigger for development deployment" \
     --repo="sample-app" \
     --branch-pattern="^dev$" \
