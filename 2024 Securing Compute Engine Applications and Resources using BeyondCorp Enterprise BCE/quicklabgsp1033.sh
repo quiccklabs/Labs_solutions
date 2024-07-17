@@ -176,7 +176,7 @@ curl -X POST \
      "https://compute.googleapis.com/compute/v1/projects/$DEVSHELL_PROJECT_ID/global/targetHttpProxies"
 
 
-sleep 30
+sleep 90
 
 
 curl -X POST \
