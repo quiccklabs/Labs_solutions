@@ -3,9 +3,9 @@
 
 ## ***```Implement Load Balancing on Compute Engine: Challenge Lab```***
 
-### Export all the values carefully
+## Export all the values carefully
 #
-**Lab is updated so no need to export the value of port**
+### **Lab is updated so no need to export the value of port**
 
 ```bash
 export INSTANCE_NAME=
