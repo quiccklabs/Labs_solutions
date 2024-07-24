@@ -1,5 +1,7 @@
 
 
+
+
 # Create the instance with the necessary metadata and tags
 gcloud compute instances create lamp-1-vm \
     --project=$DEVSHELL_PROJECT_ID \
@@ -10,7 +12,7 @@ gcloud compute instances create lamp-1-vm \
     --maintenance-policy=MIGRATE \
     --provisioning-model=STANDARD \
     --tags=http-server \
-    --create-disk=auto-delete=yes,boot=yes,device-name=lamp-1-vm,image=projects/debian-cloud/global/images/debian-10-buster-v20230629,mode=rw,size=10,type=projects/$DEVSHELL_PROJECT_ID/zones/$ZONE/diskTypes/pd-balanced \
+    --create-disk=auto-delete=yes,boot=yes,device-name=lamp-1-vm,image=projects/debian-cloud/global/images/debian-12-bookworm-v20240709,mode=rw,size=10,type=projects/$DEVSHELL_PROJECT_ID/zones/$ZONE/diskTypes/pd-balanced \
     --no-shielded-secure-boot \
     --shielded-vtpm \
     --shielded-integrity-monitoring \
@@ -104,6 +106,11 @@ cat > app-engine-error-percent-policy.json <<EOF_END
 EOF_END
 
 
-
 gcloud alpha monitoring policies create --policy-from-file="app-engine-error-percent-policy.json"
 
+
+INSTANCE_ID=$(gcloud compute instances describe lamp-1-vm --zone=$ZONE --format='value(id)')
+
+gcloud monitoring uptime create lamp-uptime-check \
+  --resource-type="gce-instance" \
+  --resource-labels=project_id=$DEVSHELL_PROJECT_ID,instance_id=$INSTANCE_ID,zone=$ZONE
