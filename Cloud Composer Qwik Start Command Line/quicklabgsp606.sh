@@ -40,7 +40,7 @@ sed -i 's|<region>|'"$REGION"'|g' codelab.py
 gsutil cp ~/codelab.py gs://$PROJECT_ID
 
 gcloud composer environments run my-composer-environment \
-    --location europe-west4 variables -- \
+    --location $REGION variables -- \
     set dags_folder gs://$PROJECT_ID
 
 FILE=codelab.py
