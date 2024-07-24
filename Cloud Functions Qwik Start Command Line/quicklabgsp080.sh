@@ -79,6 +79,8 @@ gcloud services disable cloudfunctions.googleapis.com
 
 gcloud services enable cloudfunctions.googleapis.com
 
+sleep 90
+
 gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID \
 --member="serviceAccount:$DEVSHELL_PROJECT_ID@appspot.gserviceaccount.com" \
 --role="roles/artifactregistry.reader"
