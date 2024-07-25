@@ -114,7 +114,7 @@ gcloud projects add-iam-policy-binding $PROJECTID2 --member serviceAccount:$SA -
 
 gcloud projects add-iam-policy-binding $PROJECTID2 --member serviceAccount:$SA --role=roles/compute.instanceAdmin
 
-gcloud compute instances create lab-3 --service-account $SA --scopes "https://www.googleapis.com/auth/compute"
+gcloud compute instances create lab-3 --machine-type=e2-standard-2 --service-account $SA --scopes "https://www.googleapis.com/auth/compute"
 
 gcloud compute instances create lab-2 --zone=$ZONE_2 --machine-type=e2-standard-2
 ```
