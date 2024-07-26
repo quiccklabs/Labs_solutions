@@ -1,6 +1,6 @@
 
 
-export PORT=8082
+#export PORT=8082
 
 export REGION="${ZONE%-*}"
 
@@ -14,22 +14,22 @@ gcloud compute instances create $INSTANCE_NAME \
           --image-project debian-cloud 
 
  
-gcloud container clusters create nucleus-backend \
---num-nodes 1 \
---network nucleus-vpc \
---zone $ZONE
+# gcloud container clusters create nucleus-backend \
+# --num-nodes 1 \
+# --network nucleus-vpc \
+# --zone $ZONE
  
  
-gcloud container clusters get-credentials nucleus-backend \
---zone $ZONE
+# gcloud container clusters get-credentials nucleus-backend \
+# --zone $ZONE
  
  
-kubectl create deployment hello-server \
---image=gcr.io/google-samples/hello-app:2.0
+# kubectl create deployment hello-server \
+# --image=gcr.io/google-samples/hello-app:2.0
   
-kubectl expose deployment hello-server \
---type=LoadBalancer \
---port $PORT
+# kubectl expose deployment hello-server \
+# --type=LoadBalancer \
+# --port $PORT
  
   
 cat << EOF > startup.sh
