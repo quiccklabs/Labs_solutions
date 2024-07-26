@@ -13,7 +13,7 @@ gsutil ls -L "gs://$BUCKET/dummy_transactions"
 
 gsutil mv gs://$BUCKET/dummy_transactions gs://$BUCKET/example_transactions
 
-gsutil retention lock "gs://$BUCKET/" --quiet
+echo 'y' | gsutil retention lock "gs://$BUCKET/"
 
 gsutil cp gs://cloud-samples-data/storage/bucket-lock/example_transactions "gs://$BUCKET/"
 
