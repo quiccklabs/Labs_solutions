@@ -33,7 +33,7 @@ model = tf.keras.Sequential([tf.keras.layers.Dense(units=1, input_shape=[1])])
 model.compile(optimizer=tf.keras.optimizers.SGD(), loss=tf.keras.losses.MeanSquaredError())
 
 model.fit(xs, ys, epochs=500)
-cloud_logger.info(str(model.predict([10.0])))
+cloud_logger.info(str(model.predict(np.array([10.0]))))
 EOF
 
 python model.py
