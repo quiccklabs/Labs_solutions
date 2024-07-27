@@ -1,3 +1,8 @@
+
+
+
+
+
 #!/bin/bash
 
 # Define color variables
@@ -73,12 +78,23 @@ run_form_2() {
 
     cd nodejs-docs-samples/functions/v2/helloPubSub/
 
+    sleep 60
+
     gcloud functions deploy gcf-pubsub \
-    --runtime=nodejs20 \
-    --region=$REGION \
-    --source=. \
-    --entry-point=helloPubSub \
-    --trigger-topic=gcf-topic
+        --runtime=nodejs20 \
+        --region=$REGION \
+        --source=. \
+        --entry-point=helloPubSub \
+        --trigger-topic=gcf-topic
+        
+    sleep 60
+
+    gcloud functions deploy gcf-pubsub \
+        --runtime=nodejs20 \
+        --region=$REGION \
+        --source=. \
+        --entry-point=helloPubSub \
+        --trigger-topic=gcf-topic
 }
 
 # Function to run form 3 code
