@@ -166,3 +166,12 @@ WHERE
     \`population\` IS NULL AND 
     \`country_area\` IS NULL
 "
+
+
+# Delete rows with NULL population
+bq query --use_legacy_sql=false \
+"DELETE FROM \`covid_data.oxford_policy_tracker_by_countries\` WHERE population IS NULL;"
+
+# Delete rows with NULL country_area
+bq query --use_legacy_sql=false \
+"DELETE FROM \`covid_data.oxford_policy_tracker_by_countries\` WHERE country_area IS NULL;"
