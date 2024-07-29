@@ -54,8 +54,7 @@ firebase init
 
 
 
-[![Screenshot-2024-07-29-at-6-22-25-PM.png](https://i.postimg.cc/ZYHKcKLC/Screenshot-2024-07-29-at-6-22-25-PM.png)](https://postimg.cc/6T7X6KgX)
-
+[![Screenshot-2024-07-29-at-6-22-25-PM.png](https://i.postimg.cc/W43RrM1p/Screenshot-2024-07-29-at-6-22-25-PM.png)](https://postimg.cc/QFRnZK7v)
 
 
 ## **Deploy Firebase:-**
