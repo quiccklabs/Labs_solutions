@@ -18,7 +18,7 @@ the [Firebase Console](https://console.firebase.google.com/?authuser=0).
 
 1. Select the **web icon** (highlighted below) from the list of "Get started by adding Firebase to your app" icons:
 
-2. When prompted for an "App nickname", type in **Pet Theory**.
+2. When prompted for an "App nickname", type in **```Pet Theory```**
 
 3. Then check the box next to "Also set up **Firebase hosting** for this app".
 
