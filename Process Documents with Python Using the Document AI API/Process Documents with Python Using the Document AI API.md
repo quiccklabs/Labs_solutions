@@ -17,11 +17,11 @@ sudo chmod +x quickklabgsp925.sh
 ### **Run command in juypter NoteBook**
 
 ```bash
-curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Process%20Documents%20with%20Python%20Using%20the%20Document%20AI%20API/quickklabgsp925.sh
+curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Process%20Documents%20with%20Python%20Using%20the%20Document%20AI%20API/quicklab.sh
 
-sudo chmod +x quickklabgsp925.sh
+sudo chmod +x quicklab.sh
 
-./quickklabgsp925.sh
+./quicklab.sh
 
 ```
 
