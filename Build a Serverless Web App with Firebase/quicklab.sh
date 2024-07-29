@@ -7,4 +7,4 @@ npm i && npm audit fix --force
 
 gcloud firestore databases create --location=$REGION
 
-echo https://console.cloud.google.com/firebase?referrer=search&project=$DEVSHELL_PROJECT_ID
+echo "https://console.cloud.google.com/firebase?referrer=search&project=$DEVSHELL_PROJECT_ID"
