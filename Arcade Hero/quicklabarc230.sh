@@ -48,6 +48,7 @@ require (
 )
 EOF_END
 
+sleep 30
 
 gcloud functions deploy cf-demo \
   --gen2 \
