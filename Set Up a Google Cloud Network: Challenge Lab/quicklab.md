@@ -160,9 +160,9 @@ exit
 ```
 ##
 ```
-export INT_IP=$(gcloud compute instances describe antern-postgresql-vm --zone=$ZONE \
-  --format='get(networkInterfaces[0].networkIP)')
-echo -e "\033[1;34mVM Internal IP:\033[0m \033[1;33m$INT_IP\033[0m"
+curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Set%20Up%20a%20Google%20Cloud%20Network%3A%20Challenge%20Lab/quicklabip.sh
+sudo chmod +x quicklabip.sh
+./quicklabip.sh
 ```
 
 ## Task 2: Update permissions and add IAM roles to users
