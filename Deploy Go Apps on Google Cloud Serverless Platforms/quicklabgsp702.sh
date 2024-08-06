@@ -1,5 +1,5 @@
 
-export REGION=us-central1
+
 
 export PROJECT_ID=$(gcloud info --format="value(config.project)")
 
