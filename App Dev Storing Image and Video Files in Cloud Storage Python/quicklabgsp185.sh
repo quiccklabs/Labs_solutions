@@ -1,10 +1,12 @@
 
-
 gcloud config set project $DEVSHELL_PROJECT_ID
 
 git clone https://github.com/GoogleCloudPlatform/training-data-analyst
 
 cd ~/training-data-analyst/courses/developingapps/python/cloudstorage/start
+
+sed -i s/us-central/$REGION/g prepare_environment.sh
+
 
 . prepare_environment.sh
 
