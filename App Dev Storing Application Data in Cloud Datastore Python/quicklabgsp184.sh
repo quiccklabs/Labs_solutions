@@ -13,7 +13,7 @@ export GCLOUD_PROJECT=$DEVSHELL_PROJECT_ID
 
 pip install -r requirements.txt
 
-gcloud app create --region "us-central"
+gcloud app create --region "$REGION"
 
 cd quiz/gcp
 
