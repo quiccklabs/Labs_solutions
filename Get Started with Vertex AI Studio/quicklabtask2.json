@@ -1,0 +1,62 @@
+{
+  "title": "Untitled prompt",
+  "description": "",
+  "parameters": {
+    "groundingPromptConfig": {
+      "disabled": true,
+      "groundingConfig": {
+        "sources": [
+          {
+            "type": "VERTEX_AI_SEARCH"
+          }
+        ]
+      }
+    },
+    "stopSequences": [],
+    "temperature": 0.9,
+    "tokenLimits": 2048,
+    "topP": 1
+  },
+  "type": "structured",
+  "context": "",
+  "inputPrefixes": [
+    ""
+  ],
+  "outputPrefixes": [
+    ""
+  ],
+  "examples": [
+    {
+      "inputs": [
+        "A well-made and entertaining film"
+      ],
+      "outputs": [
+        "positive"
+      ]
+    },
+    {
+      "inputs": [
+        "I fell asleep after 10 minutes\t"
+      ],
+      "outputs": [
+        "negative"
+      ]
+    },
+    {
+      "inputs": [
+        "The movie was ok\t"
+      ],
+      "outputs": [
+        "neutral"
+      ]
+    }
+  ],
+  "testData": [
+    {
+      "inputs": [
+        ""
+      ]
+    }
+  ],
+  "model": "gemini-1.0-pro-001"
+}
