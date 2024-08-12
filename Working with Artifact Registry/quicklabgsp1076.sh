@@ -27,7 +27,7 @@ gcloud artifacts repositories create container-dev-repo --repository-format=dock
   --location=$REGION \
   --description="Docker repository for Container Dev Workshop"
 
-gcloud auth configure-docker europe-west4-docker.pkg.dev
+gcloud auth configure-docker $REGION-docker.pkg.dev
 
 cd ~/cloud-code-samples/java/java-hello-world
 
