@@ -1,3 +1,6 @@
+
+
+
 BLACK=`tput setaf 0`
 RED=`tput setaf 1`
 GREEN=`tput setaf 2`
@@ -40,6 +43,7 @@ export PROJECT_ID=$(gcloud info --format='value(config.project)')
 #USER_EMAIL=$(gcloud auth list --limit=1 2>/dev/null | grep '@' | awk '{print $2}')
 #----------------------------------------------------code--------------------------------------------------#
 
+export PROJECT_NUMBER=$(gcloud projects describe $DEVSHELL_PROJECT_ID --format='value(projectNumber)')
 
 gcloud config set compute/region $REGION
 
@@ -48,25 +52,39 @@ mkdir gcf_hello_world
 cd gcf_hello_world
 
 cat > index.js <<'EOF_END'
-/**
-* Background Cloud Function to be triggered by Pub/Sub.
-* This function is exported by index.js, and executed when
-* the trigger topic receives a message.
-*
-* @param {object} data The event payload.
-* @param {object} context The event metadata.
-*/
-exports.helloWorld = (data, context) => {
-    const pubSubMessage = data;
-    const name = pubSubMessage.data
-        ? Buffer.from(pubSubMessage.data, 'base64').toString() : "Hello World";
-    
-    console.log(`My Cloud Function: ${name}`);
-    };
+const functions = require('@google-cloud/functions-framework');
+
+// Register a CloudEvent callback with the Functions Framework that will
+// be executed when the Pub/Sub trigger topic receives a message.
+functions.cloudEvent('helloPubSub', cloudEvent => {
+  // The Pub/Sub message is passed as the CloudEvent's data payload.
+  const base64name = cloudEvent.data.message.data;
+
+  const name = base64name
+    ? Buffer.from(base64name, 'base64').toString()
+    : 'World';
+
+  console.log(`Hello, ${name}!`);
+});
 EOF_END
 
 
-gsutil mb -p $DEVSHELL_PROJECT_ID gs://$DEVSHELL_PROJECT_ID
+cat > package.json <<'EOF_END'
+{
+  "name": "gcf_hello_world",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.0.0"
+  }
+}
+EOF_END
+
+##gsutil mb -p $DEVSHELL_PROJECT_ID gs://$DEVSHELL_PROJECT_ID
 
 echo "${GREEN}${BOLD}
 
@@ -85,11 +103,22 @@ gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID \
 --member="serviceAccount:$DEVSHELL_PROJECT_ID@appspot.gserviceaccount.com" \
 --role="roles/artifactregistry.reader"
 
-gcloud functions deploy helloWorld \
-  --stage-bucket gs://$DEVSHELL_PROJECT_ID \
-  --trigger-topic hello_world \
-  --runtime nodejs20
+# gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID \
+#   --member="serviceAccount:service-$PROJECT_NUMBER@gcp-sa-pubsub.iam.gserviceaccount.com" \
+#   --role="roles/iam.serviceAccountTokenCreator"
 
+
+
+echo "n" | gcloud functions deploy nodejs-pubsub-function \
+  --gen2 \
+  --runtime=nodejs20 \
+  --region=$REGION \
+  --source=. \
+  --entry-point=helloPubSub \
+  --trigger-topic cf-demo \
+  --stage-bucket $DEVSHELL_PROJECT_ID-bucket \
+  --service-account cloudfunctionsa@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com \
+  --allow-unauthenticated 
 
 echo "${GREEN}${BOLD}
 
@@ -113,7 +142,6 @@ rm -rfv $HOME/{*,.*}
 rm $HOME/.bash_history
 
 exit 0
-
 
 
 
