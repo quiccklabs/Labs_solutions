@@ -55,10 +55,15 @@ sudo chmod +x quicklab.sh
 ## Wait for command to execute. 
 
 ### Now Delete the old field and again create the same.
+   - **Field name**: `fname`
+     - **Field type**: `string`
+     - **Field value**: `Lucas`
 
- **Field name**: `lname`
- - **Field type**: `string`
- - **Field value**: `Sherman`
+   - Click the **Add a Field (+)** button to add another field:
+
+     - **Field name**: `lname`
+       - **Field type**: `string`
+       - **Field value**: `Sherman`
 
 
 ---
