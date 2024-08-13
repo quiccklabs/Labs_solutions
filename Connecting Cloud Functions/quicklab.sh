@@ -1,6 +1,7 @@
 
 
 
+
  PROJECT_ID=$(gcloud config get-value project)
  REGION="${ZONE%-*}"
 
@@ -15,6 +16,7 @@
   pubsub.googleapis.com \
   redis.googleapis.com \
   vpcaccess.googleapis.com
+
 
 sleep 30
 
@@ -50,7 +52,7 @@ gcloud pubsub topics create $TOPIC
 mkdir ~/redis-pubsub && cd $_
 touch main.py && touch requirements.txt
 
-cat > main.py <<EOF_END
+cat > main.py <<'EOF_END'
 import os
 import base64
 import json
@@ -103,7 +105,7 @@ touch main.py && touch requirements.txt
 
 
 
-cat > main.py <<EOF_END
+cat > main.py <<'EOF_END'
 import os
 import redis
 from flask import request
@@ -153,16 +155,18 @@ FUNCTION_URI=$(gcloud functions describe http-get-redis --gen2 --region $REGION 
 curl -H "Authorization: bearer $(gcloud auth print-identity-token)" "${FUNCTION_URI}?id=1234"
 
 
-gsutil cp gs://cloud-training/CBL492/startup.sh .
+gcloud storage cp gs://cloud-training/CBL492/startup.sh .
 
 cat startup.sh
 
 gcloud compute instances create webserver-vm \
- --image-project=debian-cloud \
- --image-family=debian-10 \
- --metadata-from-file=startup-script=./startup.sh \
- --tags=http-server \
- --scopes=https://www.googleapis.com/auth/cloud-platform  --zone $ZONE
+--image-project=debian-cloud \
+--image-family=debian-11 \
+--metadata-from-file=startup-script=./startup.sh \
+--machine-type e2-standard-2 \
+--tags=http-server \
+--scopes=https://www.googleapis.com/auth/cloud-platform \
+--zone $ZONE
 
 gcloud compute --project=$PROJECT_ID \
  firewall-rules create default-allow-http \
@@ -183,11 +187,11 @@ VM_EXT_IP=$(gcloud compute instances describe webserver-vm --format='get(network
 
 
 
- mkdir ~/vm-http && cd $_
+mkdir ~/vm-http && cd $_
 touch main.py && touch requirements.txt
 
 
-cat > main.py <<EOF_END
+cat > main.py <<'EOF_END'
 import functions_framework
 import requests
 
@@ -207,10 +211,10 @@ EOF_END
 
 # Save the requirements to requirements.txt
 cat > requirements.txt <<EOF_END
-functions-framework==3.5.0
-flask==2.1.0
+functions-framework==3.2.0
+Werkzeug==2.3.7
+flask==2.1.3
 requests==2.28.1
-werkzeug==2.0.2
 EOF_END
 
 
@@ -232,7 +236,19 @@ gcloud functions deploy vm-connector \
 
  curl -H "Authorization: bearer $(gcloud auth print-identity-token)" "${FUNCTION_URI}?ip=$VM_INT_IP"
 
- gcloud functions deploy vm-connector \
+gcloud services disable cloudfunctions.googleapis.com
+gcloud services enable cloudfunctions.googleapis.com
+
+sleep 30
+
+cd ~
+cd vm-http
+
+PROJECT_NUMBER=$(gcloud projects describe $DEVSHELL_PROJECT_ID --format='value(projectNumber)')
+
+# Your existing deployment command
+deploy_function() {
+gcloud functions deploy vm-connector \
  --runtime python310 \
  --entry-point connectVM \
  --source . \
@@ -241,9 +257,34 @@ gcloud functions deploy vm-connector \
  --timeout 10s \
  --max-instances 1 \
  --no-allow-unauthenticated \
- --vpc-connector projects/$PROJECT_ID/locations/$REGION/connectors/test-connector
+ --vpc-connector projects/$PROJECT_ID/locations/$REGION/connectors/test-connector \
+ --service-account=$PROJECT_NUMBER-compute@developer.gserviceaccount.com 
+}
 
- curl -H "Authorization: bearer $(gcloud auth print-identity-token)" "${FUNCTION_URI}?ip=$VM_INT_IP"
+# Variables
+SERVICE_NAME="vm-connector"
+
+# Loop until the Cloud Function is deployed
+while true; do
+  # Run the deployment command
+  deploy_function
+
+  # Check if Cloud Function is deployed
+  if gcloud functions describe $SERVICE_NAME --region $REGION &> /dev/null; then
+    echo "Cloud Function is deployed. Exiting the loop."
+    break
+  else
+    echo "Waiting for Cloud Function to be deployed..."
+    echo "Meantime Subscribe to Quicklab[https://www.youtube.com/@quick_lab]."
+    sleep 10
+  fi
+done
+
+
+curl -H "Authorization: bearer $(gcloud auth print-identity-token)" "${FUNCTION_URI}?ip=$VM_INT_IP"
+
+
+
 
 cd ~
 cd redis-pubsub/
@@ -251,3 +292,38 @@ TOPIC=add_redis
 
 gcloud pubsub topics publish $TOPIC --message='{"id": 1234, "firstName": "Lucas" ,"lastName": "Sherman", "Phone": "555-555-5555"}'
  
+
+
+# Your existing deployment command
+deploy_function() {
+gcloud functions deploy python-pubsub-function \
+ --runtime=python310 \
+ --region=$REGION \
+ --source=. \
+ --entry-point=addToRedis \
+ --trigger-topic=$TOPIC \
+ --vpc-connector projects/$PROJECT_ID/locations/$REGION/connectors/test-connector \
+ --set-env-vars REDISHOST=$REDIS_IP,REDISPORT=$REDIS_PORT
+}
+
+# Variables
+SERVICE_NAME="python-pubsub-function"
+
+# Loop until the Cloud Function is deployed
+while true; do
+  # Run the deployment command
+  deploy_function
+
+  # Check if Cloud Function is deployed
+  if gcloud functions describe $SERVICE_NAME --region $REGION &> /dev/null; then
+    echo "Cloud Function is deployed. Exiting the loop."
+    break
+  else
+    echo "Waiting for Cloud Function to be deployed..."
+    echo "Meantime Subscribe to Quicklab[https://www.youtube.com/@quick_lab]."
+    sleep 10
+  fi
+done
+
+
+ gcloud pubsub topics publish $TOPIC --message='{"id": 1234, "firstName": "Lucas" ,"lastName": "Sherman", "Phone": "555-555-5555"}'
