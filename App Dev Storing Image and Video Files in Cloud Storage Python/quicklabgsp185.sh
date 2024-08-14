@@ -1,6 +1,14 @@
 
 gcloud config set project $DEVSHELL_PROJECT_ID
 
+gsutil mb gs://$DEVSHELL_PROJECT_ID-media
+
+wget https://storage.googleapis.com/cloud-training/quests/Google_Cloud_Storage_logo.png
+
+gsutil cp Google_Cloud_Storage_logo.png gs://$DEVSHELL_PROJECT_ID-media
+
+export GCLOUD_BUCKET=$DEVSHELL_PROJECT_ID-media
+
 git clone https://github.com/GoogleCloudPlatform/training-data-analyst
 
 cd ~/training-data-analyst/courses/developingapps/python/cloudstorage/start
@@ -10,13 +18,7 @@ sed -i s/us-central/$REGION/g prepare_environment.sh
 
 . prepare_environment.sh
 
-gsutil mb gs://$DEVSHELL_PROJECT_ID-media
 
-wget https://storage.googleapis.com/cloud-training/quests/Google_Cloud_Storage_logo.png
-
-gsutil cp Google_Cloud_Storage_logo.png gs://$DEVSHELL_PROJECT_ID-media
-
-export GCLOUD_BUCKET=$DEVSHELL_PROJECT_ID-media
 
 cd quiz/gcp
 
