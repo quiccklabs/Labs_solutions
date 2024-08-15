@@ -1,0 +1,10 @@
+Flask
+Jinja2
+pytest
+pyyaml
+google-cloud-aiplatform
+firestore
+langchain_community
+langchain
+pypdf
+vertexai
