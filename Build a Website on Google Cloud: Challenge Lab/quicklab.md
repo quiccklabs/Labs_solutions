@@ -10,7 +10,7 @@ This lab demonstrates how to deploy a monolithic application and convert it into
 Make sure to set the following environment variables:
 
 ```bash
-export ZONE=  
+export ZONE=
 export MONOLITH_IDENTIFIER=
 export CLUSTER_NAME=
 export ORDERS_IDENTIFIER=
