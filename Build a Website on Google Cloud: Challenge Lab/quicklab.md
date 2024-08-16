@@ -21,7 +21,7 @@ export FRONTEND_IDENTIFIER=
 ### 2. Run below code
 
 ```bash
-curl -LO 
+curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Build%20a%20Website%20on%20Google%20Cloud%3A%20Challenge%20Lab/quicklabgsp319.sh
 sudo chmod +x quicklabgsp319.sh
 ./quicklabgsp319.sh
 ```
