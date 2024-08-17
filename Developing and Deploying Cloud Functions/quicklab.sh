@@ -1,5 +1,6 @@
 
 
+
 PROJECT_ID=$(gcloud config get-value project)
 
 gcloud services enable \
@@ -16,33 +17,30 @@ sleep 60
 
 mkdir ~/quicklab && cd $_
 
-cat > index.js <<EOF_END
+cat > index.js <<'EOF_END'
 const functions = require('@google-cloud/functions-framework');
 
 functions.http('convertTemp', (req, res) => {
-  var dirn = req.query.convert;
-  var ctemp = (req.query.temp - 32) * 5/9;
-  var target_unit = 'Celsius';
+ var dirn = req.query.convert;
+ var ctemp = (req.query.temp - 32) * 5/9;
+ var target_unit = 'Celsius';
 
-  if (req.query.temp === undefined) {
+ if (req.query.temp === undefined) {
     res.status(400);
     res.send('Temperature value not supplied in request.');
-  }
+ }
+ if (dirn === undefined)
+   dirn = process.env.TEMP_CONVERT_TO;
+ if (dirn === 'ctof') {
+   ctemp = (req.query.temp * 9/5) + 32;
+   target_unit = 'Fahrenheit';
+ }
 
-  if (dirn === undefined)
-    dirn = process.env.TEMP_CONVERT_TO;
-
-  if (dirn === 'ctof') {
-    ctemp = (req.query.temp * 9/5) + 32;
-    target_unit = 'Fahrenheit';
-  }
-
-  res.send("Temperature in " + target_unit + " is: " + ctemp.toFixed(2) + ".");
+ res.send(`Temperature in ${target_unit} is: ${ctemp.toFixed(2)}.`);
 });
-
 EOF_END
 
-cat > package.json <<EOF_END
+cat > package.json <<'EOF_END'
 {
   "dependencies": {
     "@google-cloud/functions-framework": "^3.0.0"
@@ -119,7 +117,6 @@ fi
 # Function is now active, proceed with next command
 echo "Function is active. Proceeding with next command."
 
-# Your actual command here
 
 
 sleep 10
@@ -135,6 +132,11 @@ PROJECT_NUMBER=$(gcloud projects list \
     --filter="project_id:$PROJECT_ID" \
     --format='value(project_number)')
 
+
+
+#TASK 3
+
+
 SERVICE_ACCOUNT=$(gsutil kms serviceaccount -p $PROJECT_NUMBER)
 
 gcloud projects add-iam-policy-binding $PROJECT_ID --member serviceAccount:$SERVICE_ACCOUNT --role roles/pubsub.publisher
@@ -146,25 +148,25 @@ mkdir ~/temp-data-checker && cd $_
 touch index.js && touch package.json
 
 
-cat > index.js <<EOF_END
+cat > index.js <<'EOF_END'
 const functions = require('@google-cloud/functions-framework');
 
 // Register a CloudEvent callback with the Functions Framework that will
 // be triggered by Cloud Storage events.
 functions.cloudEvent('checkTempData', cloudEvent => {
-  console.log('Event ID: ' + cloudEvent.id);
-  console.log('Event Type: ' + cloudEvent.type);
+  console.log(`Event ID: ${cloudEvent.id}`);
+  console.log(`Event Type: ${cloudEvent.type}`);
 
   const file = cloudEvent.data;
-  console.log('Bucket: ' + file.bucket);
-  console.log('File: ' + file.name);
-  console.log('Created: ' + file.timeCreated);
+  console.log(`Bucket: ${file.bucket}`);
+  console.log(`File: ${file.name}`);
+  console.log(`Created: ${file.timeCreated}`);
 });
 EOF_END
 
 
 
-cat > package.json <<EOF_END
+cat > package.json <<'EOF_END'
 {
     "name": "temperature-data-checker",
     "version": "0.0.1",
@@ -222,41 +224,35 @@ gsutil cp ~/average-temps.csv $BUCKET/average-temps.csv
  --region $REGION --gen2 --limit=100 --format "value(log)"
 
 
+ #TASK 4
 
  mkdir ~/temp-data-converter && cd $_
 
- cat > index.js <<EOF
- const functions = require('@google-cloud/functions-framework');
- 
- functions.http('convertTemp', (req, res) => {
-   var dirn = req.query.convert;
-   var temp = req.query.temp;
- 
-   if (temp === undefined || isNaN(temp)) {
-     res.status(400);
-     res.send('Invalid or missing temperature value in the request.');
-     return;
-   }
- 
-   var ctemp = (temp - 32) * 5 / 9;
-   var target_unit = 'Celsius';
- 
-   if (dirn === undefined) {
-     dirn = process.env.TEMP_CONVERT_TO;
-   }
- 
-   if (dirn === 'ctof') {
-     ctemp = (temp * 9 / 5) + 32;
-     target_unit = 'Fahrenheit';
-   }
- 
-   res.send(\`Temperature in \${target_unit} is: \${ctemp.toFixed(2)}.\`);
- });
- EOF
+cat > index.js <<'EOF_END'
+const functions = require('@google-cloud/functions-framework');
+
+functions.http('convertTemp', (req, res) => {
+ var dirn = req.query.convert;
+ var ctemp = (req.query.temp - 32) * 5/9;
+ var target_unit = 'Celsius';
+
+ if (req.query.temp === undefined) {
+    res.status(400);
+    res.send('Temperature value not supplied in request.');
+ }
+ if (dirn === undefined)
+   dirn = process.env.TEMP_CONVERT_TO;
+ if (dirn === 'ctof') {
+   ctemp = (req.query.temp * 9/5) + 32;
+   target_unit = 'Fahrenheit';
+ }
+
+ res.send(`Temperature in ${target_unit} is: ${ctemp.toFixed(2)}.`);
+});
+EOF_END
  
  
- 
-cat > package.json <<EOF_END
+cat > package.json <<'EOF_END'
  {
     "name": "temperature-converter",
     "version": "0.0.1",
@@ -280,7 +276,7 @@ EOF_END
 mkdir tests && touch tests/unit.http.test.js
 
 
-cat > tests/unit.http.test.js <<EOF
+cat > tests/unit.http.test.js <<'EOF_END'
 const {getFunction} = require('@google-cloud/functions-framework/testing');
 
 describe('functions_convert_temperature_http', () => {
@@ -349,7 +345,27 @@ describe('functions_convert_temperature_http', () => {
     assert.strictEqual(mocks.res.status.firstCall.args[0], 400);
   });
 });
-EOF
+EOF_END
+
+
+cat > package.json <<'EOF_END'
+{
+  "name": "temperature-converter",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "unit-test": "mocha tests/unit*test.js --timeout=6000 --exit",
+    "test": "npm -- run unit-test"
+  },
+  "devDependencies": {
+    "mocha": "^9.0.0",
+    "sinon": "^14.0.0"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^2.1.0"
+  }
+}
+EOF_END
 
 
 
