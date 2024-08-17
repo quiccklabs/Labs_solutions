@@ -59,3 +59,14 @@ gcloud functions deploy cf-demo \
   --trigger-http \
   --allow-unauthenticated \
   --quiet
+
+
+gcloud functions deploy cf-demo \
+  --gen2 \
+  --runtime go122 \
+  --entry-point HelloHTTP \
+  --source . \
+  --region $REGION \
+  --trigger-http \
+  --allow-unauthenticated \
+  --quiet
