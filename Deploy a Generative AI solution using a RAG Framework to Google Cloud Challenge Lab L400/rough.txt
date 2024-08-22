@@ -1,8 +1,6 @@
-Deploy a Generative AI solution using a RAG Framework to Google Cloud: Challenge Lab L400
 
-#TASK 1
-### Change the service name for lab
-export SERVICE_NAME=cymbal-web-service
+
+export SERVICE_NAME=
 
 gcloud storage cp -r gs://partner-genai-bucket/genai049/gen-ai-assessment .
 
@@ -57,12 +55,10 @@ rm main.py requirements.txt
 curl -LO https://raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Deploy%20a%20Generative%20AI%20solution%20using%20a%20RAG%20Framework%20to%20Google%20Cloud%20Challenge%20Lab%20L400/main.py
 curl -LO https://raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Deploy%20a%20Generative%20AI%20solution%20using%20a%20RAG%20Framework%20to%20Google%20Cloud%20Challenge%20Lab%20L400/requirements.txt
 
-POINT=$(gcloud ai index-endpoints list --region=$REGION --format='value(name)')
-
+POINT=$(gcloud ai index-endpoints list --region=$REGION --format='value(name)' | awk -F'/' '{print $NF}')
 echo $POINT
 
-## Replace the above command output with line 94 of main.py file 
-
+sed -i "s/2534484253186457600/$POINT/g" main.py
 
 
 pip install -r requirements.txt
