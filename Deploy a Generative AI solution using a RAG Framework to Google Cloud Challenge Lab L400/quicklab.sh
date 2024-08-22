@@ -1,6 +1,6 @@
 
 
-export SERVICE_NAME=
+
 
 gcloud storage cp -r gs://partner-genai-bucket/genai049/gen-ai-assessment .
 
