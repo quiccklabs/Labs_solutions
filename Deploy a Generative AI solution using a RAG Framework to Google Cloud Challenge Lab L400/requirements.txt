@@ -1,10 +1,9 @@
-Flask
+flask
 Jinja2
 pytest
 pyyaml
 google-cloud-aiplatform
-firestore
+google-cloud-logging
+firebase-admin
 langchain_community
-langchain
 pypdf
-vertexai
