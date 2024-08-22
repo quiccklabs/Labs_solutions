@@ -1,10 +1,35 @@
-from flask import Flask, render_template, request
 import os
 import yaml
-import vertexai
-from vertexai.language_models import TextGenerationModel
+import logging
+import google.cloud.logging
+from flask import Flask, render_template, request
 
-app = Flask(__name__)
+import firebase_admin
+from firebase_admin import firestore
+
+import vertexai
+from vertexai.generative_models import GenerativeModel
+from vertexai.language_models import TextEmbeddingInput, TextEmbeddingModel
+from google.cloud import aiplatform
+
+# Configure Cloud Logging
+logging_client = google.cloud.logging.Client()
+logging_client.setup_logging()
+logging.basicConfig(level=logging.INFO)
+
+# Instantiating the Firebase client
+firebase_app = firebase_admin.initialize_app()
+db = firestore.client()
+
+# Instantiate an embedding model here
+embedding_model = None
+
+# Instantiate a Generative AI model here
+gen_model = None
+
+# Instantiate the index endpoint here
+index_endpoint = None
+
 
 # Helper function that reads from the config file.
 def get_config_value(config, section, key, default=None):
@@ -16,36 +41,41 @@ def get_config_value(config, section, key, default=None):
     except:
         return default
 
+
 # Open the config file (config.yaml)
-with open('config.yaml') as f:
+with open("config.yaml") as f:
     config = yaml.safe_load(f)
 
 # Read application variables from the config fle
-TITLE = get_config_value(config, 'app', 'title', 'Ask Google')
-SUBTITLE = get_config_value(config, 'app', 'subtitle', 'Your friendly Bot')
-CONTEXT = get_config_value(config, 'palm', 'context',
-                           'You are a bot who can answer all sorts of questions')
-BOTNAME = get_config_value(config, 'palm', 'botname', 'Google')
-TEMPERATURE = get_config_value(config, 'palm', 'temperature', 0.8)
-MAX_OUTPUT_TOKENS = get_config_value(config, 'palm', 'max_output_tokens', 256)
-TOP_P = get_config_value(config, 'palm', 'top_p', 0.8)
-TOP_K = get_config_value(config, 'palm', 'top_k', 40)
+TITLE = get_config_value(config, "app", "title", "Ask Google")
+SUBTITLE = get_config_value(config, "app", "subtitle", "Your friendly Bot")
+CONTEXT = get_config_value(
+    config, "gemini", "context", "You are a bot who can answer all sorts of questions"
+)
+BOTNAME = get_config_value(config, "gemini", "botname", "Google")
+
+app = Flask(__name__)
 
 
 # The Home page route
-@app.route("/", methods=['POST', 'GET'])
+@app.route("/", methods=["POST", "GET"])
 def main():
 
     # The user clicked on a link to the Home page
     # They haven't yet submitted the form
-    if request.method == 'GET':
+    if request.method == "GET":
         question = ""
-        answer = "Hi, I'm FreshBot. How may I be of assistance to you?"
+        answer = "Hi, I'm FreshBot. What are your food safety questions?"
 
     # The user asked a question and submitted the form
     # The request.method would equal 'POST'
     else:
-        question = request.form['input']
+        question = request.form["input"]
+        # Do not delete this logging statement.
+        logging.info(
+            question,
+            extra={"labels": {"service": "cymbal-service", "component": "question"}},
+        )
 
         # Get the data to answer the question that
         # most likely matches the question based on the embeddings
@@ -55,25 +85,35 @@ def main():
         # from the database
         answer = ask_gemini(question, data)
 
+    # Do not delete this logging statement.
+    logging.info(
+        answer, extra={"labels": {"service": "cymbal-service", "component": "answer"}}
+    )
+    print("Answer: " + answer)
+
     # Display the home page with the required variables set
-    model = {"title": TITLE, "subtitle": SUBTITLE,
-             "botname": BOTNAME, "message": answer, "input": question}
-    return render_template('index.html', model=model)
+    model = {
+        "title": TITLE,
+        "subtitle": SUBTITLE,
+        "botname": BOTNAME,
+        "message": answer,
+        "input": question,
+    }
+
+    return render_template("index.html", model=model)
 
 
-from vertexai.language_models import TextEmbeddingModel
+def search_vector_database(question):
 
-def search_vector_database(question) -> list:
-  """Text embedding with a Large Language Model and prints the vector."""
-
-  model = TextEmbeddingModel.from_pretrained("textembedding-gecko@002")
+  model = TextEmbeddingModel.from_pretrained("text-embedding-004")
   embeddings = model.get_embeddings([question])
   for embedding in embeddings:
     vector = embedding.values
   return vector
-
+    
 PROJECT_ID = os.getenv("project_id")
 LOCATION = os.getenv("lab_region")
+
 
 # Initialization
 from google.cloud import aiplatform
@@ -91,7 +131,7 @@ my_index_endpoint = aiplatform.MatchingEngineIndexEndpoint(
 
 # YOu need to supply the full name of your endopoint
 # Get this from the Google Cloud console.
-index_endpoint_name="projects/qwiklabs-gcp-00-05caff4e8963/locations/us-central1/indexEndpoints/545933911469850624"
+index_endpoint_name="2534484253186457600"
     )
 
 QUESTION_EMBEDDING = search_vector_database(question_with_task_type)
@@ -103,7 +143,7 @@ response = my_index_endpoint.find_neighbors(
     num_neighbors = 5
 )
 
-# show the results
+
 for idx, neighbor in enumerate(response[0]):
     print(f"{neighbor.distance:.2f} {neighbor.id}")
 
@@ -135,6 +175,25 @@ print(len(pages))
 import vertexai
 from vertexai.preview.generative_models import GenerativeModel, Part
 
+
+
+
+
+
+
+    # # 1. Convert the question into an embedding
+    # # 2. Search the Vector database for the 5 closest embeddings to the user's question
+    # # 3. Get the IDs for the five embeddings that are returned
+    # # 4. Get the five documents from Firestore that match the IDs
+    # # 5. Concatenate the documents into a single string and return it.
+
+    # # Don't delete this logging statement.
+    # logging.info(
+    #     data, extra={"labels": {"service": "cymbal-service", "component": "data"}}
+    # )
+    # return data
+
+
 def ask_gemini(question, data):
   """
   This function builds a prompt with the user question and data,
@@ -148,7 +207,7 @@ def ask_gemini(question, data):
       The generated answer from Gemini as a string.
   """
 
-  model = GenerativeModel("gemini-pro")
+  model = GenerativeModel("gemini-1.5-flash-001")
   prompt = f"""
   context: Answer the question using the following data.
 
