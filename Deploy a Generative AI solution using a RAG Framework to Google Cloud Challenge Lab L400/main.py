@@ -176,24 +176,6 @@ import vertexai
 from vertexai.preview.generative_models import GenerativeModel, Part
 
 
-
-
-
-
-
-    # # 1. Convert the question into an embedding
-    # # 2. Search the Vector database for the 5 closest embeddings to the user's question
-    # # 3. Get the IDs for the five embeddings that are returned
-    # # 4. Get the five documents from Firestore that match the IDs
-    # # 5. Concatenate the documents into a single string and return it.
-
-    # # Don't delete this logging statement.
-    # logging.info(
-    #     data, extra={"labels": {"service": "cymbal-service", "component": "data"}}
-    # )
-    # return data
-
-
 def ask_gemini(question, data):
   """
   This function builds a prompt with the user question and data,
