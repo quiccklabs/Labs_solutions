@@ -13,7 +13,7 @@ kubectl apply -f googlecloud_ssd.yaml
 rm mongo-statefulset.yaml
 
 ## add file
-
+curl -LO https://raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Running%20a%20MongoDB%20Database%20in%20Kubernetes%20with%20StatefulSets/mongo-statefulset.yaml
 
 kubectl apply -f mongo-statefulset.yaml
 
