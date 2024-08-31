@@ -2,7 +2,7 @@
 
 ## 🚀 Working with the Google Cloud Console and Cloud Shell (Azure) | [Lab Link](https://www.cloudskillsboost.google/focuses/59833?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/TNUyaYaohSM)
 
 ---
 
