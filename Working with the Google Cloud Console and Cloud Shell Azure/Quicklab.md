@@ -45,6 +45,6 @@ You've successfully demonstrated your skills and determination by completing the
 
 **Keep up the great work and continue your learning journey!**
 
-# [QUICK GCP LAB](https://www.youtube.com/@quickgcplab) - Your Gateway to Mastering GCP!
+# [QUICKLAB☁️](https://www.youtube.com/@quick_lab) - Don't Forgot to Subscribe!
 
 ---
