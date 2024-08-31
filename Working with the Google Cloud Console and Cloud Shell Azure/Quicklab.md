@@ -12,7 +12,7 @@ Open your **Google CloudShell** and run the following commands to kickstart your
 
 ## Task 1. Use the Cloud Console to create a bucket [Click Here] (https://console.cloud.google.com/storage/create-bucket?project=)
 
-Open your **Google CloudShell** [Click Here] (https://console.cloud.google.com/home/dashboard?project=&pli=1&cloudshell=true) and run the following commands to kickstart your lab:
+Open your **Google CloudShell** [Click Here](https://console.cloud.google.com/home/dashboard?project=&pli=1&cloudshell=true) and run the following commands to kickstart your lab:
 
 
 
