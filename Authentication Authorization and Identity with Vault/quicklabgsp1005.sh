@@ -13,27 +13,16 @@ sudo apt-get install vault
 
 vault
 
-<!-- vault server -dev -->
-
-
-#!/bin/bash
-
-# Start Vault server in the background
 nohup vault server -dev > vault_server.log 2>&1 &
 
-# Wait a few seconds for the server to start
 sleep 5
 
-# Set the VAULT_ADDR environment variable
 export VAULT_ADDR='http://127.0.0.1:8200'
 
 # Check Vault status
 vault status
 
 # Continue with other Vault commands
-
-
-<!-- #open new terminal -->
 
 
 
