@@ -55,7 +55,7 @@ sleep 10
 vault secrets enable gcp
 
 
-
+#TASK 3
 
 SERVICE_ACCOUNT_EMAIL="$DEVSHELL_PROJECT_ID@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com"
 
@@ -65,6 +65,9 @@ gcloud iam service-accounts keys create ~/$DEVSHELL_PROJECT_ID.json \
 gcloud iam service-accounts keys list --iam-account $SERVICE_ACCOUNT_EMAIL
 
 #TASK 4
+
+export VAULT_ADDR='http://127.0.0.1:8200'
+
 
 vault write gcp/config \
 credentials=@/home/$USER/$DEVSHELL_PROJECT_ID.json \
@@ -120,4 +123,29 @@ vault write gcp/static-account/my-token-account \
 vault write gcp/static-account/my-key-account \
     service_account_email="$SERVICE_ACCOUNT_EMAIL" \
     secret_type="service_account_key"  \
+    bindings=@bindings.hcl
+
+export VAULT_ADDR='http://127.0.0.1:8200'
+
+
+vault write gcp/config \
+credentials=@/home/$USER/$DEVSHELL_PROJECT_ID.json \
+ttl=3600 \
+max_ttl=86400
+
+
+cat > bindings.hcl <<EOF_END
+resource "buckets/$DEVSHELL_PROJECT_ID" {
+  roles = [
+    "roles/storage.objectAdmin",
+    "roles/storage.legacyBucketReader",
+  ]
+}
+EOF_END
+
+
+vault write gcp/roleset/my-token-roleset \
+    project="$DEVSHELL_PROJECT_ID" \
+    secret_type="access_token"  \
+    token_scopes="https://www.googleapis.com/auth/cloud-platform" \
     bindings=@bindings.hcl
