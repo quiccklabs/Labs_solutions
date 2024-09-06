@@ -176,3 +176,23 @@ bq query --use_legacy_sql=false \
 # Delete rows with NULL country_area
 bq query --use_legacy_sql=false \
 "DELETE FROM \`covid_data.oxford_policy_tracker_by_countries\` WHERE country_area IS NULL;"
+
+
+
+export DATASET_NAME_1=covid
+
+bq query --use_legacy_sql=false \
+"
+CREATE OR REPLACE TABLE $DATASET_NAME_1.oxford_policy_tracker
+PARTITION BY date
+OPTIONS(
+partition_expiration_days=1445,
+description='oxford_policy_tracker table in the COVID 19 Government Response public dataset with  an expiry time set to 90 days.'
+) AS
+SELECT
+   *
+FROM
+   \`bigquery-public-data.covid19_govt_response.oxford_policy_tracker\`
+WHERE
+   alpha_3_code NOT IN ('GBR', 'BRA', 'CAN','USA')
+"
