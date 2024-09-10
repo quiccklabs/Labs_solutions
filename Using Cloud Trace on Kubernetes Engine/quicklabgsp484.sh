@@ -34,6 +34,6 @@ sleep 30
 
 echo http://$(kubectl get svc tracing-demo -n default -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 
-sleep 30
+sleep 60
 
 echo http://$(kubectl get svc tracing-demo -n default -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
