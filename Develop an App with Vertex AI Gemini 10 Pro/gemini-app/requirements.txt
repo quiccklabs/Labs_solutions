@@ -1,0 +1,4 @@
+streamlit
+google-cloud-aiplatform==1.38.1
+google-cloud-logging==3.6.0
+
