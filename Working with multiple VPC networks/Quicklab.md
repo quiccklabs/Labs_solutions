@@ -2,7 +2,7 @@
 
 ## 🚀 Working with multiple VPC networks | [Lab Link](https://www.cloudskillsboost.google/focuses/19162?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/S2j_X0Pa64Y)
 
 ---
 
