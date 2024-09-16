@@ -17,8 +17,10 @@ This script and guide are provided for educational purposes to help you understa
 ---
 
 ```bash
-read -p "API_KEY:" API_KEY
+export API_KEY=
+```
 
+```bash
 cat > request.json <<EOF
 
 {
