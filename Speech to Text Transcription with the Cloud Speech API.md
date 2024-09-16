@@ -14,7 +14,7 @@ This script and guide are provided for educational purposes to help you understa
 
 **Launch VM SSH Shell:** [clicking here](https://console.cloud.google.com/compute/instances?referrer=search&project=).
 
---
+---
 
 ```bash
 read -p "API_KEY:" API_KEY
@@ -33,15 +33,15 @@ cat > request.json <<EOF
 
 EOF
 
-curl -s -X POST -H "Content-Type: application/json" --data-binary @request.json \
+curl -s -X POST -H "Content-Type: application/json" -data-binary @request.json \
 "https://speech.googleapis.com/v1/speech:recognize?key=${API_KEY}" > result.json
 ```
---
+---
 
 ## Now Check the score for Task 3 Then only move ahead with next command.
 
 
---
+---
 
 ```bash
 rm request.json
@@ -61,7 +61,7 @@ cat >> request.json <<EOF
 EOF
 
 
-curl -s -X POST -H "Content-Type: application/json" --data-binary @request.json \
+curl -s -X POST -H "Content-Type: application/json" -data-binary @request.json \
 "https://speech.googleapis.com/v1/speech:recognize?key=${API_KEY}" > result.json
 ```
 
@@ -82,7 +82,7 @@ You've successfully completed the lab! Great job on working through the process.
 
 
 ---
----
+
 
 **Keep up the great work and continue your learning journey!**
 
