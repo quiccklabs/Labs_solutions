@@ -1,3 +1,8 @@
+
+echo ""
+echo ""
+echo "Please enter the regions for the custom network subnets."
+
 # Prompt user to input three regions
 read -p "Enter REGION_1: " REGION_1
 read -p "Enter REGION_2: " REGION_2
