@@ -1,7 +1,7 @@
 
 ## 🚀 Use Dataproc Serverless for Spark to Load BigQuery | [Lab Link](https://www.cloudskillsboost.google/focuses/102966?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/kYOIA7OHYQw)
 
 ---
 
