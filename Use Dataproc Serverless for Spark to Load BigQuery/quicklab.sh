@@ -41,6 +41,8 @@ export REGION=$REGION
 export GCS_STAGING_LOCATION=gs://$PROJECT_ID
 export JARS=gs://cloud-training/dataengineering/lab_assets/idegc/spark-bigquery_2.12-20221021-2134.jar
 
+sleep 60
+
 ./bin/start.sh \
 -- --template=GCSTOBIGQUERY \
     --gcs.bigquery.input.format="avro" \
