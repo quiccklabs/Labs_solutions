@@ -1,3 +1,12 @@
+echo ""
+echo ""
+echo "Please export the values."
+
+
+# Prompt user to input three regions
+read -p "Enter ZONE: " ZONE
+read -p "Enter KEY_1: " KEY_1
+read -p "Enter VALUE_1: " VALUE_1
 
 
 
