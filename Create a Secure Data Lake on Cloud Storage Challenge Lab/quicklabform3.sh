@@ -1,4 +1,11 @@
 
+echo ""
+echo ""
+echo "Please export the values."
+
+
+# Prompt user to input three regions
+read -p "Enter REGION: " REGION
 
 
 #TASK 1
