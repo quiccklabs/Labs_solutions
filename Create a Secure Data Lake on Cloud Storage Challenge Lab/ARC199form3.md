@@ -1,7 +1,7 @@
 
 ## 🚀 Secure Data Lake on Cloud Storage - Challenge Lab | [ARC119](https://www.cloudskillsboost.google/catalog_lab/6445)
 
-### Form 3 🔗 **Solution Video:** [Watch Here](https://www.youtube.com/watch?v=bHXRvbXTWaQ)
+### Form 3 🔗 **Solution Video:** [Watch Here](https://youtu.be/0D1sMLRaXzk)
 
 ---
 
