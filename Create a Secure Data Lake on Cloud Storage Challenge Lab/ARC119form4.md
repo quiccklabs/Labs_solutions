@@ -12,8 +12,6 @@
    Start your Google CloudShell session by [clicking here](https://console.cloud.google.com/home/dashboard?project=&pli=1&cloudshell=true).
 
 
-```
-
 ```bash
 curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Create%20a%20Secure%20Data%20Lake%20on%20Cloud%20Storage%20Challenge%20Lab/quicklabarc119.sh
 
