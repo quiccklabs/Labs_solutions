@@ -1,4 +1,14 @@
 
+echo ""
+echo ""
+echo "Please export the values."
+
+
+# Prompt user to input three regions
+read -p "Enter USERNAME2: " USERNAME2
+read -p "Enter ZONE: " ZONE
+read -p "Enter TOPIC_NAME: " TOPIC_NAME
+read -p "Enter FUNCTION_NAME: " FUNCTION_NAME
 
 
 export REGION="${ZONE%-*}"
@@ -200,4 +210,3 @@ gsutil cp map.jpg gs://$DEVSHELL_PROJECT_ID-bucket/map.jpg
 gcloud projects remove-iam-policy-binding $DEVSHELL_PROJECT_ID \
 --member=user:$USERNAME2 \
 --role=roles/viewer
-
