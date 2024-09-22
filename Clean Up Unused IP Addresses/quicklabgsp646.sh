@@ -45,7 +45,7 @@ PROJECT_NUMBER=$(gcloud projects describe $DEVSHELL_PROJECT_ID --format='value(p
 
 # Your existing deployment command
 deploy_function() {
-gcloud functions deploy unused_ip_function --trigger-http --runtime=nodejs12 --region=$REGION --quiet
+gcloud functions deploy unused_ip_function --trigger-http --gen2 --runtime=nodejs20 --region=$REGION --quiet
 }
 
 # Variables
