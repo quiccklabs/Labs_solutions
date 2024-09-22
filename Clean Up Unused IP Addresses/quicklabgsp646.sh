@@ -1,7 +1,6 @@
 
 
-
-
+gcloud services enable run.googleapis.com
 
 gcloud services disable cloudfunctions.googleapis.com
 
@@ -45,7 +44,7 @@ PROJECT_NUMBER=$(gcloud projects describe $DEVSHELL_PROJECT_ID --format='value(p
 
 # Your existing deployment command
 deploy_function() {
-gcloud functions deploy unused_ip_function --trigger-http --gen2 --runtime=nodejs20 --region=$REGION --quiet
+gcloud functions deploy unused_ip_function --gen2 --trigger-http --runtime=nodejs20 --region=$REGION --quiet
 }
 
 # Variables
@@ -68,7 +67,7 @@ while true; do
 done
 
 
-export FUNCTION_URL=$(gcloud functions describe unused_ip_function --region=$REGION --format=json | jq -r '.httpsTrigger.url')
+export FUNCTION_URL=$(gcloud functions describe unused_ip_function --region=$REGION --format="value(url)")
 
 if [ "$REGION" == "us-central1" ]; then
   gcloud app create --region us-central
@@ -97,7 +96,6 @@ REGION="${ZONE%-*}"
 USED_IP=used-ip-address
 UNUSED_IP=unused-ip-address
 gcloud compute addresses create $UNUSED_IP --project=$PROJECT_ID --region=$REGION
-
 
 
 
