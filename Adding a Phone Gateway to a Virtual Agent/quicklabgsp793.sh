@@ -14,8 +14,6 @@ export TRIGGER="--trigger-http"
 
 
 curl -LO https://raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Adding%20a%20Phone%20Gateway%20to%20a%20Virtual%20Agent/pigeon-travel-gsp-793-cloud-function/index.js
-
-
 curl -LO https://raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Adding%20a%20Phone%20Gateway%20to%20a%20Virtual%20Agent/pigeon-travel-gsp-793-cloud-function/package.json
 
 gcloud services enable cloudfunctions.googleapis.com
