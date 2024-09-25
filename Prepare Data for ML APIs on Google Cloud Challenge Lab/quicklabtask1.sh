@@ -11,7 +11,7 @@ read -p "Enter TABLE_NAME: " TABLE_NAME
 read -p "Enter TASK_3_BUCKET_NAME: " TASK_3_BUCKET_NAME
 read -p "Enter TASK_4_BUCKET_NAME: " TASK_4_BUCKET_NAME
 
-#!/bin/bash
+
 read -p "Enter REGION: " REGION
 echo $REGION > /tmp/region.txt  # Save to a temporary file
 
