@@ -1,4 +1,18 @@
 
+echo ""
+echo ""
+echo "Please enter the regions for the custom network subnets."
+
+# Prompt user to input three regions
+read -p "Enter DATASET_NAME: " DATASET_NAME
+read -p "Enter BUCKET_NAME: " BUCKET_NAME
+read -p "Enter REGION: " REGION
+read -p "Enter TABLE_NAME: " TABLE_NAME
+read -p "Enter TASK_3_BUCKET_NAME: " TASK_3_BUCKET_NAME
+read -p "Enter TASK_4_BUCKET_NAME: " TASK_4_BUCKET_NAME
+
+
+
 gcloud services enable apikeys.googleapis.com
 
 gcloud alpha services api-keys create --display-name="quicklab" 
@@ -131,6 +145,7 @@ curl -s -H 'Content-Type: application/json' \
 
 
 curl -s -H 'Content-Type: application/json' -H "Authorization: Bearer $ACCESS_TOKEN" 'https://videointelligence.googleapis.com/v1/operations/OPERATION_FROM_PREVIOUS_REQUEST' > result1.json
+
 
 
 
