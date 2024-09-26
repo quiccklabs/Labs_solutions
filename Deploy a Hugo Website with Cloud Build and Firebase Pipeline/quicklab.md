@@ -7,7 +7,7 @@
 
 
 ```
-curl -LO https://raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Deploy%20a%20Hugo%20Website%20with%20Cloud%20Build%20and%20Firebase%20Pipeline/quicklabtask1.sh
+curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Deploy%20a%20Hugo%20Website%20with%20Cloud%20Build%20and%20Firebase%20Pipeline/quicklabtask1.sh
 
 source quicklabtask1.sh
 ```
@@ -15,7 +15,7 @@ source quicklabtask1.sh
 
 ##
 ```
-curl -LO https://raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Deploy%20a%20Hugo%20Website%20with%20Cloud%20Build%20and%20Firebase%20Pipeline/quicklabtask2.sh
+curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Deploy%20a%20Hugo%20Website%20with%20Cloud%20Build%20and%20Firebase%20Pipeline/quicklabtask2.sh
 
 source quicklabtask2.sh
 ```
