@@ -18,7 +18,7 @@ Start your Google CloudShell session by [clicking here](https://console.cloud.go
 ```bash
 curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Using%20Gemini%20Throughout%20the%20Software%20Development%20Lifecycle/quicklabtask1.sh
 sudo chmod +x quicklabtask1.sh
-./quicklabtask1
+./quicklabtask1.sh
 
 ```
 - Now wait for command execute.
