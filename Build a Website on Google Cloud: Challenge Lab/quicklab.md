@@ -1,29 +1,47 @@
-# Build a Website on Google Cloud: Challenge Lab
-
-This lab demonstrates how to deploy a monolithic application and convert it into microservices on Google Kubernetes Engine (GKE). Below are the steps to clone the application, build the necessary images, and deploy them to your Kubernetes cluster.
 
 
-## Setup
+## 🚀 Build a Website on Google Cloud: Challenge Lab | [GSP319](https://www.cloudskillsboost.google/focuses/11765?parent=catalog)
 
-### 1. Export Environment Variables
+### 🔗 **Solution Video:** [Watch Here]()
 
-Make sure to set the following environment variables:
+---
 
-```bash
-export ZONE=
-export MONOLITH_IDENTIFIER=
-export CLUSTER_NAME=
-export ORDERS_IDENTIFIER=
-export PRODUCTS_IDENTIFIER=
-export FRONTEND_IDENTIFIER=
-```
+## ⚠️ **Disclaimer:**
+This script and guide are provided for educational purposes to help you understand the lab process. Before using the script, I encourage you to open and review it to understand each step. Please make sure you follow Qwiklabs' terms of service and YouTube’s community guidelines. The goal is to enhance your learning experience, not to bypass it.
 
-### 2. Run below code
+
+## 🌐 **Quick Start Guide:**
+
+**Launch Cloud Shell:**
+Start your Google CloudShell session by [clicking here](https://console.cloud.google.com/home/dashboard?project=&pli=1&cloudshell=true).
 
 ```bash
 curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Build%20a%20Website%20on%20Google%20Cloud%3A%20Challenge%20Lab/quicklabgsp319.sh
 sudo chmod +x quicklabgsp319.sh
 ./quicklabgsp319.sh
 ```
+- This runs the script to set up your environment for the lab. It will provision resources and configure them as needed.
 
-### 3. Congratulation!
+---
+
+---
+
+## 🎉 **Lab Completed!**
+
+You've successfully completed the lab! Great job on working through the process.
+
+### 🌟 **Stay Connected!**
+
+- 🔔 **Join our [Telegram Channel](https://t.me/quiccklab)** for the latest updates.
+- 🗣 **Participate in the [Discussion Group](https://t.me/Quicklabchat)** to engage with other learners.
+- 💬 **Join our [Discord Server](https://discord.gg/7fAVf4USZn)** for more interactive discussions.
+- 💼 **Follow us on [LinkedIn](https://www.linkedin.com/company/quicklab-linkedin/)** for news and opportunities.
+- 🐦 **Follow us on [Twitter/X](https://x.com/quicklab7)** for the latest updates.
+
+
+---
+---
+
+**Keep up the great work and continue your learning journey!**
+
+# [QUICKLAB☁️](https://www.youtube.com/@quick_lab) - Don't Forget to Subscribe!
