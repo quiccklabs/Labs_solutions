@@ -1,4 +1,22 @@
 
+
+    
+    
+echo ""
+echo ""
+echo "Please export the values."
+    
+    
+    # Prompt user to input three regions
+read -p "Enter ZONE: " ZONE
+read -p "Enter MONOLITH_IDENTIFIER: " MONOLITH_IDENTIFIER
+read -p "Enter CLUSTER_NAME: " CLUSTER_NAME
+read -p "Enter ORDERS_IDENTIFIER: " ORDERS_IDENTIFIER
+read -p "Enter PRODUCTS_IDENTIFIER: " PRODUCTS_IDENTIFIER
+read -p "Enter FRONTEND_IDENTIFIER: " FRONTEND_IDENTIFIER
+
+
+
 gcloud auth list
 
 git clone https://github.com/googlecodelabs/monolith-to-microservices.git
@@ -37,3 +55,4 @@ gcloud builds submit --tag gcr.io/${GOOGLE_CLOUD_PROJECT}/$FRONTEND_IDENTIFIER:1
 
 kubectl create deployment $FRONTEND_IDENTIFIER --image=gcr.io/${GOOGLE_CLOUD_PROJECT}/$FRONTEND_IDENTIFIER:1.0.0
 kubectl expose deployment $FRONTEND_IDENTIFIER --type=LoadBalancer --port 80 --target-port 8080
+
