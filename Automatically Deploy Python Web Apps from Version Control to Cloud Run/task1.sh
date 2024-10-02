@@ -83,6 +83,6 @@ BOLD_RED="\033[1;32m"
 RESET="\033[0m"
 
 # Print the URL in bold and green
-echo -e "Cloud Run: ${BOLD_GREEN}https://console.cloud.google.com/workstations/list?project=${RESET}"
+echo -e "Cloud Run: ${BOLD_GREEN}https://console.cloud.google.com/run${RESET}"
 
 
