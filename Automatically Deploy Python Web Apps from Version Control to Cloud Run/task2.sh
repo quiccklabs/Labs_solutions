@@ -1,3 +1,5 @@
+cd helloworld
+
 cat > main.py <<EOF_END
 import os
 
