@@ -1,4 +1,6 @@
 
+gcloud auth list
+
 gcloud config set project "$(gcloud projects list | awk '/PROJECT_ID/{print $2}' | head -1)"
 
 gcloud services enable \
