@@ -107,6 +107,7 @@ BOLD_RED="\033[1;32m"
 RESET="\033[0m"
 
 # Print the URL in bold and green
-echo -e "Open Dashboard: ${BOLD_GREEN}https://console.cloud.google.com/workstations/list?project=${RESET}"
+echo -e "Open Dashboard: ${BOLD_GREEN}https://console.cloud.google.com/monitoring/dashboards?&project=${RESET}"
 
-echo -e "Create Metric: ${BOLD_GREEN}https://console.cloud.google.com/workstations/list?project=${RESET}"
+echo -e "Create Metric: ${BOLD_GREEN}https://console.cloud.google.com/logs/metrics/edit?project=${RESET}"
+
