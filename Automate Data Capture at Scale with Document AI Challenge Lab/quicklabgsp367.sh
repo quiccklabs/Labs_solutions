@@ -1,4 +1,20 @@
 
+
+
+
+
+echo ""
+echo ""
+echo "Please export the values."
+
+
+# Prompt user to input three regions
+read -p "Enter PROCESSOR_NAME: " PROCESSOR_NAME
+read -p "Enter REGION: " REGION
+
+
+
+
 #TASK 1
 export BUCKET_LOCATION=$REGION
 export PROJECT_ID=$(gcloud config get-value core/project)
@@ -126,4 +142,3 @@ gcloud functions deploy process-invoices \
 export PROJECT_ID=$(gcloud config get-value core/project)
 gsutil -m cp -r gs://cloud-training/gsp367/* \
 ~/document-ai-challenge/invoices gs://${PROJECT_ID}-input-invoices/
-
