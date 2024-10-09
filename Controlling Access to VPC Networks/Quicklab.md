@@ -2,7 +2,7 @@
 
 ## 🚀 Controlling Access to VPC Networks | [Lab Link](https://www.cloudskillsboost.google/catalog_lab/1165)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/ixtU6NT5dic)
 
 ---
 
