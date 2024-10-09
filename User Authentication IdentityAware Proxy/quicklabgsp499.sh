@@ -16,7 +16,7 @@ cd user-authentication-with-iap
 
 cd 1-HelloWorld
 
-cd 1-HelloWorld
+sed -i 's/python37/python39/g' app.yaml
 
 gcloud app create --region=$REGION
 
