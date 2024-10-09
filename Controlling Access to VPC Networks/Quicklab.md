@@ -17,7 +17,7 @@ Start your Google CloudShell session by [clicking here](https://console.cloud.go
 
 
 ```bash
-curl -LO https://raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Controlling%20Access%20to%20VPC%20Networks/quicklab.sh
+curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Controlling%20Access%20to%20VPC%20Networks/quicklab.sh
 ```
 - This command downloads the setup script from GitHub. The script will help configure the environment and perform necessary setup steps.
 
