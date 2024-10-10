@@ -2,7 +2,7 @@
 
 ## 🚀 Caching Content with Cloud CDN | [Lab Link](https://www.cloudskillsboost.google/focuses/57735?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/W5bmQCaiUZo)
 
 ---
 
