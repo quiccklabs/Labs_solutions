@@ -1,4 +1,14 @@
 
+echo ""
+echo ""
+echo "Please export the values."
+
+
+# Prompt user to input three regions
+read -p "Enter BUCKET_NAME: " BUCKET_NAME
+read -p "Enter REGION: " REGION
+read -p "Enter TOPIC_NAME: " TOPIC_NAME
+read -p "Enter FUNCTION_NAME: " FUNCTION_NAME
 
 
 
@@ -175,3 +185,4 @@ done
 wget https://storage.googleapis.com/cloud-training/gsp315/map.jpg 
 
 gsutil cp map.jpg gs://$BUCKET_NAME
+
