@@ -1,6 +1,6 @@
 #TASK 1
 
-export ZONE=$(gcloud compute instances list --format="value(ZONE)" | tail -n 2 | head -n 1)
+ZONE=$(gcloud compute instances list --format="value(ZONE)" | tail -n 2 | head -n 1)
 
 # Retrieve the internal and external IPs and store them in variables
 INTERNAL_IP_privatenet=$(gcloud compute instances describe privatenet-us-vm --zone=$ZONE --format="get(networkInterfaces[0].networkIP)")
