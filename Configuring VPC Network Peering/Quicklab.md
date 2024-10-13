@@ -2,7 +2,7 @@
 
 ## 🚀 Configuring VPC Network Peering | [Lab Link](https://www.cloudskillsboost.google/focuses/19159?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/SaZ8mZviR0w)
 
 ---
 
