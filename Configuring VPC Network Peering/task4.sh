@@ -1,4 +1,5 @@
 #TASK 4
+ZONE=$(gcloud compute instances list --format="value(ZONE)" | tail -n 2 | head -n 1)
 
 INTERNAL_IP_mynet_us_vm=$(gcloud compute instances describe mynet-us-vm --zone=$ZONE --format="get(networkInterfaces[0].networkIP)")
 
