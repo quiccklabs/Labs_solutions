@@ -2,7 +2,7 @@
 
 ## 🚀 Configuring, Using, and Auditing VM Service Accounts and Scopes | [Lab Link](https://www.cloudskillsboost.google/focuses/19176?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/PQBu9b4tXFQ)
 
 ---
 
