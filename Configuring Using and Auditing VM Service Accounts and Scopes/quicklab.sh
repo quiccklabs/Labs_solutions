@@ -1,5 +1,14 @@
 
 
+echo ""
+echo ""
+echo "Please export the values."
+
+
+# Prompt user to input three regions
+read -p "Enter ZONE: " ZONE
+
+
 
 gcloud iam service-accounts create my-sa-123 \
     --display-name "My Service Account"
