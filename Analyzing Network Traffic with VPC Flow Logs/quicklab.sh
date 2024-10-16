@@ -51,8 +51,3 @@ echo ""
 export MY_SERVER=$(gcloud compute instances describe web-server --zone "$ZONE" --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
 export MY_SERVER=$(gcloud compute instances describe web-server --zone "$ZONE" --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
 
-
-
-
-export MY_SERVER=$MY_SERVER
-for ((i=1;i<=50;i++)); do curl $MY_SERVER; done
