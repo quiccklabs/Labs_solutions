@@ -2,7 +2,7 @@
 
 ## 🚀 Analyzing Network Traffic with VPC Flow Logs | [Lab Link](https://www.cloudskillsboost.google/focuses/45798?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/cCIWJsL3sps)
 
 ---
 
