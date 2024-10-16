@@ -2,14 +2,6 @@
 
 
 
-echo ""
-echo ""
-echo "Please export the values."
-
-
-# Prompt user to input three regions
-read -p "Enter ZONE: " ZONE
-
 
 export REGION="${ZONE%-*}"
 
