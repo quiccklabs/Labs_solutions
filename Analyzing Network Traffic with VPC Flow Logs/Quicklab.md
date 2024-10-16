@@ -17,6 +17,12 @@ Start your Google CloudShell session by [clicking here](https://console.cloud.go
 
 
 ```bash
+export ZONE=
+```
+- This command sets the zone for your cloud resources. Replace 'ZONE' with the region you want to use, based on the lab instructions.
+
+
+```bash
 curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Analyzing%20Network%20Traffic%20with%20VPC%20Flow%20Logs/quicklab.sh
 ```
 - This command downloads the setup script from GitHub. The script will help configure the environment and perform necessary setup steps.
@@ -36,7 +42,7 @@ sudo chmod +x quicklab.sh
 
 
 ```bash
-export MY_SERVER=$MY_SERVER
+export MY_SERVER=$(gcloud compute instances describe web-server --zone "$ZONE" --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
 for ((i=1;i<=50;i++)); do curl $MY_SERVER; done
 ```
 
