@@ -1,4 +1,5 @@
 
+
 #!/bin/bash
 
 # Define color variables
@@ -33,13 +34,13 @@ RESET=$(tput sgr0)
 run_form_1() {
 export BUCKET="$(gcloud config get-value project)"		
 
-gsutil mb -p $BUCKET gs://$BUCKET-bucket
+gsutil mb -p $BUCKET gs://$Bucket_1
 
-gsutil retention set 30s gs://$BUCKET-gcs-bucket
+gsutil retention set 30s gs://$Bucket_2
 
 echo "subscibe to quicklab" > sample.txt
 
-gsutil cp sample.txt gs://$BUCKET-bucket-ops/
+gsutil cp sample.txt gs://$Bucket_3/
 }
 
 
@@ -47,41 +48,48 @@ gsutil cp sample.txt gs://$BUCKET-bucket-ops/
 #form 2
 # Function to run form 2 code
 run_form_2() {
-export BUCKET="$(gcloud config get-value project)"		
+		
 
-gsutil mb -c nearline gs://$BUCKET-bucket
+gsutil mb -c nearline gs://$Bucket_1
 
-gcloud alpha storage buckets update gs://$BUCKET-gcs-bucket --no-uniform-bucket-level-access
+gcloud alpha storage buckets update gs://$Bucket_2 --no-uniform-bucket-level-access
 
-gsutil acl ch -u $USER_EMAIL:OWNER gs://$BUCKET-gcs-bucket
+gsutil acl ch -u $USER_EMAIL:OWNER gs://$Bucket_2
 
-gsutil rm gs://$BUCKET-gcs-bucket/sample.txt
+gsutil rm gs://$Bucket_2/sample.txt
 
 echo "subscibe to quicklab" > sample.txt
 
-gsutil cp sample.txt gs://$BUCKET-gcs-bucket
+gsutil cp sample.txt gs://$Bucket_2
 
-gsutil acl ch -u allUsers:R gs://$BUCKET-gcs-bucket/sample.txt
+gsutil acl ch -u allUsers:R gs://$Bucket_2/sample.txt
 
-gcloud storage buckets update gs://$BUCKET-bucket-ops --update-labels=key=value
+gcloud storage buckets update gs://$Bucket_3 --update-labels=key=value
 }
 
 
 #form 3
 # Function to run form 3 code
 run_form_3() {
-export BUCKET="$(gcloud config get-value project)"		
 
 
-gsutil mb -c coldline gs://$BUCKET-bucket
+gsutil mb -c coldline gs://$Bucket_1
 
-echo "This is an example of editing the file content for cloud storage object" | gsutil cp - gs://$BUCKET-gcs-bucket/sample.txt
+echo "This is an example of editing the file content for cloud storage object" | gsutil cp - gs://$Bucket_2/sample.txt
 
-gsutil defstorageclass set ARCHIVE gs://$BUCKET-bucket-ops
+gsutil defstorageclass set ARCHIVE gs://$Bucket_3
 }
 
 
 # Main script block
+echo "${YELLOW}${BOLD}"
+
+read -p "Enter the Bucket_1: " Bucket_1
+read -p "Enter the Bucket_2: " Bucket_2
+read -p "Enter the Bucket_3: " Bucket_3
+
+echo "${RESET}${BOLD}"
+
 echo "${BLUE}${BOLD}"
 
 # Get the form number from user input
@@ -94,4 +102,3 @@ case $form_number in
     3) run_form_3 ;;
     *) echo "Invalid form number. Please enter 1, 2, or 3." ;;
 esac
-
