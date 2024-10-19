@@ -29,13 +29,7 @@ gcloud compute instances add-tags juice-shop --tags=$INTERNAL_NETWORK_TAG --zone
 
 gcloud compute instances start bastion --zone=$ZONE
 
-sleep 20
-
-gcloud compute ssh --zone "$ZONE" "bastion" --project "$DEVSHELL_PROJECT_ID" --quiet --command="gcloud compute ssh juice-shop --internal-ip --quiet"
-sleep 20
-
-gcloud compute ssh --zone "$ZONE" "bastion" --project "$DEVSHELL_PROJECT_ID" --quiet --command="gcloud compute ssh juice-shop --zone=$ZONE --internal-ip --quiet"
-
+sleep 30
 
 echo "export ZONE=$ZONE" > env_vars.sh
 
