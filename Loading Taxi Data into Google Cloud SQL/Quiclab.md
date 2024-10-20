@@ -2,7 +2,7 @@
 
 ## 🚀 Loading Taxi Data into Google Cloud SQL | [Lab Link](https://www.cloudskillsboost.google/catalog_lab/4028)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/pNf9TpbpsGU)
 
 ---
 
