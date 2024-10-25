@@ -130,6 +130,12 @@ sudo apt-get install -y jq
 
 curl "https://translation.googleapis.com/language/translate/v2?target=en&key=${API_KEY}&q=${task_4_sentence}" > $task_4_file
 
+response=$(curl -s -X POST \
+-H "Authorization: Bearer $(gcloud auth application-default print-access-token)" \
+-H "Content-Type: application/json; charset=utf-8" \
+-d "{\"q\": \"$task_4_sentence\"}" \
+"https://translation.googleapis.com/language/translate/v2?key=${API_KEY}&source=ja&target=en")
+echo "$response" > "$task_4_file"
 
 # URL-decode the sentence
 decoded_sentence=$(python -c "import urllib.parse; print(urllib.parse.unquote('$task_5_sentence'))")
