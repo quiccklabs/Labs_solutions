@@ -1,4 +1,16 @@
 
+echo ""
+echo ""
+echo "Please export the values."
+
+
+# Prompt user to input three regions
+read -p "Enter BUCKET_NAME: " BUCKET_NAME
+read -p "Enter TOPIC_NAME: " TOPIC_NAME
+read -p "Enter FUNCTION_NAME: " FUNCTION_NAME
+read -p "Enter REGION: " REGION
+
+
 gcloud config set compute/region $REGION
 export PROJECT_ID=$(gcloud config get-value project)
 
