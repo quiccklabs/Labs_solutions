@@ -1,0 +1,18 @@
+{
+  "name": "gcp-mpc-ethereum-demo",
+  "version": "1.0.0",
+  "description": "Demo for GCP multi-party-compute on Confidential Space",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "@google-cloud/kms": "^3.2.0",
+    "@google-cloud/storage": "^6.9.2",
+    "ethers": "^5.7.2",
+    "fast-crc32c": "^2.0.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
