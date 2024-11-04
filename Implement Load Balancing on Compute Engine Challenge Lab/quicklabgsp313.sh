@@ -1,3 +1,15 @@
+
+echo ""
+echo ""
+echo "Please export the values."
+
+
+# Prompt user to input three regions
+read -p "Enter INSTANCE_NAME: " INSTANCE_NAME
+read -p "Enter FIREWALL_NAME: " FIREWALL_NAME
+read -p "Enter ZONE: " ZONE
+
+
 export PORT=8082
 
 export REGION="${ZONE%-*}"
