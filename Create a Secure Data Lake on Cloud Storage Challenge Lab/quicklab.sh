@@ -11,6 +11,7 @@ read -p "Enter VALUE_1: " VALUE_1
 
 
 export REGION="${ZONE%-*}"
+ENTRY_GROUP_ID="custom_entry_group"
 
 #TASK 1
 gsutil mb -p $DEVSHELL_PROJECT_ID -l $REGION -b on gs://$DEVSHELL_PROJECT_ID-bucket/
@@ -34,6 +35,11 @@ gcloud dataplex zones create public-zone \
 gcloud dataplex environments create dataplex-lake-env \
            --project=$DEVSHELL_PROJECT_ID --location=$REGION --lake=customer-lake \
            --os-image-version=1.0 --compute-node-count 3  --compute-max-node-count 3 
+
+
+gcloud data-catalog entry-groups create $ENTRY_GROUP_ID \
+    --location=$REGION \
+    --display-name="Custom entry group"
 
 
 #TASK3
