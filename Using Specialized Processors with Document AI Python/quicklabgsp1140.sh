@@ -19,15 +19,6 @@ pip3 install --upgrade pandas
 pip3 install --upgrade google-cloud-documentai
 
 
-curl -X POST \
-  -H "Authorization: Bearer $ACCESS_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "display_name": "'"$PROCESSOR_NAME"'",
-    "type": "INVOICE_PROCESSOR"
-  }' \
-  "https://documentai.googleapis.com/v1/projects/$PROJECT_ID/locations/us/processors"
-
 
 gcloud storage cp gs://cloud-samples-data/documentai/codelabs/specialized-processors/procurement_multi_document.pdf .
 
