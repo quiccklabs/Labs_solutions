@@ -1,7 +1,7 @@
 
 ## 🚀 Resource Monitoring | [Lab Link](https://www.cloudskillsboost.google/focuses/45797?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/E6kWlssUHkg)
 
 ---
 
