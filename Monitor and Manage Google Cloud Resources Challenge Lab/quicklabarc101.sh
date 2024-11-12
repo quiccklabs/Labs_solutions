@@ -1,4 +1,14 @@
+echo ""
+echo ""
+echo "Please export the values."
 
+
+# Prompt user to input three regions
+read -p "Enter BUCKET_NAME: " BUCKET_NAME
+read -p "Enter TOPIC_NAME: " TOPIC_NAME
+read -p "Enter FUNCTION_NAME: " FUNCTION_NAME
+read -p "Enter REGION: " REGION
+read -p "Enter SECOND_USER: " SECOND_USER
 
 gcloud config set compute/region $REGION
 
