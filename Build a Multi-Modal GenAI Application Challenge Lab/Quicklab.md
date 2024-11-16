@@ -12,9 +12,6 @@ This script and guide are provided for educational purposes to help you understa
 
 ## 🌐 **Quick Start Guide:**
 
-**Launch Cloud Shell:**
-Start your Google CloudShell session by [clicking here](https://console.cloud.google.com/home/dashboard?project=&pli=1&cloudshell=true).
-
 
 ```bash,copy,run
 curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Build%20a%20Multi-Modal%20GenAI%20Application%20Challenge%20Lab/quicklab.sh
