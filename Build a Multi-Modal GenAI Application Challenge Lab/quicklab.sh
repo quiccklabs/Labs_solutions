@@ -1,3 +1,10 @@
+echo ""
+echo ""
+echo "Please export the values."
+
+
+# Prompt user to input three regions
+read -p "Enter REGION: " REGION
 
 
 ID="$(gcloud projects list --format='value(PROJECT_ID)')"
