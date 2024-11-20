@@ -2,7 +2,7 @@
 
 ## 🚀 Configuring VPC Firewalls | [Lab Link](https://www.cloudskillsboost.google/focuses/19172?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/_HVreNdh_58)
 
 ---
 
