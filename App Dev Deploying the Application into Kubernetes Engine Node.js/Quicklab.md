@@ -2,7 +2,7 @@
 
 ## 🚀 App Dev - Deploying the Application into Kubernetes Engine: Node.js | [Lab Link](https://www.cloudskillsboost.google/focuses/19213?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/x_LbuI4ALWo)
 
 ---
 
