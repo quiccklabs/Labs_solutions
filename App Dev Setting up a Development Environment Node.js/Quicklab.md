@@ -2,7 +2,7 @@
 
 ## 🚀 App Dev - Setting up a Development Environment: Node.js | [Lab Link](https://www.cloudskillsboost.google/focuses/19190?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/molSaj3bL_4)
 
 ---
 
