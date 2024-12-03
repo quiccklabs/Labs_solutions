@@ -2,7 +2,7 @@
 
 ## 🚀 App Dev - Setting up a Development Environment: Java | [Lab Link](https://www.cloudskillsboost.google/focuses/19189?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/3ZZ7IesxEW4)
 
 ---
 
