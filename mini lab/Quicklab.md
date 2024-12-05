@@ -22,6 +22,18 @@ sudo chmod +x quicklab1.sh
 ./quicklab1.sh
 ```
 
+## **mini lab : Cloud Storage : 2:**
+### 🔗 **Solution Video:** [Watch Here]()
+
+
+
+```bash
+curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/mini%20lab/quicklab2.sh
+sudo chmod +x quicklab2.sh
+./quicklab2.sh
+```
+
+
 ## **mini lab : Cloud Storage : 4:**
 ### 🔗 **Solution Video:** [Watch Here]()
 
