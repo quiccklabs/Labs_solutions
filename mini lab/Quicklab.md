@@ -12,7 +12,7 @@ This script and guide are provided for educational purposes to help you understa
 ## 🌐 **Quick Start Guide:**
 
 ## **mini lab : Cloud Storage : 1:**
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/lkPWkhCxfxo)
 
 
 
