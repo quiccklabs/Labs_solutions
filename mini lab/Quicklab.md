@@ -67,6 +67,17 @@ sudo chmod +x quicklabbig1.sh
 ./quicklabbig1.sh
 ```
 
+## **mini lab: BigQuery : 2:**
+### 🔗 **Solution Video:** [Watch Here]()
+
+
+
+```bash
+curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/mini%20lab/quicklabbig2.sh
+sudo chmod +x quicklabbig2.sh
+./quicklabbig2.sh
+```
+
 
 ---
 
