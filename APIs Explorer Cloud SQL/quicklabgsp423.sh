@@ -1,4 +1,5 @@
 
+
 BLACK=`tput setaf 0`
 RED=`tput setaf 1`
 GREEN=`tput setaf 2`
@@ -41,6 +42,13 @@ export PROJECT_ID=$(gcloud info --format='value(config.project)')
 #USER_EMAIL=$(gcloud auth list --limit=1 2>/dev/null | grep '@' | awk '{print $2}')
 #----------------------------------------------------code--------------------------------------------------# 
 
+echo ""
+echo ""
+echo "Please export the values."
+
+
+# Prompt user to input three regions
+read -p "Enter REGION: " REGION
 
 
 gcloud services enable sqladmin.googleapis.com
@@ -49,7 +57,8 @@ sleep 10
 
 gcloud sql instances create my-instance --project=$DEVSHELL_PROJECT_ID \
   --database-version=MYSQL_5_7 \
-  --tier=db-n1-standard-1
+  --tier=db-n1-standard-1 \
+  --region=$REGION
 
 echo "${GREEN}${BOLD}
 
