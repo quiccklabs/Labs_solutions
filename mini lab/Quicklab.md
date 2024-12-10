@@ -12,7 +12,7 @@ This script and guide are provided for educational purposes to help you understa
 ## 🌐 **Quick Start Guide:**
 
 ## **mini lab : Cloud Storage : 1:**
-### 🔗 **Solution Video:** [Watch Here](https://youtu.be/lkPWkhCxfxo)
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/lkPWkhCxfxo?si=QbbT87YZmYjpWoOb)
 
 
 
@@ -23,7 +23,7 @@ sudo chmod +x quicklab1.sh
 ```
 
 ## **mini lab : Cloud Storage : 2:**
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/adygeJbmHqs?si=a2hpSD8Bfmm8pkaC)
 
 
 
@@ -34,7 +34,7 @@ sudo chmod +x quicklab2.sh
 ```
 
 ## **mini lab : Cloud Storage : 3:**
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/-8drdvichxs?si=1R52hrPjghtJDCaX)
 
 
 
@@ -46,7 +46,7 @@ sudo chmod +x quicklab3.sh
 
 
 ## **mini lab : Cloud Storage : 4:**
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/hPlMzqUKDiU?si=UxjIWuk5Us2Vqp2y)
 
 
 
@@ -57,7 +57,7 @@ sudo chmod +x quicklab4.sh
 ```
 
 ## **mini lab : Cloud Storage : 5:**
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/iOxRKRPly2E?si=HDCVH7Gh0KkZc4qt)
 
 
 
@@ -68,7 +68,7 @@ sudo chmod +x quicklab5.sh
 ```
 
 ## **mini lab : Cloud Storage : 6:**
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/AmB2ZDIwHik)
 
 
 
@@ -79,7 +79,7 @@ sudo chmod +x quicklab6.sh
 ```
 
 ## **mini lab: BigQuery : 1:**
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/usJx0tO0nYU?si=R5HVWSGLqgBtDhL7)
 
 
 
@@ -90,7 +90,7 @@ sudo chmod +x quicklabbig1.sh
 ```
 
 ## **mini lab: BigQuery : 2:**
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/oL55pJGheYQ?si=lBaseMkShaFF46HP)
 
 
 
