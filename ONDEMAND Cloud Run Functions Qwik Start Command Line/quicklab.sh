@@ -43,6 +43,11 @@ export PROJECT_ID=$(gcloud info --format='value(config.project)')
 #USER_EMAIL=$(gcloud auth list --limit=1 2>/dev/null | grep '@' | awk '{print $2}')
 #----------------------------------------------------code--------------------------------------------------#
 
+echo ""
+echo ""
+
+read -p "ENTER REGION: " REGION
+
 export PROJECT_NUMBER=$(gcloud projects describe $DEVSHELL_PROJECT_ID --format='value(projectNumber)')
 
 gcloud config set compute/region $REGION
