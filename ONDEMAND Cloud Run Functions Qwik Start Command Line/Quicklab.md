@@ -1,7 +1,7 @@
 
 ## 🚀 ONDEMAND - Cloud Run Functions: Qwik Start - Command Line | [Lab Link](https://www.cloudskillsboost.google/focuses/30174?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/c6ammnDOB9o)
 
 ---
 
