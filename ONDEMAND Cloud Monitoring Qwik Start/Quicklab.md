@@ -1,7 +1,7 @@
 
 ## 🚀 ONDEMAND - Cloud Monitoring: Qwik Start | [Lab Link](https://www.cloudskillsboost.google/focuses/30175?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/ozwyuhvFurQ)
 
 ---
 
