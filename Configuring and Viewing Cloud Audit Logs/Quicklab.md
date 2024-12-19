@@ -1,7 +1,7 @@
 
 ## 🚀 Configuring and Viewing Cloud Audit Logs | [Lab Link](https://www.cloudskillsboost.google/focuses/19184?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/-TFVJEYTIRg)
 
 ---
 
