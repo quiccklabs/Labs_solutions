@@ -66,7 +66,7 @@ gcloud compute instances create default-us-vm \
 
 gsutil rm -r gs://$DEVSHELL_PROJECT_ID
 
-
+sleep 30
 
 bq query --use_legacy_sql=false \
 '
