@@ -1,7 +1,7 @@
 
 ## 🚀 Service Monitoring | [Lab Link](https://www.cloudskillsboost.google/focuses/19476?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/x4InFzpdLjo)
 
 ---
 
