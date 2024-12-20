@@ -17,7 +17,7 @@ Start your Google CloudShell session by [clicking here](https://console.cloud.go
 
 
 ```bash
-curl -LO https://raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Service%20Monitoring/quicklab.sh
+curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Service%20Monitoring/quicklab.sh
 sudo chmod +x quicklab.sh
 ./quicklab.sh
 ```
