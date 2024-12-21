@@ -1,7 +1,7 @@
 
 ## 🚀 Deploying Google Kubernetes Engine (AWS) | [Lab Link](https://www.cloudskillsboost.google/focuses/59837?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/lN10uO1N8ew)
 
 ---
 
