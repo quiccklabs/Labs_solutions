@@ -1,7 +1,7 @@
 
 ## 🚀 Google Cloud Fundamentals: Getting Started with App Engine | [Lab Link](https://www.cloudskillsboost.google/focuses/19061?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/Eq89l-N5kf8)
 
 ---
 
