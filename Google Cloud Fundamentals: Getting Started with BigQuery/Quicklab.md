@@ -1,7 +1,7 @@
 
 ## 🚀 Google Cloud Fundamentals: Getting Started with BigQuery | [Lab Link](https://www.cloudskillsboost.google/focuses/19062?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/nkRIvA-2LFE)
 
 ---
 
