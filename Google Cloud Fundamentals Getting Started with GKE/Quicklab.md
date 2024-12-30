@@ -1,7 +1,7 @@
 
 ## 🚀 Google Cloud Fundamentals: Getting Started with GKE | [Lab Link](https://www.cloudskillsboost.google/focuses/19067?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/WCZ0ppeUQI4)
 
 ---
 
