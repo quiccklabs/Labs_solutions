@@ -1,7 +1,7 @@
 
 ## 🚀 Google Kubernetes Engine: Qwik Start [ACE] | [Lab Link](https://www.cloudskillsboost.google/focuses/19140?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/lXfEh5xyI8U)
 
 ---
 
