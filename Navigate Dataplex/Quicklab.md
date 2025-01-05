@@ -1,7 +1,7 @@
 
 ## 🚀 Navigate Dataplex | [Lab Link](https://www.cloudskillsboost.google/focuses/88308?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/yP-cPD4bVdI)
 
 ---
 
