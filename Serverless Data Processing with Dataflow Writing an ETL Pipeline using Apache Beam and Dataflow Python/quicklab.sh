@@ -32,7 +32,7 @@ bash generate_batch_events.sh
 
 head events.json
 
-cd training-data-analyst/quests/dataflow_python/1_Basic_ETL/lab
+cd ~/training-data-analyst/quests/dataflow_python/1_Basic_ETL/lab
 
 rm my_pipeline.py
 
