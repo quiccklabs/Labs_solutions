@@ -1,7 +1,7 @@
 
 ## 🚀 Serverless Data Processing with Dataflow - Writing an ETL Pipeline using Apache Beam and Dataflow (Python) | [Lab Link](https://www.cloudskillsboost.google/focuses/19429?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/2VJHGjlpsOY)
 
 ---
 
