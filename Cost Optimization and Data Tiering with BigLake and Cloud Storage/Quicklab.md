@@ -1,7 +1,7 @@
 
 ## 🚀 Cost Optimization and Data Tiering with BigLake and Cloud Storage | [Lab Link](https://www.cloudskillsboost.google/focuses/80700?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/ceZSOR3-kXc)
 
 ---
 
