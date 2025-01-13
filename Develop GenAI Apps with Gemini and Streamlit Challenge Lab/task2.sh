@@ -1,5 +1,9 @@
+
+cd generative-ai/gemini/sample-apps/gemini-streamlit-cloudrun
+
 AR_REPO='chef-repo'
 SERVICE_NAME='chef-streamlit-app' 
+export PROJECT="$DEVSHELL_PROJECT_ID"
 gcloud artifacts repositories create "$AR_REPO" --location="$REGION" --repository-format=Docker
 gcloud builds submit --tag "$REGION-docker.pkg.dev/$PROJECT/$AR_REPO/$SERVICE_NAME"
 
