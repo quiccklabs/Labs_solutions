@@ -2,6 +2,8 @@ echo ""
 echo ""
 
 read -p "ENTER REGION: " REGION
+export REGION
+
 gcloud auth list
 
 gcloud services enable run.googleapis.com
