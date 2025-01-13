@@ -1,8 +1,4 @@
-echo ""
-echo ""
 
-read -p "ENTER REGION: " REGION
-export REGION
 
 gcloud auth list
 
