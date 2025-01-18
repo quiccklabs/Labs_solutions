@@ -1,15 +1,22 @@
 
 
-
 gcloud compute firewall-rules create app-allow-http \
---network my-internal-app \
---target-tags lb-backend \
---source-ranges 0.0.0.0/0 \
---allow tcp:80
+    --direction=INGRESS \
+    --priority=1000 \
+    --network=my-internal-app \
+    --action=ALLOW \
+    --rules=tcp:80 \
+    --source-ranges=10.10.0.0/16 \
+    --target-tags=lb-backend
 
-
-gcloud compute --project=$DEVSHELL_PROJECT_ID firewall-rules create app-allow-health-check --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp --source-ranges=130.211.0.0/22,35.191.0.0/16 --target-tags=lb-backend
-
+gcloud compute firewall-rules create app-allow-health-check \
+    --direction=INGRESS \
+    --priority=1000 \
+    --network=my-internal-app \
+    --action=ALLOW \
+    --rules=tcp:80 \
+    --source-ranges=130.211.0.0/22,35.191.0.0/16 \
+    --target-tags=lb-backend
 
 gcloud compute instance-templates create instance-template-1 \
 --machine-type e2-micro \
@@ -129,7 +136,6 @@ curl -X POST -H "Content-Type: application/json" \
    "subnetwork": "projects/'"$DEVSHELL_PROJECT_ID"'/regions/'"$REGION"'/subnetworks/subnet-b"
  }' \
  "https://compute.googleapis.com/compute/v1/projects/$DEVSHELL_PROJECT_ID/regions/$REGION/forwardingRules"
-
 
 
 
