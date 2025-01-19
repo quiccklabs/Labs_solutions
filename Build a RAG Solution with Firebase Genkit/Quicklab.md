@@ -1,7 +1,7 @@
 
 ## 🚀 Build a RAG Solution with Firebase Genkit | [Lab Link](https://www.cloudskillsboost.google/focuses/110506?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/GDSwzTH5BHU)
 
 ---
 
