@@ -28,7 +28,7 @@ import { GenkitMetric, genkitEval } from '@genkit-ai/evaluator';
 
   const ai = genkit({
     plugins: [
-        vertexAI({ location: '$REGION' }),
+        vertexAI({ location: 'us-west1' }),
         devLocalVectorstore([
         {
             indexName: 'menu-items',
