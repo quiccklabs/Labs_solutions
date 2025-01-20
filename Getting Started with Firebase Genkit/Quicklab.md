@@ -1,7 +1,7 @@
 
 ## 🚀 Getting Started with Firebase Genkit | [Lab Link](https://www.cloudskillsboost.google/focuses/110509?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/SncF00qkfDY)
 
 ---
 
