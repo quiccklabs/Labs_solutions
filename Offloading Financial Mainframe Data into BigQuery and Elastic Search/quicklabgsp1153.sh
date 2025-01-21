@@ -1,4 +1,5 @@
 
+
 echo ""
 echo ""
 
@@ -44,8 +45,8 @@ gcloud services enable dataflow.googleapis.com
 
 
 # enter these values by hand into the cloud shell (one by one). 
-export CONNECTION_URL=170c8c0c2a344f1c973fe3d26c6a1d9c:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvJDRkMjRiN2M5YzYzYjRhYzk4OTRmMGUzOThkMWI4ZTIxJDRjMmZlMDZhYzNlNTQxMDg5OTY1ZmVkYjRmNjI3OGRm
-export API_KEY=ekQwZFlaUUJrMm1lR3c1VHhhUTA6NHNQQ2laeU5RWW0yV0JHSHlnREhfQQ==
+export CONNECTION_URL=46063b660da74fbfb60754d5aaa53699:dXMtZWFzdDQuZ2NwLmVsYXN0aWMtY2xvdWQuY29tJGY5NGQ3OTk2ZjRmZDQxMGI5N2Y0MTRmZWNlODAyZDAzJDgzZDRhMTk5YjUyMzQ1MzlhMjI3MGJiOGY3NmUwYzEy
+export API_KEY=c2tDYWFaUUJnbDlKMm82S001YzA6Mnhpb3JROHBSWmV1dUlhTW10aTRrZw==
 # to create and run a dataflow job, 
 # cut and paste the following 7 lines into the cloud shell.
 sleep 30
