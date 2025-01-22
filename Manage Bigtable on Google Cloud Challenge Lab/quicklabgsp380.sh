@@ -1,4 +1,10 @@
 
+echo ""
+read -p "ENTER ZONE 1 :- " ZONE
+
+echo ""
+echo "ZONE 2 must be different from ZONE 1"
+read -p "ENTER ZONE 2 :- " ZONE_2
 
 
 
@@ -80,6 +86,8 @@ gcloud dataflow jobs run import-sessions --gcs-location gs://dataflow-templates-
 
 gcloud dataflow jobs run import-recommendations --gcs-location gs://dataflow-templates-$REGION/latest/GCS_SequenceFile_to_Cloud_Bigtable --region $REGION --staging-location gs://$DEVSHELL_PROJECT_ID/temp --parameters bigtableProject=$DEVSHELL_PROJECT_ID,bigtableInstanceId=ecommerce-recommendations,bigtableTableId=PersonalizedProducts,sourcePattern=gs://cloud-training/OCBL377/retail-recommendations-00000-of-00001
 
+# Bold and blue URL
+echo -e "\033[1;34mhttps://console.cloud.google.com/dataflow/jobs?referrer=search&project=\033[0m"
 
 
 
