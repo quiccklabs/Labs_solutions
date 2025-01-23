@@ -11,7 +11,10 @@ This script and guide are provided for educational purposes to help you understa
 
 ## 🌐 **Quick Start Guide:**
 
-**Launch Cloud Shell**
+**Launch Cloud Shell:**
+Start your Google CloudShell session by [clicking here](https://console.cloud.google.com/home/dashboard?project=&pli=1&cloudshell=true).
+
+
 
 ```bash
 curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Explore%20false%20positives%20through%20incident%20detection/quicklab.sh
