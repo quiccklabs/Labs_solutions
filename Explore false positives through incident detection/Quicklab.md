@@ -1,7 +1,7 @@
 
 ## 🚀 Explore false positives through incident detection | [Lab Link](https://www.cloudskillsboost.google/focuses/88296?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/a1jQaCtYPpQ)
 
 ---
 
