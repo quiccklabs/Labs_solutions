@@ -166,6 +166,10 @@ gcloud compute snapshots list
 
 gcloud compute disks list
 
+gcloud compute disks create $ORPHANED_DISK --project=$PROJECT_ID --type=pd-standard --size=500GB --zone=$ZONE
+
+gcloud compute instances attach-disk disk-instance --device-name=$ORPHANED_DISK --disk=$ORPHANED_DISK --zone=$ZONE
+
 gcloud scheduler jobs run unattached-pd-job \
 --location=$REGION
 
