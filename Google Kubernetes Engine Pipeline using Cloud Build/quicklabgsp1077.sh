@@ -1,6 +1,5 @@
 
 
-
 export REGION=$(gcloud compute project-info describe \
 --format="value(commonInstanceMetadata.items[google-compute-default-region])")
 
@@ -132,9 +131,9 @@ git checkout -b production
 
 rm cloudbuild.yaml
 
-curl -LO raw.githubusercontent.com/QUICK-GCP-LAB/2-Minutes-Labs-Solutions/refs/heads/main/Google%20Kubernetes%20Engine%20Pipeline%20using%20Cloud%20Build/ENV-cloudbuild.yaml
+curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Google%20Kubernetes%20Engine%20Pipeline%20using%20Cloud%20Build/env-cloudbuild.yaml
 
-mv ENV-cloudbuild.yaml cloudbuild.yaml
+mv env-cloudbuild.yaml cloudbuild.yaml
 
 sed -i "s/REGION-/$REGION/g" cloudbuild.yaml
 sed -i "s/GITHUB-USERNAME/${GITHUB_USERNAME}/g" cloudbuild.yaml
@@ -159,9 +158,9 @@ git push google master
 
 rm cloudbuild.yaml
 
-curl -LO raw.githubusercontent.com/QUICK-GCP-LAB/2-Minutes-Labs-Solutions/refs/heads/main/Google%20Kubernetes%20Engine%20Pipeline%20using%20Cloud%20Build/APP-cloudbuild.yaml
+curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Google%20Kubernetes%20Engine%20Pipeline%20using%20Cloud%20Build/app-cloudbuild.yaml
 
-mv APP-cloudbuild.yaml cloudbuild.yaml
+mv app-cloudbuild.yaml cloudbuild.yaml
 
 sed -i "s/REGION/$REGION/g" cloudbuild.yaml
 sed -i "s/GITHUB-USERNAME/${GITHUB_USERNAME}/g" cloudbuild.yaml
@@ -171,4 +170,3 @@ git add cloudbuild.yaml
 git commit -m "Trigger CD pipeline"
 
 git push google master
-
