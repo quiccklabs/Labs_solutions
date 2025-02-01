@@ -1,4 +1,11 @@
 
+echo ""
+echo ""
+
+read -p "ENTER LANGUAGE:- " LANGUAGE
+read -p "ENTER LOCAL:- " LOCAL
+read -p "ENTER BIGQUERY_ROLE:- " BIGQUERY_ROLE
+read -p "ENTER CLOUD_STORAGE_ROLE:- " CLOUD_STORAGE_ROLE
 
 
 gcloud iam service-accounts create sample-sa
