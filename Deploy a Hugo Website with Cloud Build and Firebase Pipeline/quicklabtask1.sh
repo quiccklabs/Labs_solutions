@@ -1,14 +1,14 @@
 
-
 cd ~
 /tmp/installhugo.sh
 
-sudo apt-get update
-sudo apt-get install git
+sudo apt-get update -y
+sudo apt-get install git -y
 
 cd ~
 gcloud source repos create my_hugo_site
 gcloud source repos clone my_hugo_site
+
 
 cd ~
 /tmp/hugo new site my_hugo_site --force
