@@ -17,7 +17,14 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
     --member="serviceAccount:$PROJECT_NUMBER-compute@developer.gserviceaccount.com" \
     --role="roles/storage.admin"
 
+sleep 60
+
+gcloud dataproc clusters create qlab --enable-component-gateway --region $REGION --zone $ZONE --master-machine-type e2-standard-4 --master-boot-disk-type pd-balanced --master-boot-disk-size 100 --num-workers 2 --worker-machine-type e2-standard-2 --worker-boot-disk-size 100 --image-version 2.2-debian12 --project $PROJECT_ID
+
 sleep 120
+
+
+gcloud dataproc clusters delete qlab --region $REGION --quiet
 
 gcloud dataproc clusters create qlab --enable-component-gateway --region $REGION --zone $ZONE --master-machine-type e2-standard-4 --master-boot-disk-type pd-balanced --master-boot-disk-size 100 --num-workers 2 --worker-machine-type e2-standard-2 --worker-boot-disk-size 100 --image-version 2.2-debian12 --project $PROJECT_ID
 
