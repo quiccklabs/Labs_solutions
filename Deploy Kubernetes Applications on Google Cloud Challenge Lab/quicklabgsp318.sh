@@ -1,12 +1,12 @@
 
 
-
 export REGION="${ZONE%-*}"
 
 
 gcloud auth list
-gsutil cat gs://cloud-training/gsp318/marking/setup_marking_v2.sh | bash
-gcloud source repos clone valkyrie-app
+source <(gsutil cat gs://cloud-training/gsp318/marking/setup_marking_v2.sh)
+gsutil cp gs://spls/gsp318/valkyrie-app.tgz .
+tar -xzf valkyrie-app.tgz
 cd valkyrie-app
 cat > Dockerfile <<EOF
 FROM golang:1.10
@@ -16,24 +16,10 @@ RUN go install -v
 ENTRYPOINT ["app","-single=true","-port=8080"]
 EOF
 docker build -t $DOCKER_IMAGE:$TAG_NAME .
-cd ..
-cd marking
-./step1_v2.sh
-
-
-cd ..
-cd valkyrie-app
+bash ~/marking/step1_v2.sh
 docker run -p 8080:8080 $DOCKER_IMAGE:$TAG_NAME &
-cd ..
-cd marking
-./step2_v2.sh
 bash ~/marking/step2_v2.sh
 
-
-
-
-cd ..
-cd valkyrie-app
 
 gcloud artifacts repositories create $REPO_NAME \
     --repository-format=docker \
@@ -58,3 +44,4 @@ gcloud container clusters get-credentials valkyrie-dev --zone $ZONE
 kubectl create -f k8s/deployment.yaml
 kubectl create -f k8s/service.yaml
 
+bash ~/marking/step2_v2.sh
