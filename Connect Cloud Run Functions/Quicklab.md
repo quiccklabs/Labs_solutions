@@ -3,7 +3,7 @@
 ## 🚀 Connect Cloud Run Functions | [Lab Link](https://www.cloudskillsboost.google/focuses/57551?parent=catalog)
 
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/Yyrjn8uQvVY)
 
 ---
 
