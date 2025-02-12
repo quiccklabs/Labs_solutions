@@ -1,6 +1,9 @@
 
 cd generative-ai/gemini/sample-apps/gemini-streamlit-cloudrun
 
+sed -i "s/FROM python:3.8/FROM python:3.9/g" Dockerfile
+
+
 AR_REPO='chef-repo'
 SERVICE_NAME='chef-streamlit-app' 
 export PROJECT="$DEVSHELL_PROJECT_ID"
