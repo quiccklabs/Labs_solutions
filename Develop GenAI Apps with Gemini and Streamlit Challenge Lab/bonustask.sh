@@ -1,3 +1,5 @@
+
+cd generative-ai/gemini/sample-apps/gemini-streamlit-cloudrun
 pip install google-cloud-aiplatform
 
 
