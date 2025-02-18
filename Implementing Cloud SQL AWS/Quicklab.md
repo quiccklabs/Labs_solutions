@@ -1,7 +1,7 @@
 
 ## 🚀 Implementing Cloud SQL (AWS) | [Lab Link](https://www.cloudskillsboost.google/focuses/59839?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/Vp4EyP7fcxg)
 
 ---
 
