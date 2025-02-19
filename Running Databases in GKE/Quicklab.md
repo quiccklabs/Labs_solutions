@@ -1,7 +1,7 @@
 
 ## 🚀 Running Databases in GKE | [Lab Link](https://www.cloudskillsboost.google/focuses/20874?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/m53QMe4VWas)
 
 ---
 
