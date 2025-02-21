@@ -1,7 +1,7 @@
 
 ## 🚀 Load Balancing and Auto scaling - Challenge Lab | [Lab Link](https://www.youtube.com/@quick_lab)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/XQsDlbOFT1o)
 
 ---
 
