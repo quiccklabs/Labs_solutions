@@ -1,6 +1,6 @@
 
 
-## 🚀 The Arcade Trivia December 2024 
+## 🚀 The Arcade Trivia December 2025
 
 
 ---
