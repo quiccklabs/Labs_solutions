@@ -101,7 +101,7 @@ sudo chmod +x quicklabbig2.sh
 ```
 
 ## **mini lab: BigQuery : 4:**
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/NExkZwK8xXY)
 
 
 
