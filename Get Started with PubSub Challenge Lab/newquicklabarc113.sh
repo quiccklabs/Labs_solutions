@@ -39,6 +39,8 @@ run_form_1() {
 
 # Function to run form 2 code
 run_form_2() {
+    gcloud services enable run.googleapis.com
+    gcloud services enable eventarc.googleapis.com
     gcloud beta pubsub schemas create city-temp-schema \
         --type=avro \
         --definition='{
@@ -100,7 +102,7 @@ EOF_END
         gcloud functions deploy gcf-pubsub \
             --trigger-topic=gcf-topic \
             --runtime=nodejs20 \
-            --no-gen2 \
+            --gen2 \
             --entry-point=helloPubSub \
             --source=. \
             --region=$REGION
