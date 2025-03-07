@@ -1,7 +1,7 @@
 
 ## 🚀 Interconnecting Networks - Challenge Lab | [Lab Link](https://www.youtube.com/@quick_lab/videos)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/HXLXcSnhsA4)
 
 ---
 
