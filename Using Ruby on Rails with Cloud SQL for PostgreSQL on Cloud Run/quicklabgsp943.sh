@@ -99,18 +99,25 @@ gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID \
     --member serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com \
     --role roles/cloudsql.client
 
+
+###
+
 RUBY_VERSION=$(ruby -v | cut -d ' ' -f2 | cut -c1-3)
 sed -i "/FROM/c\FROM ruby:$RUBY_VERSION-buster" Dockerfile
+
+gcloud artifacts repositories create cloud-run-source-deploy --repository-format=docker --location=$REGION
+
+gcloud services enable run.googleapis.com
 
 APP_NAME=myrubyapp
 gcloud builds submit --config cloudbuild.yaml \
     --substitutions _SERVICE_NAME=$APP_NAME,_INSTANCE_NAME=$INSTANCE_NAME,_REGION=$REGION,_SECRET_NAME=rails_secret --timeout=20m
 
+
  gcloud run deploy $APP_NAME \
      --platform managed \
      --region $REGION \
-     --image gcr.io/$DEVSHELL_PROJECT_ID/$APP_NAME \
+     --image $REGION-docker.pkg.dev/$DEVSHELL_PROJECT_ID/cloud-run-source-deploy/$APP_NAME \
      --add-cloudsql-instances $DEVSHELL_PROJECT_ID:$REGION:$INSTANCE_NAME \
      --allow-unauthenticated \
-     --max-instances=3 \
-     --quiet
+     --max-instances=3
