@@ -11,6 +11,8 @@ PROJECT_ID=`gcloud config get-value project`
 
 gcloud services enable aiplatform.googleapis.com --project=$PROJECT_ID
 
+sleep 20
+
 bq mk --connection --location=US --project_id=$PROJECT_ID --connection_type=CLOUD_RESOURCE embedding_conn
 
 SERVICE_ACCOUNT=$(bq show --format=json --connection $PROJECT_ID.US.embedding_conn | jq -r '.cloudResource.serviceAccountId')
