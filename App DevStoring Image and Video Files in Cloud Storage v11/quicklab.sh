@@ -16,5 +16,6 @@ rm cloudstorage.js
 
 ##uploading files here
 
+wget https://raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/App%20DevStoring%20Image%20and%20Video%20Files%20in%20Cloud%20Storage%20v11/cloudstorage.js
 
 npm start
