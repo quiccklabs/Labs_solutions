@@ -1,7 +1,7 @@
 
-## 🚀 App Dev: Storing Image and Video Files in Cloud Storage v1.1 | [Lab Link]()
+## 🚀 App Dev: Storing Image and Video Files in Cloud Storage v1.1 | [Lab Link](https://youtu.be/ILYNLdFmaI4)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/ILYNLdFmaI4)
 
 ---
 
