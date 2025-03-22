@@ -395,7 +395,7 @@ gcloud run deploy slow-concurrent-function \
 
 
 
-echo -e "\033[1;33mhttps://console.cloud.google.com/run/deploy/\$REGION/slow-concurrent-function?project=\033[0m"
+echo -e "\033[1;33mhttps://console.cloud.google.com/run?deploymentType=function&project=\033[0m"
 
 
 
