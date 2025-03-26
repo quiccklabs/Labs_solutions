@@ -124,7 +124,7 @@ sudo chmod +x quicklabbig4.sh
 
 
 ## **mini lab: BigQuery : 5:**
-### 🔗 **Solution Video:** [Watch Here](https://youtu.be/NExkZwK8xXY)
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/7mBifQ2I7KQ)
 
 
 
@@ -135,7 +135,7 @@ sudo chmod +x quicklabbig5.sh
 ```
 
 ## **mini lab: BigQuery : 6:**
-### 🔗 **Solution Video:** [Watch Here](https://youtu.be/NExkZwK8xXY)
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/iqTb_4jktRI)
 
 
 
