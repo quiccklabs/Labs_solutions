@@ -1,7 +1,7 @@
 
 ## 🚀 Function Calling with Firebase Genkit | [Lab Link](https://www.cloudskillsboost.google/focuses/110508?parent=catalog)
 
-### 🔗 **Solution Video:** [Watch Here]()
+### 🔗 **Solution Video:** [Watch Here](https://youtu.be/rT9VYTiPyYs)
 
 ---
 
