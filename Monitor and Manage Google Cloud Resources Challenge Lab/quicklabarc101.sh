@@ -1,3 +1,4 @@
+
 echo ""
 echo ""
 echo "Please export the values."
@@ -192,11 +193,11 @@ gsutil cp travel.jpg gs://$BUCKET_NAME
 
 cat > app-engine-error-percent-policy.json <<EOF_END
 {
-    "displayName": "Active Cloud Function Instances",
+    "displayName": "Active Cloud Run Function Instances",
     "userLabels": {},
     "conditions": [
       {
-        "displayName": "Cloud Function - Active instances",
+        "displayName": "Cloud Run Function - Active instances",
         "conditionThreshold": {
           "filter": "resource.type = \"cloud_function\" AND metric.type = \"cloudfunctions.googleapis.com/function/active_instances\"",
           "aggregations": [
