@@ -1,12 +1,14 @@
 
 
 
+
+
 gcloud services enable compute.googleapis.com container.googleapis.com dataflow.googleapis.com bigquery.googleapis.com pubsub.googleapis.com healthcare.googleapis.com
 
 
-bq --location=us-east4 mk --dataset --description HCAPI-dataset $PROJECT_ID:$DATASET_ID
+bq --location=$LOCATION mk --dataset --description HCAPI-dataset $PROJECT_ID:$DATASET_ID
 
-bq --location=us-east4 mk --dataset --description HCAPI-dataset-de-id $PROJECT_ID:de_id
+bq --location=$LOCATION mk --dataset --description HCAPI-dataset-de-id $PROJECT_ID:de_id
 
 gcloud projects add-iam-policy-binding $PROJECT_ID \
 --member=serviceAccount:service-$PROJECT_NUMBER@gcp-sa-healthcare.iam.gserviceaccount.com \
@@ -57,4 +59,3 @@ gcloud healthcare fhir-stores export bq $FHIR_STORE_ID \
 
 
 echo -e "\e[1m\e[34mClick here: https://console.cloud.google.com/healthcare/browser/locations/$LOCATION/datasets/$DATASET_ID/datastores?project=$PROJECT_ID\e[0m"
-
