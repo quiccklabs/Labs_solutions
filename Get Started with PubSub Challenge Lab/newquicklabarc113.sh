@@ -37,6 +37,7 @@ run_form_1() {
     gcloud pubsub subscriptions pull cron-job-pubsub-subscription --limit 5
 }
 
+
 # Function to run form 2 code
 run_form_2() {
     gcloud services enable run.googleapis.com
@@ -74,36 +75,28 @@ run_form_2() {
     mkdir quicklab && cd $_
 
     cat >index.js <<'EOF_END'
-        /**
-        * Triggered from a message on a Cloud Pub/Sub topic.
-        *
-        * @param {!Object} event Event payload.
-        * @param {!Object} context Metadata for the event.
-        */
-        exports.helloPubSub = (event, context) => {
-        const message = event.data
-            ? Buffer.from(event.data, 'base64').toString()
-            : 'Hello, World';
-        console.log(message);
-        };
+    const functions = require('@google-cloud/functions-framework');
+
+    functions.http('helloHttp', (req, res) => {
+    res.send(`Hello ${req.query.name || req.body.name || 'World'}!`);
+    });
+
 EOF_END
 
-    cat >package.json <<'EOF_END'
-        {
-        "name": "sample-pubsub",
-        "version": "0.0.1",
-        "dependencies": {
-            "@google-cloud/pubsub": "^0.18.0"
-        }
-        }
+cat >package.json <<'EOF_END'
+    {
+    "dependencies": {
+        "@google-cloud/functions-framework": "^3.0.0"
+    }
+    }
 EOF_END
 
     deploy_function() {
-        gcloud functions deploy gcf-pubsub \
+       yes n | gcloud functions deploy gcf-pubsub \
             --trigger-topic=gcf-topic \
-            --runtime=nodejs20 \
+            --runtime=nodejs22 \
             --gen2 \
-            --entry-point=helloPubSub \
+            --entry-point=helloHttp \
             --source=. \
             --region=$REGION
     }
@@ -122,6 +115,7 @@ EOF_END
     done
 
 }
+
 
 # Function to run form 3 code
 run_form_3() {
