@@ -1,4 +1,7 @@
 
+read -p "Enter CONTAINER_NAME:- " CONTAINER_NAME
+read -p "Enter TASK_3_FILE_NAME:- " TASK_3_FILE_NAME
+read -p "Enter TASK_4_FILE_NAME:- " TASK_4_FILE_NAME
 
 ZONE="$(gcloud compute instances list --project=$DEVSHELL_PROJECT_ID --format='value(ZONE)' | head -n 1)"
 
