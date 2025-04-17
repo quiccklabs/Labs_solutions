@@ -1,3 +1,5 @@
+cd generative-ai/gemini/sample-apps/gemini-streamlit-cloudrun
+
 gcloud services enable run.googleapis.com
 
 
