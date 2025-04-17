@@ -1,5 +1,24 @@
 
 
+
+export REGION=$(gcloud compute project-info describe \
+--format="value(commonInstanceMetadata.items[google-compute-default-region])")
+
+export ZONE=$(gcloud compute project-info describe \
+--format="value(commonInstanceMetadata.items[google-compute-default-zone])")
+
+
+PROJECT_ID=`gcloud config get-value project`
+
+export PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
+
+
+
+
+
+
+
+
 gcloud auth list
 
 gcloud services enable run.googleapis.com
@@ -9,6 +28,9 @@ git clone https://github.com/GoogleCloudPlatform/generative-ai.git
 cd generative-ai/gemini/sample-apps/gemini-streamlit-cloudrun
 
 gsutil cp gs://spls/gsp517/chef.py .
+
+GCP_PROJECT=$PROJECT_ID
+GCP_REGION=$REGION
 
 rm -rf Dockerfile chef.py
 
@@ -20,7 +42,7 @@ mv Dockerfile.txt Dockerfile
 
 gcloud storage cp chef.py gs://$DEVSHELL_PROJECT_ID-generative-ai/
 
-export PROJECT="$DEVSHELL_PROJECT_ID"
+
 
 pip install google-cloud-aiplatform
 
