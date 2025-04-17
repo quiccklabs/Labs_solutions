@@ -1,3 +1,4 @@
+gcloud services enable run.googleapis.com
 
 
 sed -i "s/FROM python:3.8/FROM python:3.9/g" Dockerfile
