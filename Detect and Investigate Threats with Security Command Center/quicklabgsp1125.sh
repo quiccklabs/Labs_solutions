@@ -84,3 +84,7 @@ gcloud beta dns --project=$DEVSHELL_PROJECT_ID policies update dns-test-policy -
 
 
 gcloud compute instances delete instance-1 --zone=$ZONE --quiet
+
+gcloud compute ssh --zone "$ZONE" "attacker-instance" --tunnel-through-iap --project "$DEVSHELL_PROJECT_ID" --quiet --command "curl etd-malware-trigger.goog"
+gcloud compute ssh --zone "$ZONE" "attacker-instance" --tunnel-through-iap --project "$DEVSHELL_PROJECT_ID" --quiet --command "curl etd-malware-trigger.goog"
+
