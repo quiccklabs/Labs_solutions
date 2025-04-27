@@ -2,7 +2,7 @@
 ### Pre-Assessment GCP Labs (6 Labs=6 Skill Badges)
 
 
-🔥 1. Set Up an App Dev Environment on Google Cloud  | [Lab Link](https://www.cloudskillsboost.google/course_templates/637)    
+🔥 1. Set Up an App Dev Environment on Google Cloud  | [Lab Link](https://www.cloudskillsboost.google/course_templates/637?catalog_rank=%7B%22rank%22%3A2%2C%22num_filters%22%3A0%2C%22has_search%22%3Atrue%7D&search_id=44879294)    
 [✔️] Lab Solution : [Click Here](https://www.youtube.com/watch?v=bVuO5Sj6cXc&t=131s)
 
 --------------------------------
