@@ -4,7 +4,7 @@
 
 <div align="center" style="padding: 25px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 15px; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-shadow: 0px 0px 15px rgba(0,0,0,0.2);">
 
-<h1 style="font-size: 2.5em; margin-bottom: 15px;">🚀 Pre-Assessment GCP Labs (6 Labs = 6 Skill Badges)</h1>
+<h1 style="font-size: 2.5em; margin-bottom: 15px;">🚀 Pre-Assessment GCP Labs </h1>
 
 </div>
 
