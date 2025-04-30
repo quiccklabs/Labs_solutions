@@ -4,6 +4,20 @@
 export REGION=$(gcloud compute project-info describe \
 --format="value(commonInstanceMetadata.items[google-compute-default-region])")
 
+export ZONE=$(gcloud compute project-info describe \
+--format="value(commonInstanceMetadata.items[google-compute-default-zone])")
+
+
+PROJECT_ID=`gcloud config get-value project`
+
+export PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
+
+
+gcloud config set compute/zone $ZONE
+
+gcloud config set compute/region $REGION
+
+
 gcloud pubsub topics create new-lab-report
 
 gcloud services enable run.googleapis.com
@@ -48,9 +62,11 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const port = process.env.PORT || 8080;
+
 app.listen(port, () => {
   console.log('Listening on port', port);
 });
+
 app.post('/', async (req, res) => {
   try {
     const labReport = req.body;
@@ -62,6 +78,7 @@ app.post('/', async (req, res) => {
     res.status(500).send(ex);
   }
 })
+
 async function publishPubSubMessage(labReport) {
   const buffer = Buffer.from(JSON.stringify(labReport));
   await pubsub.topic('new-lab-report').publish(buffer);
@@ -70,7 +87,7 @@ EOF_END
 
 
 cat > Dockerfile <<EOF_END
-FROM node:10
+FROM node:18
 WORKDIR /usr/src/app
 COPY package.json package*.json ./
 RUN npm install --only=production
@@ -80,7 +97,14 @@ EOF_END
 
 
 
-
+gcloud builds submit \
+  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/lab-report-service
+gcloud run deploy lab-report-service \
+  --image gcr.io/$GOOGLE_CLOUD_PROJECT/lab-report-service \
+  --platform managed \
+  --region $REGION \
+  --allow-unauthenticated \
+  --max-instances=1
 
 
 cd ~/pet-theory/lab05/email-service
@@ -117,10 +141,12 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log('Listening on port', port);
 });
+
 app.post('/', async (req, res) => {
   const labReport = decodeBase64Json(req.body.message.data);
   try {
@@ -134,9 +160,11 @@ app.post('/', async (req, res) => {
     res.status(500).send();
   }
 })
+
 function decodeBase64Json(data) {
   return JSON.parse(Buffer.from(data, 'base64').toString());
 }
+
 function sendEmail() {
   console.log('Sending email');
 }
@@ -144,7 +172,7 @@ EOF_END
 
 
 cat > Dockerfile <<EOF_END
-FROM node:10
+FROM node:18
 WORKDIR /usr/src/app
 COPY package.json package*.json ./
 RUN npm install --only=production
@@ -153,6 +181,15 @@ CMD [ "npm", "start" ]
 EOF_END
 
 
+gcloud builds submit \
+  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/email-service
+
+gcloud run deploy email-service \
+  --image gcr.io/$GOOGLE_CLOUD_PROJECT/email-service \
+  --platform managed \
+  --region $REGION \
+  --no-allow-unauthenticated \
+  --max-instances=1
 
 
 
@@ -205,15 +242,18 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log('Listening on port', port);
 });
+
 app.post('/', async (req, res) => {
   const labReport = decodeBase64Json(req.body.message.data);
   try {
     console.log(`SMS Service: Report ${labReport.id} trying...`);
     sendSms();
+
     console.log(`SMS Service: Report ${labReport.id} success :-)`);    
     res.status(204).send();
   }
@@ -222,9 +262,11 @@ app.post('/', async (req, res) => {
     res.status(500).send();
   }
 })
+
 function decodeBase64Json(data) {
   return JSON.parse(Buffer.from(data, 'base64').toString());
 }
+
 function sendSms() {
   console.log('Sending SMS');
 }
@@ -232,7 +274,7 @@ EOF_END
 
 
 cat > Dockerfile <<EOF_END
-FROM node:10
+FROM node:18
 WORKDIR /usr/src/app
 COPY package.json package*.json ./
 RUN npm install --only=production
@@ -241,33 +283,6 @@ CMD [ "npm", "start" ]
 EOF_END
 
 
-sleep 100
-
-
-gcloud builds submit \
-  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/lab-report-service
-gcloud run deploy lab-report-service \
-  --image gcr.io/$GOOGLE_CLOUD_PROJECT/lab-report-service \
-  --platform managed \
-  --region $REGION \
-  --allow-unauthenticated \
-  --max-instances=1
-
-
-cat > deploy.sh <<EOF_END
-gcloud builds submit \
-  --tag gcr.io/$GOOGLE_CLOUD_PROJECT/email-service
-gcloud run deploy email-service \
-  --image gcr.io/$GOOGLE_CLOUD_PROJECT/email-service \
-  --platform managed \
-  --region $REGION \
-  --no-allow-unauthenticated \
-  --max-instances=1
-EOF_END
-
-chmod u+x deploy.sh
-
-./deploy.sh
 
 
 
