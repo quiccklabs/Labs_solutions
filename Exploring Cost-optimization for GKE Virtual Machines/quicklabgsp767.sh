@@ -86,12 +86,5 @@ kubectl get pod pod-1 pod-2 --output wide
 
 
 
-gcloud compute networks subnets update default \
-  --region=$REGION \
-  --enable-flow-logs
-
-
-bq mk --dataset --location=us ${DEVSHELL_PROJECT_ID}:us_flow_logs
-
 echo "Your Region :- " $REGION
 
