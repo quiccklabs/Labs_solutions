@@ -1,0 +1,17 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+
+set pg_email [lindex $argv 0]
+set dbadmin_pass "dbadmin"
+set user_pass "teJMfkwoewWG"
+
+spawn ./create.sh dbadmin $pg_email
+
+expect "Enter a password for dbadmin"
+send "$dbadmin_pass\r"
+
+expect "Enter a password for $pg_email"
+send "$user_pass\r"
+
+expect eof
