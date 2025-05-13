@@ -1,11 +1,10 @@
 
-echo ""
-echo ""
-echo "Please export the values."
-
-
-# Prompt user to input three regions
-read -p "Enter REGION: " REGION
+# Fetch zone and region
+ZONE=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-zone])")
+REGION=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-region])")
+PROJECT_ID=$(gcloud config get-value project)
 
 
 gsutil cp gs://spls/gsp499/user-authentication-with-iap.zip .
