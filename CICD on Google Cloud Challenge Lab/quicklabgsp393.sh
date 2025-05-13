@@ -1,3 +1,10 @@
+
+#!/bin/bash
+
+# Fetch zone and region
+
+
+
 echo ""
 echo ""
 echo "Please export the values."
@@ -6,6 +13,12 @@ echo "Please export the values."
 # Prompt user to input three regions
 read -p "Enter ZONE: " ZONE
 
+
+ZONE=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-zone])")
+REGION=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-region])")
+PROJECT_ID=$(gcloud config get-value project)
 
 
 export PROJECT_ID=$(gcloud config get-value project)
@@ -51,9 +64,17 @@ git checkout c3cae80 --quiet
 cd tutorials/base
 
 
-envsubst < clouddeploy-config/skaffold.yaml.template > web/skaffold.yaml
-cat web/skaffold.yaml
+# envsubst < clouddeploy-config/skaffold.yaml.template > web/skaffold.yaml
+# cat web/skaffold.yaml
 
+
+envsubst < clouddeploy-config/skaffold.yaml.template > web/skaffold.yaml
+sed -i "s/{{project-id}}/$PROJECT_ID/g" web/skaffold.yaml
+
+if ! gsutil ls "gs://${PROJECT_ID}_cloudbuild/" &>/dev/null; then
+  gsutil mb -p "${PROJECT_ID}" -l "${REGION}" -b on "gs://${PROJECT_ID}_cloudbuild/"
+  sleep 5
+fi
 
 cd web
 skaffold build --interactive=false \
@@ -243,7 +264,6 @@ done
 gcloud deploy targets rollback cd-staging \
    --delivery-pipeline=web-app \
    --quiet
-
 
 
 
