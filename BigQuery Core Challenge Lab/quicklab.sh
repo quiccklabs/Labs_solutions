@@ -34,6 +34,15 @@ FROM \`${TASK_1_DATASET_NAME}.${TASK_2_TABLE_NAME}\`;"
 
 gcloud logging sinks delete $TASK_1_SINK_NAME --quiet
 
-echo "http://console.cloud.google.com/logs/router?inv=1&invt=AbxddQ&project="
+# Colors and styles
+BOLD='\033[1m'
+BLUE='\033[0;34m'
+RESET='\033[0m'
 
+# Project ID (optional: auto-fill)
+PROJECT_ID=$(gcloud config get-value project)
+
+# Echo formatted URL
+echo -e "${BOLD}${BLUE}👉 Open Log Router in Console:${RESET}"
+echo -e "${BLUE}https://console.cloud.google.com/logs/router?inv=1&invt=AbxddQ&project=${PROJECT_ID}${RESET}"
 
