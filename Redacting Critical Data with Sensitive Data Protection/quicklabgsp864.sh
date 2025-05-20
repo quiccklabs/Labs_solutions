@@ -1,3 +1,13 @@
+
+ZONE=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-zone])")
+REGION=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-region])")
+PROJECT_ID=$(gcloud config get-value project)
+
+gcloud config set compute/region $REGION
+
+
 export BUCKET_NAME=$DEVSHELL_PROJECT_ID-bucket
 
 export PROJECT_ID=$DEVSHELL_PROJECT_ID
