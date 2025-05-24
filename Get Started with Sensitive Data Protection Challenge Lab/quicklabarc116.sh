@@ -1,7 +1,7 @@
 
 
 
-export BUCKET_NAME=
+read -p "Enter BUCKET_NAME :- " BUCKET_NAME
 
 cat > redact-request.json <<EOF
 {
