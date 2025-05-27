@@ -24,6 +24,29 @@ BOLD=`tput bold`
 RESET=`tput sgr0`
 #----------------------------------------------------start--------------------------------------------------#
 
+echo ""
+echo ""
+
+
+read -p " Enter EVENT_NAME :- " EVENT_NAME
+
+read -p " Enter TABLE_NAME :- " TABLE_NAME
+
+read -p " Enter VALUE_X_1 :- " VALUE_X_1
+
+read -p " Enter VALUE_Y_1 :- " VALUE_Y_1
+
+read -p " Enter VALUE_X_2 :- " VALUE_X_2
+
+read -p " Enter VALUE_Y_2 :- " VALUE_Y_2
+
+read -p " Enter FUNCTION_1 :- " FUNCTION_1
+
+read -p " Enter FUNCTION_2 :- " FUNCTION_2
+
+read -p " Enter MODEL_NAME :- " MODEL_NAME
+
+
 echo "${YELLOW}${BOLD}
 
 Starting Execution 
