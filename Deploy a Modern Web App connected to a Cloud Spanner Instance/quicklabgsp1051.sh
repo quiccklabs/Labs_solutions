@@ -52,7 +52,7 @@ gcloud run deploy omegatrade-backend --platform managed --region $REGION --image
 unset SPANNER_EMULATOR_HOST
 node seed-data.js
 
-
+cd training-data-analyst/courses/cloud-spanner/omegatrade/backend
 nvm install 22.6
 npm install npm -g
 npm install --loglevel=error
