@@ -1,11 +1,11 @@
 
 
-
 export REGION=$(gcloud compute project-info describe \
 --format="value(commonInstanceMetadata.items[google-compute-default-region])")
 
 export ZONE=$(gcloud compute project-info describe \
 --format="value(commonInstanceMetadata.items[google-compute-default-zone])")
+
 
 PROJECT_ID=`gcloud config get-value project`
 
@@ -17,7 +17,6 @@ gcloud services enable artifactregistry.googleapis.com
 gcloud services enable containerregistry.googleapis.com
 gcloud services enable run.googleapis.com
 
-sleep 20
 
 git clone https://github.com/GoogleCloudPlatform/training-data-analyst
 
@@ -51,4 +50,10 @@ docker push gcr.io/$DEVSHELL_PROJECT_ID/omega-trade/backend:v1
 gcloud run deploy omegatrade-backend --platform managed --region $REGION --image gcr.io/$DEVSHELL_PROJECT_ID/omega-trade/backend:v1 --memory 512Mi --allow-unauthenticated
 
 unset SPANNER_EMULATOR_HOST
+node seed-data.js
+
+npm install npm -g
+npm install --loglevel=error
+
+npm install dotenv
 node seed-data.js
