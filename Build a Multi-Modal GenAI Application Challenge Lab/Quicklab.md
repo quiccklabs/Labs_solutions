@@ -1,7 +1,7 @@
 
 <div align="center" style="padding: 25px; background: #f2f2f2; border-radius: 15px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
 
-<h1 style="color: #2F80ED;">🚀 Build a Multi-Modal GenAI Application: Challenge Lab | bb-ide-genai-004 </h1>
+<h1 style="color: #2F80ED;">🚀 Build a Multi-Modal GenAI Application </br> Challenge Lab | bb-ide-genai-004 </h1>
 
 
 <br/>
