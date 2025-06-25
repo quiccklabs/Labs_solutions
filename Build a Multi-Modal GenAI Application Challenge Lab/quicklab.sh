@@ -1,23 +1,17 @@
-echo ""
-echo ""
-echo "Please export the values."
+
+export PROJECT_ID=$(gcloud config get-value project)
+export REGION=$(gcloud compute project-info describe --format="value(commonInstanceMetadata.items[google-compute-default-region])")
 
 
-# Prompt user to input three regions
-read -p "Enter REGION: " REGION
+cat > GenerateImage.py <<EOF_TASK_ONE
 
-
-ID="$(gcloud projects list --format='value(PROJECT_ID)')"
-
-cat > GenerateImage.py <<EOF_END
 import argparse
 
 import vertexai
 from vertexai.preview.vision_models import ImageGenerationModel
 
-def generate_image(
-    project_id: str, location: str, output_file: str, prompt: str
-) -> vertexai.preview.vision_models.ImageGenerationResponse:
+def generate_bouquet_image(
+    project_id: str, location: str, output_file: str, prompt: str ) -> vertexai.preview.vision_models.ImageGenerationResponse:
     """Generate an image using a text prompt.
     Args:
       project_id: Google Cloud project ID, used to initialize Vertex AI.
@@ -27,7 +21,7 @@ def generate_image(
 
     vertexai.init(project=project_id, location=location)
 
-    model = ImageGenerationModel.from_pretrained("imagegeneration@002")
+    model = ImageGenerationModel.from_pretrained("imagen-3.0-generate-002")
 
     images = model.generate_images(
         prompt=prompt,
@@ -41,61 +35,56 @@ def generate_image(
 
     return images
 
-generate_image(
-    project_id='$ID',
+generate_bouquet_image(
+    project_id='$PROJECT_ID',
     location='$REGION',
     output_file='image.jpeg',
-    prompt='Create an image of a cricket ground in the heart of Los Angeles',
+    prompt='Create an image containing a bouquet of 2 sunflowers and 3 roses',
     )
-
-EOF_END
-
-/usr/bin/python3 /home/student/GenerateImage.py
+EOF_TASK_ONE
 
 
-
-
-ID="$(gcloud projects list --format='value(PROJECT_ID)')"
-
-cat > genai.py <<EOF_END
+/usr/bin/python3 GenerateImage.py
+#========================================
+#Task #2 new code with stream
+#==============================================
+cat > Gentext.py <<EOF_TASK_TWO
 import vertexai
-from vertexai.generative_models import GenerativeModel, Part
+from vertexai.generative_models import GenerativeModel, Part, Image, Content
 
-
-def generate_text(project_id: str, location: str) -> str:
+def analyze_bouquet_image(project_id: str, location: str):
     # Initialize Vertex AI
     vertexai.init(project=project_id, location=location)
-    # Load the model
-    multimodal_model = GenerativeModel("gemini-1.0-pro-vision")
-    # Query the model
-    response = multimodal_model.generate_content(
-        [
-            # Add an example image
-            Part.from_uri(
-                "gs://generativeai-downloads/images/scones.jpg", mime_type="image/jpeg"
-            ),
-            # Add an example query
-            "what is shown in this image?",
-        ]
+
+    # Load the Gemini multimodal model (version 2.0 flash)
+    model = GenerativeModel("gemini-2.0-flash-001")
+
+    # Load the image from file
+    image_path = "/home/student/image.jpeg"  # Update if your path is different
+    image_part = Part.from_image(Image.load_from_file(image_path))
+
+    # Ask initial question about image content
+    print("📷 Image Analysis: ", end="", flush=True)
+    response_stream = model.generate_content(
+        [image_part, Part.from_text("Generate birthday wishes based on this image")],
+        stream=True
     )
 
-    return response.text
+    full_response = ""
+    for chunk in response_stream:
+        if chunk.text:
+            print(chunk.text, end="", flush=True)
+            full_response += chunk.text
+    print("\n")
 
-# --------  Important: Variable declaration  --------
 
-project_id = "$ID"
+# Set your project and location
+project_id = "$PROJECT_ID"
 location = "$REGION"
 
-#  --------   Call the Function  --------
+# Run the function
+analyze_bouquet_image(project_id, location)
+EOF_TASK_TWO
 
-response = generate_text(project_id, location)
-print(response)
 
-EOF_END
-
-/usr/bin/python3 /home/student/genai.py
-
-sleep 30
-
-/usr/bin/python3 /home/student/genai.py
-
+/usr/bin/python3 Gentext.py
