@@ -48,19 +48,12 @@ OPTIONS (
 
 
 
-bq query --use_legacy_sql=false \
-"
-CREATE OR REPLACE MODEL \`gemini_demo.gemini_pro\`
-REMOTE WITH CONNECTION \`us.gemini_conn\`
-OPTIONS (endpoint = 'gemini-pro')
-"
-
 
 bq query --use_legacy_sql=false \
 "
-CREATE OR REPLACE MODEL \`gemini_demo.gemini_pro_vision\`
+CREATE OR REPLACE MODEL \`gemini_demo.gemini_2_0_flash\`
 REMOTE WITH CONNECTION \`us.gemini_conn\`
-OPTIONS (endpoint = 'gemini-pro-vision')
+OPTIONS (endpoint = 'gemini-2.0-flash')
 "
 
 
@@ -73,7 +66,7 @@ SELECT
     uri,
     ml_generate_text_llm_result
 FROM
-    ML.GENERATE_TEXT( MODEL \`gemini_demo.gemini_pro_vision\`,
+    ML.GENERATE_TEXT( MODEL \`gemini_demo.gemini_2_0_flash\`,
     TABLE \`gemini_demo.review_images\`,
     STRUCT( 0.2 AS temperature,
         'For each image, provide a summary of what is happening in the image and keywords from the summary. Answer in JSON format with two keys: summary, keywords. Summary should be a string, keywords should be a list.' AS PROMPT,
@@ -114,7 +107,7 @@ CREATE OR REPLACE TABLE
 SELECT ml_generate_text_llm_result, social_media_source, review_text, customer_id, location_id, review_datetime
 FROM
 ML.GENERATE_TEXT(
-MODEL \`gemini_demo.gemini_pro\`,
+MODEL \`gemini_demo.gemini_2_0_flash\`,
 (
    SELECT social_media_source, customer_id, location_id, review_text, review_datetime, CONCAT(
       'For each review, provide keywords from the review. Answer in JSON format with one key: keywords. Keywords should be a list.',
@@ -143,7 +136,7 @@ CREATE OR REPLACE TABLE \`gemini_demo.customer_reviews_analysis\` AS (
     review_datetime
   FROM
     ML.GENERATE_TEXT(
-      MODEL \`gemini_demo.gemini_pro\`,
+      MODEL \`gemini_demo.gemini_2_0_flash\`,
       (
         SELECT 
           social_media_source, 
@@ -224,7 +217,7 @@ CREATE OR REPLACE TABLE
 SELECT ml_generate_text_llm_result, social_media_source, review_text, customer_id, location_id, review_datetime
 FROM
 ML.GENERATE_TEXT(
-MODEL \`gemini_demo.gemini_pro\`,
+MODEL \`gemini_demo.gemini_2_0_flash\`,
 (
    SELECT social_media_source, customer_id, location_id, review_text, review_datetime, CONCAT(
       'You are a marketing representative. How could we incentivise this customer with this positive review? Provide a single response, and should be simple and concise, do not include emojis. Answer in JSON format with one key: marketing. Marketing should be a string.', review_text) AS prompt
@@ -268,7 +261,7 @@ CREATE OR REPLACE TABLE
 SELECT ml_generate_text_llm_result, social_media_source, review_text, customer_id, location_id, review_datetime
 FROM
 ML.GENERATE_TEXT(
-MODEL \`gemini_demo.gemini_pro\`,
+MODEL \`gemini_demo.gemini_2_0_flash\`,
 (
    SELECT social_media_source, customer_id, location_id, review_text, review_datetime, CONCAT(
       'How would you respond to this customer review? If the customer says the coffee is weak or burnt, respond stating "thank you for the review we will provide your response to the location that you did not like the coffee and it could be improved." Or if the review states the service is bad, respond to the customer stating, "the location they visited has been notfied and we are taking action to improve our service at that location." From the customer reviews provide actions that the location can take to improve. The response and the actions should be simple, and to the point. Do not include any extraneous or special characters in your response. Answer in JSON format with two keys: Response, and Actions. Response should be a string. Actions should be a string.', review_text) AS prompt
@@ -314,7 +307,7 @@ SELECT
     uri,
     ml_generate_text_llm_result
 FROM
-    ML.GENERATE_TEXT( MODEL `gemini_demo.gemini_pro_vision`,
+    ML.GENERATE_TEXT( MODEL `gemini_demo.gemini_2_0_flash`,
     TABLE `gemini_demo.review_images`,
     STRUCT( 0.2 AS temperature,
         "For each image, provide a summary of what is happening in the image and keywords from the summary. Answer in JSON format with two keys: summary, keywords. Summary should be a string, keywords should be a list." AS PROMPT,
