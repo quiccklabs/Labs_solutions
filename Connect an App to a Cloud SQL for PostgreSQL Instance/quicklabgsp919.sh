@@ -1,4 +1,8 @@
-
+ZONE=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-zone])")
+REGION=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-region])")
+PROJECT_ID=$(gcloud config get-value project)
 
 
 
@@ -69,7 +73,7 @@ echo gMemegen Load Balancer Ingress IP: http://$LOAD_BALANCER_IP
 POD_NAME=$(kubectl get pods --output=json | jq -r ".items[0].metadata.name")
 kubectl logs $POD_NAME gmemegen | grep "INFO"
 
-
+sleep 30
 
 INSTANCE_NAME="postgres-gmemegen"
 DB_USER="postgres"
