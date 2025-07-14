@@ -224,7 +224,7 @@ bq query --use_legacy_sql=false \
 "
 CREATE OR REPLACE MODEL \`CustomerReview.Gemini\`
 REMOTE WITH CONNECTION \`us.embedding_conn\`
-OPTIONS (ENDPOINT = 'gemini-pro');
+OPTIONS (ENDPOINT = 'gemini-2.0-flash');
 "
 
 
