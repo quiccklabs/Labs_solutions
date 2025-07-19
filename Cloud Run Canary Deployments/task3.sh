@@ -4,6 +4,12 @@ REGION=$(gcloud compute project-info describe \
   --format="value(commonInstanceMetadata.items[google-compute-default-region])")
 gcloud config set compute/region $REGION
 
+GITHUB_USERNAME=$(gh api user -q ".login")
+git config --global user.name "${GITHUB_USERNAME}"
+git config --global user.email "${USER_EMAIL}"
+echo ${GITHUB_USERNAME}
+echo ${USER_EMAIL}
+
 
 cd cloudrun-progression
 
