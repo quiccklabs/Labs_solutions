@@ -1,4 +1,11 @@
 
+export PROJECT_ID=$(gcloud config get-value project)
+export PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format='value(projectNumber)')
+REGION=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-region])")
+gcloud config set compute/region $REGION
+
+
 gh repo create cloudrun-progression --private 
 
 git clone https://github.com/GoogleCloudPlatform/training-data-analyst
