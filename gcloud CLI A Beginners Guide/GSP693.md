@@ -41,9 +41,6 @@ The goal is to enhance your learning experience — not bypass it.
   <img src="https://img.shields.io/badge/Open_Sensitive_Data_Protection-00C9FF?style=for-the-badge&logo=googlecloud&logoColor=white" alt="Open Sensitive Data Protection">
 </a> -->
 
-<a href="https://console.cloud.google.com/home/dashboard?project=&pli=1&cloudshell=true" target="_blank" style="margin: 10px;">
-  <img src="https://img.shields.io/badge/Launch_Cloud_Shell-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white" alt="Launch Cloud Shell">
-</a>
 
 </div>
 
