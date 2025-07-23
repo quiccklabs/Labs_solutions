@@ -1,114 +1,172 @@
 
-echo ""
-echo ""
-echo "Please export the values."
+#!/bin/bash
+
+# Fetch zone and region
+ZONE=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-zone])")
+REGION=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-region])")
+PROJECT_ID=$(gcloud config get-value project)
 
 
-# Prompt user to input three regions
-read -p "Enter INSTANCE_NAME: " INSTANCE_NAME
-read -p "Enter FIREWALL_NAME: " FIREWALL_NAME
-read -p "Enter ZONE: " ZONE
 
 
-export PORT=8082
-
-export REGION="${ZONE%-*}"
-
-gcloud compute networks create nucleus-vpc --subnet-mode=auto
-
-gcloud compute instances create $INSTANCE_NAME \
-          --network nucleus-vpc \
-          --zone $ZONE  \
-          --machine-type e2-micro  \
-          --image-family debian-12  \
-          --image-project debian-cloud 
-
- 
-# gcloud container clusters create nucleus-backend \
-# --num-nodes 1 \
-# --network nucleus-vpc \
-# --zone $ZONE
- 
- 
-# gcloud container clusters get-credentials nucleus-backend \
-# --zone $ZONE
- 
- 
-# kubectl create deployment hello-server \
-# --image=gcr.io/google-samples/hello-app:2.0
-  
-# kubectl expose deployment hello-server \
-# --type=LoadBalancer \
-# --port $PORT
- 
-  
-cat << EOF > startup.sh
-#! /bin/bash
+gcloud compute instances create web1 \
+--zone=$ZONE \
+--machine-type=e2-small \
+--tags=network-lb-tag \
+--image-family=debian-11 \
+--image-project=debian-cloud \
+--metadata=startup-script='#!/bin/bash
 apt-get update
-apt-get install -y nginx
-service nginx start
-sed -i -- 's/nginx/Google Cloud Platform - '"\$HOSTNAME"'/' /var/www/html/index.nginx-debian.html
-EOF
+apt-get install apache2 -y
+service apache2 restart
+echo "<h3>Web Server: web1</h3>" | tee /var/www/html/index.html'
 
- 
-gcloud compute instance-templates create web-server-template \
---metadata-from-file startup-script=startup.sh \
---network nucleus-vpc \
---machine-type e2-medium \
---region $ZONE
- 
- 
-gcloud compute target-pools create nginx-pool --region=$REGION
- 
- 
-gcloud compute instance-groups managed create web-server-group \
---base-instance-name web-server \
---size 2 \
---template web-server-template \
---region $REGION
- 
- 
-gcloud compute firewall-rules create $FIREWALL_NAME \
---allow tcp:80 \
---network nucleus-vpc
- 
- 
-gcloud compute http-health-checks create http-basic-check
-gcloud compute instance-groups managed \
-set-named-ports web-server-group \
---named-ports http:80 \
---region $REGION
- 
- 
-gcloud compute backend-services create web-server-backend \
---protocol HTTP \
---http-health-checks http-basic-check \
---global
- 
- 
-gcloud compute backend-services add-backend web-server-backend \
---instance-group web-server-group \
---instance-group-region $REGION \
---global
- 
- 
-gcloud compute url-maps create web-server-map \
---default-service web-server-backend
- 
- 
+gcloud compute instances create web2 \
+--zone=$ZONE \
+--machine-type=e2-small \
+--tags=network-lb-tag \
+--image-family=debian-11 \
+--image-project=debian-cloud \
+--metadata=startup-script='#!/bin/bash
+apt-get update
+apt-get install apache2 -y
+service apache2 restart
+echo "<h3>Web Server: web2</h3>" | tee /var/www/html/index.html'
+
+gcloud compute instances create web3 \
+--zone=$ZONE \
+--machine-type=e2-small \
+--tags=network-lb-tag \
+--image-family=debian-11 \
+--image-project=debian-cloud \
+--metadata=startup-script='#!/bin/bash
+apt-get update
+apt-get install apache2 -y
+service apache2 restart
+echo "<h3>Web Server: web3</h3>" | tee /var/www/html/index.html'
+
+
+
+
+
+gcloud compute firewall-rules create www-firewall-network-lb --allow tcp:80 --target-tags network-lb-tag
+
+
+
+
+gcloud compute addresses create network-lb-ip-1 \
+    --region=$REGION  
+
+
+
+gcloud compute http-health-checks create basic-check
+
+
+ gcloud compute target-pools create www-pool \
+    --region=$REGION  --http-health-check basic-check
+
+
+gcloud compute target-pools add-instances www-pool \
+    --instances web1,web2,web3 --zone=$ZONE
+    
+
+gcloud compute forwarding-rules create www-rule \
+    --region=$REGION \
+    --ports 80 \
+    --address network-lb-ip-1 \
+    --target-pool www-pool
+
+
+IPADDRESS=$(gcloud compute forwarding-rules describe www-rule --region=$REGION  --format="json" | jq -r .IPAddress)
+
+
+
+#TASK 3
+
+gcloud compute instance-templates create lb-backend-template \
+   --region=$REGION \
+   --network=default \
+   --subnet=default \
+   --tags=allow-health-check \
+   --machine-type=e2-medium \
+   --image-family=debian-11 \
+   --image-project=debian-cloud \
+   --metadata=startup-script='#!/bin/bash
+     apt-get update
+     apt-get install apache2 -y
+     a2ensite default-ssl
+     a2enmod ssl
+     vm_hostname="$(curl -H "Metadata-Flavor:Google" \
+     http://169.254.169.254/computeMetadata/v1/instance/name)"
+     echo "Page served from: $vm_hostname" | \
+     tee /var/www/html/index.html
+     systemctl restart apache2'
+
+
+
+
+gcloud compute instance-groups managed create lb-backend-group \
+   --template=lb-backend-template --size=2 --zone=$ZONE 
+
+
+
+gcloud compute firewall-rules create fw-allow-health-check \
+  --network=default \
+  --action=allow \
+  --direction=ingress \
+  --source-ranges=130.211.0.0/22,35.191.0.0/16 \
+  --target-tags=allow-health-check \
+  --rules=tcp:80
+
+
+
+gcloud compute addresses create lb-ipv4-1 \
+  --ip-version=IPV4 \
+  --global
+
+
+
+gcloud compute addresses describe lb-ipv4-1 \
+  --format="get(address)" \
+  --global
+
+
+
+
+gcloud compute health-checks create http http-basic-check \
+  --port 80
+
+
+
+gcloud compute backend-services create web-backend-service \
+  --protocol=HTTP \
+  --port-name=http \
+  --health-checks=http-basic-check \
+  --global
+
+
+
+gcloud compute backend-services add-backend web-backend-service \
+  --instance-group=lb-backend-group \
+  --instance-group-zone=$ZONE \
+  --global
+
+
+
+gcloud compute url-maps create web-map-http \
+    --default-service web-backend-service
+
+
+
+
 gcloud compute target-http-proxies create http-lb-proxy \
---url-map web-server-map
- 
- 
- 
+    --url-map web-map-http
+
+
 gcloud compute forwarding-rules create http-content-rule \
---global \
---target-http-proxy http-lb-proxy \
---ports 80
- 
- 
-gcloud compute forwarding-rules create $FIREWALL_NAME \
---global \
---target-http-proxy http-lb-proxy \
---ports 80
-gcloud compute forwarding-rules list
+    --address=lb-ipv4-1\
+    --global \
+    --target-http-proxy=http-lb-proxy \
+    --ports=80
