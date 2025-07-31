@@ -2,6 +2,16 @@
 
 
 
+#!/bin/bash
+
+# Fetch zone and region
+ZONE=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-zone])")
+REGION=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-region])")
+PROJECT_ID=$(gcloud config get-value project)
+
+
 gcloud config set compute/zone $ZONE
 
 gsutil -m cp -r gs://spls/gsp053/orchestrate-with-kubernetes .
@@ -47,23 +57,24 @@ kubectl get services frontend
 
 sed -i "s/auth:1.0.0/auth:2.0.0/" deployments/auth.yaml
 
-kubectl get replicaset
+# kubectl get replicaset
 
-kubectl rollout history deployment/hello
+# kubectl rollout history deployment/hello
 
-kubectl rollout pause deployment/hello
+# kubectl rollout pause deployment/hello
 
-kubectl rollout status deployment/hello
+# kubectl rollout status deployment/hello
 
-kubectl get pods -o jsonpath --template='{range .items[*]}{.metadata.name}{"\t"}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
+# kubectl get pods -o jsonpath --template='{range .items[*]}{.metadata.name}{"\t"}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
 
-kubectl rollout resume deployment/hello
+# kubectl rollout resume deployment/hello
 
-kubectl rollout status deployment/hello
+# kubectl rollout status deployment/hello
 
-kubectl rollout undo deployment/hello
+# kubectl rollout undo deployment/hello
 
-kubectl rollout history deployment/hello
+# kubectl rollout history deployment/hello
+
 
 kubectl create -f deployments/hello-canary.yaml
 
