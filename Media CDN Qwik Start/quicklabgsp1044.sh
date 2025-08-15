@@ -12,6 +12,7 @@ PROJECT_ID=$(gcloud config get-value project)
 
 
 gcloud services enable networkservices.googleapis.com
+gcloud services enable certificatemanager.googleapis.com
 
 # 1. Create the bucket
 gsutil mb gs://$PROJECT_ID/
