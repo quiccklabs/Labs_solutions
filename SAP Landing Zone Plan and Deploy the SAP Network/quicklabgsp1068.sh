@@ -28,7 +28,7 @@ gcloud compute networks subnets create xgl-subnet--cerps-bau-nonprd--be1-01 \
     \
     --project=$Your_Project_Id \
     --network=xall-vpc--vpc-01 \
-    --region=us-central1 \
+    --region=$REGION \
     \
     --range=10.1.1.0/24 \
     --enable-private-ip-google-access \
@@ -129,7 +129,7 @@ gcloud compute addresses create xgl-ip-address--cerps-bau-dev--dh1--d-cerpshana1
     --description="Help me to reach 5K guys" \
     \
     --project=$Your_Project_Id \
-    --region=us-central1 \
+    --region=$REGION \
     --subnet=xgl-subnet--cerps-bau-nonprd--be1-01 \
     \
     --addresses=10.1.1.100
@@ -141,7 +141,7 @@ gcloud compute addresses create xgl-ip-address--cerps-bau-dev--ds4--d-cerpss4db 
     --description="Help me to reach 5K guys" \
     \
     --project=$Your_Project_Id \
-    --region=us-central1 \
+    --region=$REGION \
     --subnet=xgl-subnet--cerps-bau-nonprd--be1-01 \
     \
     --addresses=10.1.1.101
@@ -152,7 +152,7 @@ gcloud compute addresses create xgl-ip-address--cerps-bau-dev--ds4--d-cerpss4scs
     --description="Help me to reach 5K guys" \
     \
     --project=$Your_Project_Id \
-    --region=us-central1 \
+    --region=$REGION \
     --subnet=xgl-subnet--cerps-bau-nonprd--be1-01 \
     \
     --addresses=10.1.1.102
@@ -164,7 +164,7 @@ gcloud compute addresses create xgl-ip-address--cerps-bau-dev--ds4--d-cerpss4app
     --description="Help me to reach 5K guys" \
     \
     --project=$Your_Project_Id \
-    --region=us-central1 \
+    --region=$REGION \
     --subnet=xgl-subnet--cerps-bau-nonprd--be1-01 \
     \
     --addresses=10.1.1.103
@@ -176,7 +176,7 @@ gcloud compute routers create xall-vpc--vpc-01--xall-router--shared-nat--de1-01 
     --description="Help me to reach 5K guys" \
     \
     --project=$Your_Project_Id \
-    --region=us-central1 \
+    --region=$REGION \
     --network=xall-vpc--vpc-01
 
 
@@ -185,7 +185,7 @@ gcloud compute routers create xall-vpc--vpc-01--xall-router--shared-nat--de1-01 
 gcloud compute routers nats create xall-vpc--vpc-01--xall-nat-gw--shared-nat--de1-01 \
     \
     --project=$Your_Project_Id \
-    --region=us-central1 \
+    --region=$REGION \
     --router=xall-vpc--vpc-01--xall-router--shared-nat--de1-01 \
     \
     --auto-allocate-nat-external-ips \
