@@ -126,7 +126,7 @@ metadata:
 spec:
   containers:
   - name: liveness-demo-pod
-    image: centos
+    image: centos:8
     args:
     - /bin/sh
     - -c
