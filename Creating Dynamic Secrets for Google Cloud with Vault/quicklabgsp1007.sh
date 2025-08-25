@@ -1,5 +1,6 @@
 
 
+
 gcloud auth list
 
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
@@ -20,12 +21,14 @@ storage "raft" {
 
 listener "tcp" {
   address     = "127.0.0.1:8200"
-  tls_disable = "true"
+  tls_disable = true
 }
 
 api_addr = "http://127.0.0.1:8200"
 cluster_addr = "https://127.0.0.1:8201"
 ui = true
+
+disable_mlock = true
 EOF_END
 
 mkdir -p ./vault/data
