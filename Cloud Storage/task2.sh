@@ -1,7 +1,11 @@
 
 
 # 2nd Project ID
+# Prompt for user input
+read -p "Enter your ZONE: " ZONE
 
+# Use zone for the lab
+export ZONE="$ZONE"
 export REGION="${ZONE%-*}"
 
 gsutil mb -p $DEVSHELL_PROJECT_ID -c STANDARD -l $REGION -b on gs://$DEVSHELL_PROJECT_ID-2
@@ -25,3 +29,9 @@ gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID --member="serviceAcc
 
 # Generate and download the JSON key file
 gcloud iam service-accounts keys create credentials.json --iam-account=cross-project-storage@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com
+
+
+
+
+
+
