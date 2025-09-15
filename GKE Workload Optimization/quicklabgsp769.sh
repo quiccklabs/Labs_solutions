@@ -229,3 +229,15 @@ spec:
 EOF
 
 kubectl apply -f gb_frontend_deployment.yaml
+
+
+
+gcloud builds submit \
+    --tag gcr.io/${GOOGLE_CLOUD_PROJECT}/locust-tasks:latest locust-image
+
+
+export LOCUST_IP=$(kubectl get svc locust-main -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+
+curl http://$LOCUST_IP:8089
+
+echo -e "\e[1;36m🌐 Your Locust UI is available at:\e[0m \e[1;32mhttp://$LOCUST_IP:8089\e[0m 🚀"
