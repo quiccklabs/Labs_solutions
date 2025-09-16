@@ -1,7 +1,3 @@
-
-
-
-
 #!/bin/bash
 
 # Fetch zone and region
@@ -14,77 +10,54 @@ PROJECT_ID=$(gcloud config get-value project)
 
 gcloud config set compute/zone $ZONE
 
-gsutil -m cp -r gs://spls/gsp053/orchestrate-with-kubernetes .
-cd orchestrate-with-kubernetes/kubernetes
-
+gcloud storage cp -r gs://spls/gsp053/kubernetes .
+cd kubernetes
 
 gcloud container clusters create bootcamp \
   --machine-type e2-small \
   --num-nodes 3 \
   --scopes "https://www.googleapis.com/auth/projecthosting,storage-rw"
 
-kubectl explain deployment
 
-kubectl explain deployment --recursive
+#TASK 2
 
-kubectl explain deployment.metadata.name
+kubectl create -f deployments/fortune-app-blue.yaml
+kubectl create -f services/fortune-app.yaml
 
+kubectl scale deployment fortune-app-blue --replicas=5
+kubectl get pods | grep fortune-app-blue | wc -l
 
-
-sed -i "s/auth:2.0.0/auth:1.0.0/" deployments/auth.yaml
-
-kubectl create -f deployments/auth.yaml
-
-kubectl get deployments
-
-kubectl get replicasets
-
-kubectl get pods
-
-kubectl create -f services/auth.yaml
-
-kubectl create -f deployments/hello.yaml
-kubectl create -f services/hello.yaml
+kubectl scale deployment fortune-app-blue --replicas=3
+kubectl get pods | grep fortune-app-blue | wc -l
 
 
-kubectl create secret generic tls-certs --from-file tls/
-kubectl create configmap nginx-frontend-conf --from-file=nginx/frontend.conf
-kubectl create -f deployments/frontend.yaml
-kubectl create -f services/frontend.yaml
-
-kubectl get services frontend
-
-
-sed -i "s/auth:1.0.0/auth:2.0.0/" deployments/auth.yaml
-
-# kubectl get replicaset
-
-# kubectl rollout history deployment/hello
-
-# kubectl rollout pause deployment/hello
-
-# kubectl rollout status deployment/hello
-
-# kubectl get pods -o jsonpath --template='{range .items[*]}{.metadata.name}{"\t"}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
-
-# kubectl rollout resume deployment/hello
-
-# kubectl rollout status deployment/hello
-
-# kubectl rollout undo deployment/hello
-
-# kubectl rollout history deployment/hello
+#TASK 3 (ask before continuing)
+# Simple colored prompt
+echo -ne "\e[1;33m? \e[1;36mDo you want to continue with Task 3? \e[0m[\e[1;32mY\e[0m/\e[1;31mN\e[0m]: "
+read -r CONFIRM
+if [[ "$CONFIRM" != "Y" && "$CONFIRM" != "y" ]]; then
+  echo -e "\e[1;31m❌ Task 3 aborted by user.\e[0m"
+  exit 0
+fi
+echo -e "\e[1;32m✅ Continuing with Task 3...\e[0m"
 
 
-kubectl create -f deployments/hello-canary.yaml
 
-kubectl get deployments
+kubectl set image deployment/fortune-app-blue fortune-app=$REGION-docker.pkg.dev/qwiklabs-resources/spl-lab-apps/fortune-service:2.0.0
+kubectl set env deployment/fortune-app-blue APP_VERSION=2.0.0
+
+# kubectl rollout history deployment/fortune-app-blue
+# kubectl rollout pause deployment/fortune-app-blue
+# kubectl rollout status deployment/fortune-app-blue
+# kubectl rollout resume deployment/fortune-app-blue
+# kubectl rollout status deployment/fortune-app-blue
+# kubectl rollout undo deployment/fortune-app-blue
+
+kubectl create -f deployments/fortune-app-canary.yaml
 
 
-kubectl apply -f services/hello-blue.yaml
-
-kubectl create -f deployments/hello-green.yaml
-
-curl -ks https://`kubectl get svc frontend -o=jsonpath="{.status.loadBalancer.ingress[0].ip}"`/version
-
-kubectl apply -f services/hello-green.yaml
+#TASK 5
+kubectl apply -f services/fortune-app-blue-service.yaml
+kubectl create -f deployments/fortune-app-green.yaml
+kubectl apply -f services/fortune-app-green-service.yaml
+kubectl apply -f services/fortune-app-blue-service.yaml
