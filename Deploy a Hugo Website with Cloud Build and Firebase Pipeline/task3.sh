@@ -1,4 +1,6 @@
 
+cd ~
+
 gcloud builds repositories create hugo-website-build-repository \
   --remote-uri="https://github.com/${GITHUB_USERNAME}/my_hugo_site.git" \
   --connection="cloud-build-connection" --region=$REGION
