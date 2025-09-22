@@ -2,13 +2,15 @@
 cd ~
 /tmp/installhugo.sh
 
+
 export PROJECT_ID=$(gcloud config get-value project)
 export PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
 export REGION=$(gcloud compute project-info describe \
 --format="value(commonInstanceMetadata.items[google-compute-default-region])")
-sudo apt-get update -y
-sudo apt-get install git -y
-sudo apt-get install gh -y
+sudo apt-get update
+sudo apt-get install git
+sudo apt-get install gh
+
 
 
 curl -sS https://webi.sh/gh | sh
@@ -21,10 +23,10 @@ git config --global user.email "${USER_EMAIL}"
 echo ${GITHUB_USERNAME}
 echo ${USER_EMAIL}
 
-
 cd ~
 gh repo create  my_hugo_site --private 
 gh repo clone  my_hugo_site 
+
 
 cd ~
 /tmp/hugo new site my_hugo_site --force
@@ -39,5 +41,4 @@ sudo rm themes/hello-friend-ng/.gitignore
 
 cd ~/my_hugo_site
 /tmp/hugo server -D --bind 0.0.0.0 --port 8080
-
 
