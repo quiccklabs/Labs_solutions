@@ -1,0 +1,72 @@
+{
+  "title": "Insurance Risk Summary - Prototype",
+  "description": "",
+  "parameters": {
+    "temperature": 1,
+    "tokenLimits": 65535,
+    "topP": 0.95,
+    "groundingPromptConfig": {
+      "disabled": true,
+      "groundingConfig": {
+        "sources": [
+          {
+            "type": "UNSPECIFIED"
+          }
+        ]
+      }
+    },
+    "thinkingBudget": 0,
+    "safetyCatFilters": [
+      {
+        "category": "HATE_SPEECH",
+        "threshold": "OFF"
+      },
+      {
+        "category": "DANGEROUS_CONTENT",
+        "threshold": "OFF"
+      },
+      {
+        "category": "SEXUALLY_EXPLICIT_CONTENT",
+        "threshold": "OFF"
+      },
+      {
+        "category": "HARASSMENT_CONTENT",
+        "threshold": "OFF"
+      }
+    ]
+  },
+  "systemInstruction": {
+    "parts": [
+      {
+        "text": "You are an expert AI assistant for an insurance underwriting department.\nYour primary goal is to help underwriters by accurately and concisely summarizing client information and highlighting potential risk factors.\nMaintain a professional and objective tone.\nFocus only on the information provided in the prompt. Do not invent details."
+      }
+    ]
+  },
+  "type": "chat",
+  "examples": [],
+  "messages": [
+    {
+      "author": "user",
+      "content": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Customer Notes for 'SafeHarbor Warehousing':\n\"The applicant is seeking coverage for their 50,000 sq ft warehouse. The business is 5 years old. The building is a concrete tilt-up structure, originally built in 2010. They store a variety of non-hazardous dry goods.\nFire safety measures include a full sprinkler system, a centrally monitored fire alarm, and documented annual inspections by a certified third party.\nSecurity measures include a 24/7 centrally monitored burglar alarm, comprehensive security camera coverage of the interior and exterior, a fully fenced perimeter, and nightly patrols by a contracted security guard service.\nThe company reports no major property or liability losses in their 5-year history. They have specifically asked to ensure their new automated shelving and retrieval system, installed last month, is adequately covered under the policy.\"\n\nYour Task:\n1. Briefly summarize the key details of the 'SafeHarbor Warehousing' business and its existing safety measures.\n2. Based *only* on the notes provided, identify any immediate questions an underwriter should ask or potential risk factors they should consider further.\nPresent the summary first, then the questions/risk factors as bullet points.\n"
+          }
+        ]
+      }
+    },
+    {
+      "author": "bot",
+      "content": {
+        "role": "model",
+        "parts": [
+          {
+            "text": "SafeHarbor Warehousing is a 5-year-old business operating in a 50,000 sq ft concrete tilt-up building constructed in 2010. The business stores non-hazardous dry goods and has implemented robust fire safety measures including a full sprinkler system, centrally monitored fire alarm, and annual third-party inspections. Security is maintained through a 24/7 monitored burglar alarm, comprehensive camera surveillance, a fenced perimeter, and nightly security patrols. The company has no reported losses in its history. The applicant has requested coverage for a recently installed automated shelving and retrieval system.\n\nPotential Risk Factors/Underwriter Questions:\n\n*   **Automated Shelving and Retrieval System:** Clarify the specific nature, value, and any unique operational risks associated with this new system. Are there any maintenance requirements or specific exclusions that need to be considered for this equipment?\n*   **Storage Contents:** While stated as \"non-hazardous dry goods,\" it would be prudent to confirm the exact nature of these goods to ensure they align with the property policy's terms and conditions, and to assess any specific storage requirements or potential for damage (e.g., susceptibility to environmental changes)."
+          }
+        ]
+      }
+    }
+  ],
+  "model": "google/gemini-2.5-flash-lite"
+}

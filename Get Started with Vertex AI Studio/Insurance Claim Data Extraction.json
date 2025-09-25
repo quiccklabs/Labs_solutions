@@ -1,0 +1,105 @@
+{
+  "title": "Insurance Claim Data Extraction",
+  "description": "",
+  "parameters": {
+    "temperature": 0.1,
+    "tokenLimits": 1024,
+    "topP": 1,
+    "groundingPromptConfig": {
+      "disabled": true,
+      "groundingConfig": {
+        "sources": [
+          {
+            "type": "UNSPECIFIED"
+          }
+        ]
+      }
+    },
+    "thinkingBudget": -1,
+    "safetyCatFilters": [
+      {
+        "category": "HATE_SPEECH",
+        "threshold": "OFF"
+      },
+      {
+        "category": "DANGEROUS_CONTENT",
+        "threshold": "OFF"
+      },
+      {
+        "category": "SEXUALLY_EXPLICIT_CONTENT",
+        "threshold": "OFF"
+      },
+      {
+        "category": "HARASSMENT_CONTENT",
+        "threshold": "OFF"
+      }
+    ]
+  },
+  "systemInstruction": {
+    "parts": [
+      {
+        "text": "You are an AI assistant specializing in parsing and extracting specific data points from unstructured insurance claim notifications.\nYour goal is to identify and list key information accurately.\nIf a piece of information is not found, clearly state \"Not found\".\nOutput the extracted information in a key: value format, with each key on a new line."
+      }
+    ]
+  },
+  "type": "chat",
+  "examples": [],
+  "messages": [
+    {
+      "author": "user",
+      "content": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Claim Notification Received:\n\"Hi team, just got a call from Mrs. Eleanor Vance, policy #POL458892. She reported a kitchen fire that occurred on May 12th, 2025, around 3 PM. The main damage seems to be to the oven and surrounding cabinets. She mentioned smoke damage in the kitchen and dining area too. She thinks the total damage might be around $7,500. Her contact is 555-0123. No injuries reported, thankfully.\"\n\nExtract the following:\n- Policy Number\n- Claimant Name\n- Date of Loss\n- Time of Loss\n- Type of Loss\n- Brief Description of Damage\n- Estimated Loss Amount\n- Injuries Reported\n"
+          }
+        ]
+      }
+    },
+    {
+      "author": "bot",
+      "content": {
+        "role": "model",
+        "parts": [
+          {
+            "text": "**Processing the extraction request**\n\nI'm currently focusing on extracting the key data points. I've begun parsing the text, with a specific eye on the \"Policy Number\" field. The plan is to scan for \"policy #\" and then isolate the subsequent numerical value.\n\n\n**Mapping user requirements**\n\nI'm now breaking down the extraction requests into discrete search tasks. I've defined search patterns for each field: finding the policy number by the prefix and value, claimant name, incident date and time, and the loss type. I'm setting up the extraction functions now.\n\n\n",
+            "thought": true
+          },
+          {
+            "text": "Policy Number: POL458892\nClaimant Name: Mrs. Eleanor Vance\nDate of Loss: May 12th, 2025\nTime of Loss: 3 PM\nType of Loss: Kitchen Fire\nBrief Description of Damage: Oven, surrounding cabinets, smoke damage in kitchen and dining area\nEstimated Loss Amount: $7,500\nInjuries Reported: No injuries reported"
+          }
+        ]
+      }
+    },
+    {
+      "author": "user",
+      "content": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Scenario:\n\"The applicant, 'The Fiery Grill,' is an upscale restaurant specializing in wood-fired ovens and open-flame grilling. They have a brand new, custom-built fire suppression system, but it has not been certified by a third party. The restaurant will feature live acoustic music on a small, raised stage. They also want to offer valet parking, managed by their own staff. The applicant has no prior business history.\"\n\nUnderwriting Guidelines:\nPriority Hierarchy: Liability risks are classed as:\n- Class A (Critical): Fire, structural failure, failure of safety systems.\n- Class B (Standard): General premises liability (e.g., slip-and-fall).\n- Class C (Niche): Auto/Vehicle liability.\n\nCompounding Factors: A \"compounding risk\" (a condition that makes another risk worse) must be elevated to the highest priority.\nInexperience: Lack of prior business history is a general negative factor but does not create a primary risk on its own.\nAuto Liability: Class C risks (Valet) are only considered a primary risk if the applicant is using an unvetted, third-party contractor.\n\nTask:\nBased on the scenario and the underwriting guidelines, identify the single, #1 highest-priority risk. Then, write a 2-sentence justification that explains why it is the #1 risk, citing the specific guideline(s) that apply."
+          }
+        ]
+      }
+    },
+    {
+      "author": "bot",
+      "content": {
+        "role": "model",
+        "parts": [
+          {
+            "text": "**Assessing the Core Risks**\n\nI'm now prioritizing the risks associated with \"The Fiery Grill\" restaurant, based on the provided guidelines. I've started deconstructing the restaurant scenario and the underwriting rules, aiming to isolate the most critical risk factor. My focus is on identifying the top risk as quickly and accurately as possible.\n\n\n**Identifying the Top Threat**\n\nI'm now focused on the central question: What is the single greatest risk? Considering the wood-fired cooking and uncertified suppression system, my analysis strongly points toward fire as the top concern. This is due to the significant potential for a rapid, uncontrolled fire incident, coupled with the lack of third-party validation of the safety system.\n\n\n**Defining the Critical Hazard**\n\nI've refined the justification for fire being the top risk. The combination of wood-fired cooking, a non-certified suppression system, and the restaurant's lack of experience strongly supports this classification. The guidelines highlight fire as a critical risk and note the importance of verified safety systems.\n\n\n**Determining the Key Hazard**\n\nThe analysis has progressed to identifying the highest-priority risk. The confluence of factors, including the wood-fired cooking and the uncertified fire suppression system, points directly to fire. I believe fire poses the greatest threat, given the potential for rapid spread and the unknown reliability of the safety measures.\n\n\n**Focusing on the Key Danger**\n\nI've zeroed in on the paramount threat: fire. Considering the wood-fired cooking and the uncertified fire safety system, I'm focusing on the potential for a devastating event due to the system's lack of third-party verification, directly addressing the underwriting guidelines concerning safety failures.\n\n\n",
+            "thought": true
+          },
+          {
+            "text": "**#1 Highest-Priority Risk:** The uncertified fire suppression system.\n\n**Justification:**\nThe uncertified system represents a potential \"failure of safety systems,\" which is a Class A (Critical"
+          },
+          {
+            "text": "... (The response was truncated because it has reached the token limit. Try to increase the token limit if you need a longer response.)"
+          }
+        ]
+      }
+    }
+  ],
+  "model": "google/gemini-2.5-pro"
+}

@@ -1,0 +1,72 @@
+{
+  "title": "Insurance Risk Factor Identification",
+  "description": "",
+  "parameters": {
+    "temperature": 0.2,
+    "tokenLimits": 65535,
+    "topP": 1,
+    "groundingPromptConfig": {
+      "disabled": true,
+      "groundingConfig": {
+        "sources": [
+          {
+            "type": "UNSPECIFIED"
+          }
+        ]
+      }
+    },
+    "thinkingBudget": -1,
+    "safetyCatFilters": [
+      {
+        "category": "HATE_SPEECH",
+        "threshold": "OFF"
+      },
+      {
+        "category": "DANGEROUS_CONTENT",
+        "threshold": "OFF"
+      },
+      {
+        "category": "SEXUALLY_EXPLICIT_CONTENT",
+        "threshold": "OFF"
+      },
+      {
+        "category": "HARASSMENT_CONTENT",
+        "threshold": "OFF"
+      }
+    ]
+  },
+  "systemInstruction": {
+    "parts": [
+      {
+        "text": "You are an insurance risk analyst assistant. Your task is to identify potential risk factors from a given scenario. Be concise."
+      }
+    ]
+  },
+  "type": "chat",
+  "examples": [],
+  "messages": [
+    {
+      "author": "user",
+      "content": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Scenario:\n\"The applicant, 'The Fiery Grill,' is a new upscale restaurant specializing in wood-fired oven pizzas and open-flame grilling. They have installed a brand new, custom-built fire suppression system for their cooking area, but it has not yet been certified by a third party. The restaurant plans to feature live acoustic music on weekend evenings and has a small, raised stage area. They also want to offer valet parking.\"\n\nBased on this scenario, list three primary risk factors an underwriter should consider.\n"
+          }
+        ]
+      }
+    },
+    {
+      "author": "bot",
+      "content": {
+        "role": "model",
+        "parts": [
+          {
+            "text": "1.  **Elevated Fire Risk:** Due to wood-fired ovens, open-flame grilling, and the uncertified fire suppression system.\n2.  **Increased General Liability:** From live music, a raised stage, and potential for increased occupancy/incidents.\n3.  **Valet Parking Liability:** Significant auto liability exposure for customer vehicles and potential accidents involving valets."
+          }
+        ]
+      }
+    }
+  ],
+  "model": "google/gemini-2.5-flash"
+}

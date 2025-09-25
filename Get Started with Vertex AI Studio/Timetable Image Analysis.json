@@ -1,0 +1,75 @@
+{
+  "title": "Timetable Image Analysis",
+  "description": "",
+  "parameters": {
+    "temperature": 1,
+    "tokenLimits": 65535,
+    "topP": 1,
+    "groundingPromptConfig": {
+      "disabled": true,
+      "groundingConfig": {
+        "sources": [
+          {
+            "type": "UNSPECIFIED"
+          }
+        ]
+      }
+    },
+    "thinkingBudget": -1,
+    "safetyCatFilters": [
+      {
+        "category": "HATE_SPEECH",
+        "threshold": "OFF"
+      },
+      {
+        "category": "DANGEROUS_CONTENT",
+        "threshold": "OFF"
+      },
+      {
+        "category": "SEXUALLY_EXPLICIT_CONTENT",
+        "threshold": "OFF"
+      },
+      {
+        "category": "HARASSMENT_CONTENT",
+        "threshold": "OFF"
+      }
+    ]
+  },
+  "type": "multimodal_chat",
+  "examples": [],
+  "messages": [
+    {
+      "author": "user",
+      "content": {
+        "role": "user",
+        "parts": [
+          {
+            "fileData": {
+              "mimeType": "image/png",
+              "fileUri": "gs://qwiklabs-gcp-02-e504625752e9-bucket/timetable.png"
+            }
+          },
+          {
+            "text": "\n1. Provide a concise title for this image (under 5 words).\n2. Describe the image in one or two sentences.\n3. Extract all visible text from the image. Present the flight schedule as a clearly formatted list with columns for \"Time\" and \"City\".\n"
+          }
+        ]
+      }
+    },
+    {
+      "author": "bot",
+      "content": {
+        "role": "model",
+        "parts": [
+          {
+            "text": "**Analyzing the Image**\n\nI've zeroed in on the image's core element: a flight information board. Titles like \"Flight Schedule Board\" or simply \"Departure Board\" seem apt. Next, I'm shifting focus to a detailed description of the board's visual components, to get a clearer picture of what's presented.\n\n\n**Decoding the Board**\n\nI'm cross-referencing the transcribed text with the provided OCR output. My focus is error correction and a fully accurate representation of the flight information. I'm also verifying the OCR's performance against the image's visual elements.\n\n\n**Composing the List**\n\nI'm now meticulously creating the time and city list, based on my accurate transcription. I'll make a direct comparison with the OCR output. I'll correct any errors present. The \"Time\" and \"City\" columns are the final key step in presenting the flight information properly.\n\n\n",
+            "thought": true
+          },
+          {
+            "text": "Here's the analysis of the image:\n\n1.  **Concise Title:** Airport Departure Board\n\n2.  **Description:** The image shows an electronic departure or arrival board, with orange text displaying flight times and destinations against a dark background. The board is angled, suggesting it's viewed from below in a large public space like an airport terminal.\n\n3.  **Extracted Text (Flight Schedule):**\n\n| Time  | City           |\n| :---- | :------------- |\n| 10:50 | MOSCOW/SVO     |\n| 11:05 | EDINBURGH      |\n| 11:05 | LONDON/LHR     |\n| 11:10 | BUCHAREST/OTP  |\n| 11:30 | KIEV/BORISPOL  |\n| 11:35 | DUBLIN         |\n| 11:45 | EAST MIDLANDS  |\n| 12:15 | SOFIA          |\n| 12:30 | LONDON/LGW     |\n| 12:30 | NEWCASTLE      |\n| 12:40 | ST PETERSBURG  |\n| 12:40 | LONDON/LGW     |\n| 12:45 | MANCHESTER     |"
+          }
+        ]
+      }
+    }
+  ],
+  "model": "google/gemini-2.5-flash"
+}
