@@ -1,11 +1,22 @@
 
+#!/bin/bash
+
+echo ""
+echo ""
+
+read -p "Enter APP_REGION :- " APP_REGION
 
 
-export REGION="${ZONE%-*}"
+# Fetch zone and region
+ZONE=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-zone])")
+REGION=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-region])")
+PROJECT_ID=$(gcloud config get-value project)
 
+# APP_REGION=$(echo $REGION | sed 's/[0-9]*$//')
+# echo $APP_REGION
 
-
-gcloud auth list
 
 git clone https://github.com/GoogleCloudPlatform/training-data-analyst
 
@@ -13,8 +24,11 @@ ln -s ~/training-data-analyst/courses/developingapps/v1.2/python/kubernetesengin
 
 cd ~/kubernetesengine/start
 
-. prepare_environment.sh
+# export APP_REGION=europe-west
 
+sed -i -e 's/us-central1/'"$REGION"'/g' -e 's/us-central/'"$APP_REGION"'/g' -e 's/python3/'"python3.12"'/g' prepare_environment.sh
+
+. prepare_environment.sh
 
 
 gcloud beta container --project "$DEVSHELL_PROJECT_ID" clusters create "quiz-cluster" --zone "$ZONE" --no-enable-basic-auth --cluster-version "latest" --release-channel "regular" --machine-type "e2-medium" --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "100" --metadata disable-legacy-endpoints=true --scopes "https://www.googleapis.com/auth/cloud-platform" --num-nodes "3" --logging=SYSTEM,WORKLOAD --monitoring=SYSTEM --enable-ip-alias --network "projects/$DEVSHELL_PROJECT_ID/global/networks/default" --subnetwork "projects/$DEVSHELL_PROJECT_ID/regions/$REGION/subnetworks/default" --no-enable-intra-node-visibility --default-max-pods-per-node "110" --security-posture=standard --workload-vulnerability-scanning=disabled --no-enable-master-authorized-networks --addons HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver --enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 --binauthz-evaluation-mode=DISABLED --enable-managed-prometheus --enable-shielded-nodes --node-locations "$ZONE"
@@ -24,6 +38,12 @@ gcloud container clusters get-credentials quiz-cluster --zone "$ZONE" --project 
 
 kubectl get pods
 
+
+#task 2 
+
+gcloud artifacts repositories create container-dev-repo --repository-format=docker \
+  --location=$REGION \
+  --description="Docker repository for Container Dev Workshop"
 
 
 cat > frontend/Dockerfile <<EOF_END
@@ -61,10 +81,9 @@ CMD python -m quiz.console.worker
 EOF_END
 
 
-gcloud builds submit -t gcr.io/$DEVSHELL_PROJECT_ID/quiz-frontend ./frontend/
+gcloud builds submit -t $REGION-docker.pkg.dev/$DEVSHELL_PROJECT_ID/container-dev-repo/quiz-frontend:v1 ./frontend/
 
-gcloud builds submit -t gcr.io/$DEVSHELL_PROJECT_ID/quiz-backend ./backend/
-
+gcloud builds submit -t $REGION-docker.pkg.dev/$DEVSHELL_PROJECT_ID/container-dev-repo/quiz-backend:v1 ./backend/
 
 
 cat > frontend-deployment.yaml <<EOF_END
@@ -101,7 +120,7 @@ spec:
     spec:
       containers:
       - name: quiz-frontend
-        image: gcr.io/$GCLOUD_PROJECT/quiz-frontend
+        image: $REGION-docker.pkg.dev/$PROJECT_ID/container-dev-repo/quiz-frontend:v1
         imagePullPolicy: Always
         ports:
         - name: http-server
@@ -150,7 +169,7 @@ spec:
     spec:
       containers:
       - name: quiz-backend
-        image: gcr.io/$GCLOUD_PROJECT/quiz-backend
+        image: $REGION-docker.pkg.dev/$PROJECT_ID/container-dev-repo/quiz-backend:v1
         imagePullPolicy: Always
         env:
           - name: GCLOUD_PROJECT
@@ -167,3 +186,4 @@ kubectl create -f ./frontend-deployment.yaml
 kubectl create -f ./backend-deployment.yaml
 
 kubectl create -f ./frontend-service.yaml
+
