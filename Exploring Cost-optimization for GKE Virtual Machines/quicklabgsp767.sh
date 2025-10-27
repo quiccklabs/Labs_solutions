@@ -1,15 +1,14 @@
+#!/bin/bash
 
 
-export REGION=$(gcloud compute project-info describe \
---format="value(commonInstanceMetadata.items[google-compute-default-region])")
+# Fetch zone and region
+ZONE=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-zone])")
+REGION=$(gcloud compute project-info describe \
+  --format="value(commonInstanceMetadata.items[google-compute-default-region])")
+PROJECT_ID=$(gcloud config get-value project)
 
-export ZONE=$(gcloud compute project-info describe \
---format="value(commonInstanceMetadata.items[google-compute-default-zone])")
 
-
-PROJECT_ID=`gcloud config get-value project`
-
-export PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
 
 
 gcloud container clusters get-credentials hello-demo-cluster --zone $ZONE
@@ -31,18 +30,15 @@ for node in $(kubectl get nodes -l cloud.google.com/gke-nodepool=my-node-pool -o
   kubectl cordon "$node";
 done
 
+
 for node in $(kubectl get nodes -l cloud.google.com/gke-nodepool=my-node-pool -o=name); do
-  kubectl drain --force --ignore-daemonsets --delete-local-data --grace-period=10 "$node";
+  kubectl drain --force --ignore-daemonsets --delete-emptydir-data --grace-period=10 "$node";
 done
 
-kubectl get pods -o=wide
 
-gcloud container node-pools delete my-node-pool --cluster hello-demo-cluster --zone $ZONE --quiet
-
-sleep 20
+gcloud container node-pools delete my-node-pool --cluster hello-demo-cluster --zone $ZONE --quiet 
 
 gcloud container clusters create regional-demo --region=$REGION --num-nodes=1
-
 
 cat << EOF > pod-1.yaml
 apiVersion: v1
@@ -77,14 +73,9 @@ spec:
         topologyKey: "kubernetes.io/hostname"
   containers:
   - name: container-2
-    image: gcr.io/google-samples/node-hello:1.0
+    image: us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0
 EOF
 
 kubectl apply -f pod-2.yaml
 
-kubectl get pod pod-1 pod-2 --output wide
-
-
-
-echo "Your Region :- " $REGION
 
