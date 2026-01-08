@@ -62,7 +62,7 @@ def text_embedding(prompt: str):
     # Initialize Vertex AI
     vertexai.init(
         project="YOUR_PROJECT_ID",     # replace with your GCP project ID
-        location="us-central1"
+        location="YOUR_LOCATION"
     )
 
     # Load the embedding model
