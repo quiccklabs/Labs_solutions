@@ -6,11 +6,11 @@
 
 <br/>
 
-<a href="https://www.cloudskillsboost.google/focuses/1073?parent=catalog" target="_blank" style="margin: 10px;">
+<a href="https://www.skills.google/games/6987/labs/43425" target="_blank" style="margin: 10px;">
   <img src="https://img.shields.io/badge/Access_Lab-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white" alt="Access Lab">
 </a>
 
-<a href="" target="_blank" style="margin: 10px;">
+<a href="https://youtu.be/CBvQc8qtkFE" target="_blank" style="margin: 10px;">
   <img src="https://img.shields.io/badge/Watch_Solution_Video-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch Solution Video">
 </a>
 
