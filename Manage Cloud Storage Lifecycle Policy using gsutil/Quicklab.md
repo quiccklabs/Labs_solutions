@@ -1,7 +1,7 @@
 
 <div align="center" style="padding: 25px; background: #f2f2f2; border-radius: 15px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
 
-<h1 style="color: #2F80ED;">🚀 Manage Cloud Storage Lifecycle Policy using gsutil | GSP188 </h1>
+<h1 style="color: #2F80ED;">🚀 Manage Cloud Storage Lifecycle Policy using gsutil </h1>
 
 
 <br/>
@@ -53,8 +53,7 @@ The goal is to enhance your learning experience — not bypass it.
 
 ```bash
 curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Manage%20Cloud%20Storage%20Lifecycle%20Policy%20using%20gsutil/quicklab.sh
-sudo chmod +x quicklab.sh
-./quicklab.sh
+source quicklab.sh
 ```
 
 
