@@ -10,8 +10,8 @@ gcloud config set compute/zone ${ZONE} && gcloud container clusters get-credenti
 kubectl create namespace team-a && \
 kubectl create namespace team-b
 
-kubectl run app-server --image=centos --namespace=team-a -- sleep infinity && \
-kubectl run app-server --image=centos --namespace=team-b -- sleep infinity
+kubectl run app-server --image=centos:8 --namespace=team-a -- sleep infinity && \
+kubectl run app-server --image=centos:8 --namespace=team-b -- sleep infinity
 
 kubectl describe pod app-server --namespace=team-a
 
@@ -38,9 +38,9 @@ gcloud container clusters get-credentials multi-tenant-cluster --zone ${ZONE} --
 kubectl create quota test-quota \
 --hard=count/pods=2,count/services.loadbalancers=1 --namespace=team-a
 
-kubectl run app-server-2 --image=centos --namespace=team-a -- sleep infinity
+kubectl run app-server-2 --image=centos:8 --namespace=team-a -- sleep infinity
 
-kubectl run app-server-3 --image=centos --namespace=team-a -- sleep infinity
+kubectl run app-server-3 --image=centos:8 --namespace=team-a -- sleep infinity
 
 sleep 20
 
