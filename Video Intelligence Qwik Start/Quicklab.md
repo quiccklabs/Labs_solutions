@@ -52,9 +52,9 @@ The goal is to enhance your learning experience — not bypass it.
 <h3>🚀 Setup Environment using Cloud Shell:</h3>
 
 ```bash
-curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Manage%20Cloud%20Storage%20Lifecycle%20Policy%20using%20gsutil/quicklab.sh
-sudo chmod +x quicklab.sh
-./quicklab.sh
+curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/master/Video%20Intelligence%20Qwik%20Start/quicklabgsp154.sh
+sudo chmod +x quicklabgsp154.sh
+./quicklabgsp154.sh
 ```
 
 
