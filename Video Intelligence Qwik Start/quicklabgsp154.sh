@@ -1,4 +1,5 @@
 
+sleep 10
 
 gcloud iam service-accounts create quickstart
 
