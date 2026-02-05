@@ -1,8 +1,6 @@
 
-echo ""
-echo ""
-
-read -p "Enter REGION: " REGION
+export REGION=$(gcloud compute project-info describe \
+--format="value(commonInstanceMetadata.items[google-compute-default-region])")
 
 gcloud auth list
 
