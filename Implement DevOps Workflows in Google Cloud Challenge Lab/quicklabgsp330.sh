@@ -1,9 +1,5 @@
 #GSP330 new
 
-
-
-
-
 gcloud services enable container.googleapis.com \
     cloudbuild.googleapis.com \
     sourcerepo.googleapis.com
@@ -16,24 +12,23 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 --member=serviceAccount:$(gcloud projects describe $PROJECT_ID \
 --format="value(projectNumber)")@cloudbuild.gserviceaccount.com --role="roles/container.developer"
 
-git config --global user.email $USER_EMAIL
-git config --global user.name student
+# Lab has changed and is requesting to create the repo in GH 
+curl -sS https://webi.sh/gh | sh
+gh auth login
+gh api user -q ".login"
+GITHUB_USERNAME=$(gh api user -q ".login")
+git config --global user.name "${GITHUB_USERNAME}"
+git config --global user.email "${USER_EMAIL}"
+echo ${GITHUB_USERNAME}
+echo ${USER_EMAIL}
 
+export REPO=my-repository
+export PROJECT_ID=$PROJECT_ID
+export ZONE=us-west1-c # make sure to udpate the zone if needed
+export REGION="${ZONE%-*}" 
+export CLUSTER_NAME=hello-cluster
 
-
-
-export PROJECT_ID=$DEVSHELL_PROJECT_ID
-export REGION="${ZONE%-*}"
-
-gcloud artifacts repositories create $REPO \
-    --repository-format=docker \
-    --location=$REGION \
-    --description="Subscribe to quicklab"
-
-
-gcloud beta container --project "$PROJECT_ID" clusters create "$CLUSTER_NAME" --zone "$ZONE" --no-enable-basic-auth --cluster-version latest --release-channel "regular" --machine-type "e2-medium" --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "100" --metadata disable-legacy-endpoints=true  --logging=SYSTEM,WORKLOAD --monitoring=SYSTEM --enable-ip-alias --network "projects/$PROJECT_ID/global/networks/default" --subnetwork "projects/$PROJECT_ID/regions/$REGION/subnetworks/default" --no-enable-intra-node-visibility --default-max-pods-per-node "110" --enable-autoscaling --min-nodes "2" --max-nodes "6" --location-policy "BALANCED" --no-enable-master-authorized-networks --addons HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver --enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 --enable-shielded-nodes --node-locations "$ZONE"
-
-
+gcloud beta container clusters create "$CLUSTER_NAME" --zone "$ZONE" --cluster-version latest --release-channel "regular" --enable-autoscaling --min-nodes 2 --max-nodes 6 --num-nodes 3 
 
 # Function to check if a namespace exists
 namespace_exists() {
@@ -63,52 +58,41 @@ fi
 # Sleep for 10 seconds
 sleep 10
 
-# Continue with the rest of your script...
-# Add your additional kubectl commands here
+export GH_REPO=sample-app
 
-
-
-
-gcloud source repos create sample-app
-
-git clone https://source.developers.google.com/p/$PROJECT_ID/r/sample-app
-
-
+gh repo create $GH_REPO --private 
 cd ~
-gsutil cp -r gs://spls/gsp330/sample-app/* sample-app
+mkdir $GH_REPO
+gsutil cp -r gs://spls/gsp330/sample-app/* $GH_REPO
 
+cd $GH_REPO
 
 ## You have to run this command as well because lab is updated 
 
-for file in sample-app/cloudbuild-dev.yaml sample-app/cloudbuild.yaml; do
+for file in cloudbuild-dev.yaml cloudbuild.yaml; do
     sed -i "s/<your-region>/${REGION}/g" "$file"
     sed -i "s/<your-zone>/${ZONE}/g" "$file"
 done
 
-
-
+echo "# sample-app" >> README.md
 
 git init
-cd sample-app/
-git add .
-git commit -m "Subscribe to quicklab" 
-git push -u origin master
+git config credential.helper gcloud.sh
+git remote add google https://github.com/${GITHUB_USERNAME}/${GH_REPO}
+git branch -m master
+git add . && git commit -m "initial commit"
 
-
-
-git branch dev
-git checkout dev
+git checkout -b dev
 git push -u origin dev
 
 
-
-
 #TASK 3
-
-
-gcloud builds triggers create cloud-source-repositories \
+export SERVICE_ACCOUNT=$(gcloud projects describe $PROJECT_ID \
+--format="value(projectNumber)")-compute@developer.gserviceaccount.com
+# Use GH and default SA
+gcloud builds triggers create github \
     --name="sample-app-prod-deploy" \
-    --service-account="projects/$PROJECT_ID/serviceAccounts/$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com" \
+    --service-account="$SERVICE_ACCOUNT" \
     --description="Cloud Build Trigger for production deployment" \
     --repo="sample-app" \
     --branch-pattern="^master$" \
@@ -116,9 +100,9 @@ gcloud builds triggers create cloud-source-repositories \
 
 
 
-gcloud builds triggers create cloud-source-repositories \
+gcloud builds triggers create github \
     --name="sample-app-dev-deploy" \
-    --service-account="projects/$PROJECT_ID/serviceAccounts/$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com" \
+    --service-account="$SERVICE_ACCOUNT" \
     --description="Cloud Build Trigger for development deployment" \
     --repo="sample-app" \
     --branch-pattern="^dev$" \
@@ -141,38 +125,35 @@ echo "EXPORTED_IMAGE: ${EXPORTED_IMAGE}"
 
 git checkout dev
 
+for file in cloudbuild-dev.yaml; do
+    sed -i "s/<your-region>/${REGION}/g" "$file"
+    sed -i "s/<your-zone>/${ZONE}/g" "$file"
+    sed -i "s/<version>/v1.0/g" "$file"
+done
 
-
-sed -i "9c\    args: ['build', '-t', '$REGION-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild-dev:v1.0', '.']" cloudbuild-dev.yaml
-
-sed -i "13c\    args: ['push', '$REGION-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild-dev:v1.0']" cloudbuild-dev.yaml
-
-sed -i "17s|        image: <todo>|        image: $REGION-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild-dev:v1.0|" dev/deployment.yaml
+sed -i "s#<todo>#$EXPORTED_IMAGE#g" dev/deployment.yaml
 
 
 git add .
-git commit -m "Subscribe to quicklab" 
+git commit -m "dev: add v1.0 to dev env" 
 git push -u origin dev
 
 sleep 10
 
-
-git checkout master
-
 kubectl expose deployment development-deployment -n dev --name=dev-deployment-service --type=LoadBalancer --port 8080 --target-port 8080
 
 
-sed -i "11c\    args: ['build', '-t', '$REGION-docker.pkg.dev/\$PROJECT_ID/my-repository/hello-cloudbuild:v1.0', '.']" cloudbuild.yaml
+git checkout master
 
-sed -i "16c\    args: ['push', '$REGION-docker.pkg.dev/\$PROJECT_ID/my-repository/hello-cloudbuild:v1.0']" cloudbuild.yaml
+sed -i "s/<your-region>/${REGION}/g" "cloudbuild.yaml"
+sed -i "s/<your-zone>/${ZONE}/g" "cloudbuild.yaml"
+sed -i "s/<version>/v1.0/g" cloudbuild.yaml
 
-sed -i "17c\        image:  $REGION-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild:v1.0" prod/deployment.yaml
-
-
+sed -i "s#<todo>#$EXPORTED_IMAGE#g" prod/deployment.yaml
 
 git add .
-git commit -m "Subscribe to quicklab" 
-git push -u origin master
+git commit -m "prod: add version 1"
+git push
 
 sleep 10
 
@@ -198,15 +179,12 @@ func redHandler(w http.ResponseWriter, r *http.Request) { \
 
 
 
-sed -i "9c\    args: ['build', '-t', '$REGION-docker.pkg.dev/\$PROJECT_ID/my-repository/hello-cloudbuild-dev:v2.0', '.']" cloudbuild-dev.yaml
-
-sed -i "13c\    args: ['push', '$REGION-docker.pkg.dev/\$PROJECT_ID/my-repository/hello-cloudbuild-dev:v2.0']" cloudbuild-dev.yaml
-
+sed -i "s/v1.0/v2.0/g" cloudbuild-dev.yaml
 sed -i "17c\        image: $REGION-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild:v2.0" dev/deployment.yaml
 
 
 git add .
-git commit -m "Subscribe to quicklab" 
+git commit -m "dev: add version 2"
 git push -u origin dev
 
 sleep 10
@@ -227,64 +205,21 @@ func redHandler(w http.ResponseWriter, r *http.Request) { \
 }' main.go
 
 
-
-sed -i "11c\    args: ['build', '-t', '$REGION-docker.pkg.dev/\$PROJECT_ID/my-repository/hello-cloudbuild:v2.0', '.']" cloudbuild.yaml
-
-sed -i "16c\    args: ['push', '$REGION-docker.pkg.dev/\$PROJECT_ID/my-repository/hello-cloudbuild:v2.0']" cloudbuild.yaml
+sed -i "s/v1.0/v2.0/g" "$file" cloudbuild.yaml
 
 sed -i "17c\        image: $REGION-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild:v2.0" prod/deployment.yaml
 
 
 git add .
-git commit -m "Subscribe to quicklab" 
-git push -u origin master
+git commit -m "prod: add version 2"
+git push
 
+# Undo the deployment rollout fro both prod and dev 
+# OR do it manualluy in the build trigger by rebuilding the previous version in both deployments (v1.0)
+kubectl -n dev rollout undo deployment/production-deployment 
+kubectl -n prod rollout undo deployment/development-deployment
 
-
-
-kubectl -n prod get pods -o jsonpath --template='{range .items[*]}{.metadata.name}{"\t"}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
-kubectl expose deployment production-deployment -n prod --name=prod-deployment-service --type=LoadBalancer --port 8080 --target-port 8080
-
-
-
-NAMESPACE="prod"
-DEPLOYMENT_NAME="production-deployment"
-SERVICE_NAME="prod-deployment-service"
-PORT=8080
-TARGET_PORT=8080
-
-# Function to expose the deployment and check if it succeeded
-expose_deployment() {
-  kubectl expose deployment $DEPLOYMENT_NAME -n $NAMESPACE --name=$SERVICE_NAME --type=LoadBalancer --port=$PORT --target-port=$TARGET_PORT
-  return $?
-}
-
-# Loop until the expose command succeeds
-until expose_deployment; do
-  echo "Failed to expose deployment. Retrying in 5 seconds..."
-  sleep 5
-done
-
-echo "Successfully exposed the deployment."
-
-# Undo the deployment rollout
-kubectl -n $NAMESPACE rollout undo deployment/$DEPLOYMENT_NAME
-
-if [ $? -eq 0 ]; then
-  echo "Successfully rolled back the deployment."
-else
-  echo "Failed to roll back the deployment."
-fi
-
-
-sleep 100
-kubectl -n $NAMESPACE rollout undo deployment/$DEPLOYMENT_NAME
-sleep 60
-kubectl -n $NAMESPACE rollout undo deployment/$DEPLOYMENT_NAME
-
-
-cd sample-app
-kubectl -n prod rollout undo deployment/production-deployment
-
-
+sleep 10
+kubectl -n dev rollout status deployment/production-deployment
+kubectl rollout status deployment/production-deployment -n prod
 
