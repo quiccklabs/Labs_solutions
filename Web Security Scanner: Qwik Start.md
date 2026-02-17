@@ -11,6 +11,8 @@ gsutil -m cp -r gs://spls/gsp067/python-docs-samples .
 
 cd python-docs-samples/appengine/standard_python3/hello_world
 
+sed -i "s/python37/python39/g" app.yaml
+
 cat > requirements.txt <<EOF_END
 Flask==1.1.2
 itsdangerous==2.0.1
