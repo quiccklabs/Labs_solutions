@@ -53,7 +53,7 @@ The goal is to enhance your learning experience — not bypass it.
 
 ```bash
 curl -LO raw.githubusercontent.com/quiccklabs/Labs_solutions/refs/heads/master/Multimodal%20Content%20Generation%20with%20Gemini%20on%20Vertex%20AI/quicklab.sh
-sudo chmod +x quicklab.sh
+chmod +x quicklab.sh
 ./quicklab.sh
 ```
 
