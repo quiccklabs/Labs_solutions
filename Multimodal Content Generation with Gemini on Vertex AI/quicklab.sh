@@ -27,4 +27,5 @@ EOF
 
 echo "Python file created: gemini_generate.py"
 
-# Run the Python script
+# Run the script
+/usr/bin/python3 gemini_generate.py
