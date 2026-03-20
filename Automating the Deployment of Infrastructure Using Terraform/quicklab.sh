@@ -1,10 +1,5 @@
 
 
-export ZONE_1=us-central1-c
-
-export ZONE_2=us-west1-b
-
-
 read -p "Enter ZONE 1:- " ZONE_1
 read -p "Enter ZONE 2:- " ZONE_2
 
