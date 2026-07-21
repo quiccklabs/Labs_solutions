@@ -1,3 +1,5 @@
+gcloud auth login --no-launch-browser
+
 REGION=$(gcloud compute project-info describe \
   --format="value(commonInstanceMetadata.items[google-compute-default-region])")
 
