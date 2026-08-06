@@ -49,7 +49,7 @@ gcloud compute health-checks create tcp http-health-check \
 
 
 
-AVAILABLE_ZONES=$(gcloud compute zones list --filter="region:($REGION)" --format="value(name)")
+AVAILABLE_ZONES=$(gcloud compute zones list --filter="region:$REGION" --format="value(name)")
 
 # If you want to include all the available zones, just pass them as a comma-separated list
 ZONE_LIST=$(echo $AVAILABLE_ZONES | tr '\n' ',' | sed 's/,$//')
@@ -90,7 +90,7 @@ gcloud beta compute instance-groups managed set-autoscaling $REGION-mig \
 
 
 
-AVAILABLE_ZONES_2=$(gcloud compute zones list --filter="region:($REGION_2)" --format="value(name)")
+AVAILABLE_ZONES_2=$(gcloud compute zones list --filter="region:$REGION_2" --format="value(name)")
 
 # Ensure that the available zones are in the correct format (with spaces between zones)
 ZONE_LIST_COMMA_2=$(echo $AVAILABLE_ZONES_2 | tr ' ' ',')
